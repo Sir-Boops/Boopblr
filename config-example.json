@@ -1,0 +1,39 @@
+{
+    "customer_key": "",
+    "customer_secret": "",
+    "token": "",
+    "token_secret": "",
+    "blog_name": "some-blog",
+    "post_speed": "60",
+    "queue_size": 250,
+    "check_tags": true,
+    "force_tags": true,
+    "spider_tags": true,
+    "queue_check": true,
+    "black_depth": 3,
+    "white_depth": 20,
+    "note_depth": 1000,
+    "min_tags":100,
+    "allowed_post_types": [
+        "text",
+        "quote",
+        "link",
+        "answer",
+        "video",
+        "audio",
+        "photo",
+        "chat"
+    ],
+    "blacklisted_tags": [
+        "tag1",
+        "tag2"
+    ],
+    "whitelisted_tags": [
+        "tag-a",
+        "tab-b"
+    ],
+    "user_tags": [
+        "tag",
+        "lolololol"
+    ]
+}
