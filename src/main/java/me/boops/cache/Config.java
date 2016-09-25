@@ -23,5 +23,6 @@ public class Config {
 	public static String user_tags;
 	public static int note_depth;
 	public static int min_tags;
+	public static boolean force_sum;
 
 }

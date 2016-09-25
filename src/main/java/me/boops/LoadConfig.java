@@ -65,6 +65,10 @@ public class LoadConfig {
 		if (config.get("queue_check") != null) {
 			Config.check_queue = config.getBoolean("queue_check");
 		}
+		
+		if (config.get("force_sum") != null) {
+			Config.force_sum = config.getBoolean("force_sum");
+		}
 
 		if (config.get("spider_tags") != null) {
 			Config.spider_tags = config.getBoolean("spider_tags");
