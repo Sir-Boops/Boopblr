@@ -74,11 +74,9 @@ public class QueueCheckPhoto {
 										.getJSONObject(0)
 										.getJSONObject("original_size")
 										.getString("url").split("/")[3], 0);
-						sub_runs++;
 					}
 				}
 
-				// Non Photo Post So Skip In This Check
 				sub_runs++;
 			}
 			scanned = (scanned + posts.length());
