@@ -13,8 +13,10 @@
     "black_depth": 3,
     "white_depth": 20,
     "note_depth": 1000,
-    "min_tags":100,
+    "min_tags": 100,
     "force_sum": true,
+    "add_tags": true,
+    "add_tags_depth": 10,
     "allowed_post_types": [
         "text",
         "quote",

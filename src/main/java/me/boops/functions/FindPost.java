@@ -7,8 +7,9 @@ import me.boops.cache.Config;
 import me.boops.functions.api.APIGetRandPost;
 import me.boops.functions.api.APIQueuePost;
 import me.boops.logger.Logger;
-import me.boops.tagcheck.BaseTagsCheck;
-import me.boops.tagcheck.GetAllTags;
+import me.boops.tags.BaseTagsCheck;
+import me.boops.tags.CopyTags;
+import me.boops.tags.GetAllTags;
 
 public class FindPost {
 
@@ -76,7 +77,16 @@ public class FindPost {
 					return;
 				}
 			}
-
+			
+			//Check If We Should Apped More Tags
+			if(Config.add_tags){
+				new Logger("Adding More Tags!", 0);
+				new CopyTags();
+				new Logger("Added Tags: " + Cache.gend_tags, 0);
+			} else {
+				Cache.gend_tags = Config.user_tags;
+			}
+			
 			// Since All THe Above Have Passed We Can Now Post It!
 			new Logger("Queuing " + Cache.rand_post_url + " From: " + Cache.rand_post_user, 0);
 			new APIQueuePost(Cache.rand_post_id, Cache.rand_post_key);

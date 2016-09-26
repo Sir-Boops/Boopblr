@@ -1,11 +1,10 @@
-package me.boops;
+package me.boops.cache;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 
 import org.json.JSONObject;
 
-import me.boops.cache.Config;
 
 public class LoadConfig {
 
@@ -69,6 +68,10 @@ public class LoadConfig {
 		if (config.get("force_sum") != null) {
 			Config.force_sum = config.getBoolean("force_sum");
 		}
+		
+		if (config.get("add_tags") != null) {
+			Config.add_tags = config.getBoolean("add_tags");
+		}
 
 		if (config.get("spider_tags") != null) {
 			Config.spider_tags = config.getBoolean("spider_tags");
@@ -88,6 +91,10 @@ public class LoadConfig {
 		
 		if (config.get("min_tags") != null) {
 			Config.min_tags = config.getInt("min_tags");
+		}
+		
+		if (config.get("add_tags_depth") != null) {
+			Config.add_tags_depth = config.getInt("add_tags_depth");
 		}
 		
 		if (config.get("allowed_post_types") != null) {

@@ -16,6 +16,7 @@ public class Cache {
 	
 	//Tags
 	public static List<String> post_tags = new ArrayList<String>();
+	public static String gend_tags = "";
 	
 	//Random Post Cache
 	public static String rand_post_user;

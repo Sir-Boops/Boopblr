@@ -2,7 +2,7 @@ package me.boops.cache;
 
 public class Config {
 
-	public static String version = "3.5.8";
+	public static String version = "3.5.9";
 	public static String customer_key;
 	public static String customer_secret;
 	public static String token;
@@ -24,5 +24,7 @@ public class Config {
 	public static int note_depth;
 	public static int min_tags;
 	public static boolean force_sum;
+	public static boolean add_tags;
+	public static int add_tags_depth;
 
 }

@@ -11,6 +11,7 @@ import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 
+import me.boops.cache.Cache;
 import me.boops.cache.Config;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
@@ -33,7 +34,7 @@ public class APIQueuePost {
 		urlParameters.add(new BasicNameValuePair("id", id.toString()));
 		urlParameters.add(new BasicNameValuePair("reblog_key", key));
 		urlParameters.add(new BasicNameValuePair("state", "queue"));
-		urlParameters.add(new BasicNameValuePair("tags", Config.user_tags));
+		urlParameters.add(new BasicNameValuePair("tags", Cache.gend_tags));
 		post_meth.setEntity(new UrlEncodedFormEntity(urlParameters));
 
 		// Send The Request

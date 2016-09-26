@@ -1,4 +1,4 @@
-package me.boops.tagcheck;
+package me.boops.tags;
 
 import java.util.List;
 
@@ -32,7 +32,8 @@ public class BaseTagsCheck {
 
 							// Found The Post!
 							found = true;
-							sub_sub_runs++;
+							new Logger(sub_tags[sub_runs] + " : " + check_list[sub_sub_runs], 0);
+							return;
 						}
 
 						// Didn't Find It!

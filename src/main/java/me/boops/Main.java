@@ -2,6 +2,7 @@ package me.boops;
 
 import me.boops.cache.Cache;
 import me.boops.cache.Config;
+import me.boops.cache.LoadConfig;
 import me.boops.functions.FindPost;
 import me.boops.functions.OnlineCheck;
 import me.boops.functions.api.APIQueueCount;

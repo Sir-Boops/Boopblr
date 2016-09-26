@@ -1,4 +1,4 @@
-package me.boops.tagcheck;
+package me.boops.tags;
 
 import org.json.JSONArray;
 
