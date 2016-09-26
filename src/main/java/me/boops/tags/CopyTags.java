@@ -13,6 +13,7 @@ public class CopyTags {
 		// Setup The Loop!
 		int runs = 0;
 		boolean done = false;
+		Cache.gend_tags = "";
 		while (runs <= Config.add_tags_depth && !done) {
 
 			// Setup The Add And Final Add
