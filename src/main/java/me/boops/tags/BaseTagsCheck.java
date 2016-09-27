@@ -28,7 +28,7 @@ public class BaseTagsCheck {
 					int sub_sub_runs = 0;
 					while (sub_sub_runs < check_list.length && !found) {
 
-						if (sub_tags[sub_runs].toLowerCase().contains(check_list[sub_sub_runs]) || sub_tags[sub_runs].toLowerCase().equals(check_list[sub_sub_runs])) {
+						if (sub_tags[sub_runs].toLowerCase().equals(check_list[sub_sub_runs])) {
 
 							// Found The Post!
 							found = true;
@@ -56,7 +56,7 @@ public class BaseTagsCheck {
 				int sub_run = 0;
 				while (sub_run < check_list.length && !found) {
 
-					if (sub_tag.toLowerCase().contains(check_list[sub_run]) || sub_tag.toLowerCase().equals(check_list[sub_run])) {
+					if (sub_tag.toLowerCase().equals(check_list[sub_run])) {
 
 						// Found The Tag
 						found = true;
