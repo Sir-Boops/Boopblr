@@ -9,7 +9,11 @@ public class CopyTags {
 
 	public CopyTags() {
 
-		// Define All Needed
+		// Clean Out The Old Tags
+		Cache.tag_usage.clear();
+		Cache.tag_list.clear();
+		Cache.gend_tags = "";
+		
 		
 		// Count all the tags and add them to a list
 		for(int runs=0; Cache.post_tags.size()>runs; runs++){
