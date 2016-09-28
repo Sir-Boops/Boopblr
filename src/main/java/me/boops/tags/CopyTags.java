@@ -44,7 +44,5 @@ public class CopyTags {
 		} else {
 			Cache.gend_tags = Cache.gend_tags.substring(0, (Cache.gend_tags.length() - 1));
 		}
-		
-		System.out.println(Cache.gend_tags);
 	}
 }
