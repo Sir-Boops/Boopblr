@@ -1,7 +1,9 @@
 package me.boops.cache;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONObject;
 
@@ -16,6 +18,9 @@ public class Cache {
 	
 	//Tags
 	public static List<String> post_tags = new ArrayList<String>();
+	public static Map <String, Integer> tag_usage = new HashMap<String, Integer>();
+	public static List<String> tag_list = new ArrayList<String>();
+	public static List<String> add_tags_list = new ArrayList<String>();
 	public static String gend_tags = "";
 	
 	//Random Post Cache
