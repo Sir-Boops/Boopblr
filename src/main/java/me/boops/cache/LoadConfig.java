@@ -125,15 +125,21 @@ public class LoadConfig {
 			}
 		}
 
-		if (config.get("blacklisted_tags") != null) {
+		if (config.getJSONArray("blacklisted_tags") != null) {
 			for(int runs=0; config.getJSONArray("blacklisted_tags").length()>runs; runs++){
 				Config.blacklisted_tags.add(config.getJSONArray("blacklisted_tags").getString(runs));
 			}
 		}
 
-		if (config.get("whitelisted_tags") != null) {
+		if (config.getJSONArray("whitelisted_tags") != null) {
 			for(int runs=0; config.getJSONArray("whitelisted_tags").length()>runs; runs++){
 				Config.whitelisted_tags.add(config.getJSONArray("whitelisted_tags").getString(runs));
+			}
+		}
+		
+		if (config.getJSONArray("tag_add_blacklist") != null) {
+			for(int runs=0; config.getJSONArray("tag_add_blacklist").length()>runs; runs++){
+				Config.tag_add_blacklist.add(config.getJSONArray("tag_add_blacklist").getString(runs));
 			}
 		}
 	}

@@ -37,7 +37,7 @@ public class FindPost {
 			// Check If We Should Check Black Tags
 			if (Config.check_tags) {
 				// Now Check For BlackListed Tags
-				if (new BlackTags().Check(Cache.rand_post_tags)) {
+				if (new BlackTags().Check(Cache.rand_post_tags, Config.blacklisted_tags)) {
 					new Logger("Found A BlackListed Tag", 0, false);
 					return;
 				}
@@ -49,7 +49,7 @@ public class FindPost {
 						return;
 					}
 					//Now Check All The Notes
-					if (new BlackTags().Check(Cache.post_tags)) {
+					if (new BlackTags().Check(Cache.post_tags, Config.blacklisted_tags)) {
 						new Logger("Found A BlackListed Tag", 0, false);
 						return;
 					}

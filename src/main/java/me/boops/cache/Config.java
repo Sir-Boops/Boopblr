@@ -23,6 +23,7 @@ public class Config {
 	public static String[] post_types;
 	public static List<String> blacklisted_tags = new ArrayList<String>();
 	public static List<String> whitelisted_tags = new ArrayList<String>();
+	public static List<String> tag_add_blacklist = new ArrayList<String>();
 	public static String user_tags;
 	public static int note_depth;
 	public static int min_tags;

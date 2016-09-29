@@ -1,6 +1,10 @@
 package me.boops.tags;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.boops.cache.Cache;
+import me.boops.cache.Config;
 
 public class FindTop {
 	
@@ -19,8 +23,16 @@ public class FindTop {
 			}
 		}
 		
-		//Add the top tag to the list
-		Cache.gend_tags += (Cache.tag_list.get(top_id) + ",");
+		// Check if the tags to add are blacklisted
+		List<String> temp_list = new ArrayList<String>();
+		temp_list.clear();
+		temp_list.add(Cache.tag_list.get(top_id));
+		if(!new BlackTags().Check(temp_list, Config.tag_add_blacklist)){
+			
+			// Tag is not in the blacklist!
+			// So add it
+			Cache.gend_tags += (Cache.tag_list.get(top_id) + ",");
+		}
 		
 		//Now remove the new top tag from the list
 		Cache.tag_usage.remove(Cache.tag_list.get(top_id));

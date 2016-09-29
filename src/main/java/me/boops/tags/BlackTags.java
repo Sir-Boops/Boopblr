@@ -2,12 +2,10 @@ package me.boops.tags;
 
 import java.util.List;
 
-import me.boops.cache.Config;
-
 public class BlackTags {
 	
 	// Check for banned tags aka find one and done
-	public boolean Check(List<String> tag_list) {
+	public boolean Check(List<String> tag_list, List<String> black_list) {
 
 		for (int runs = 0; tag_list.size() > runs; runs++) {
 
@@ -21,14 +19,14 @@ public class BlackTags {
 				for (int subruns = 0; sub_tags.length>subruns; subruns++) {
 
 					// Check if it's a match
-					if (Config.blacklisted_tags.contains(sub_tags[subruns].toLowerCase())) {
+					if (black_list.contains(sub_tags[subruns].toLowerCase())) {
 						return true;
 					}
 				}
 			} else {
 
 				// It's just a one word tag
-				if (Config.blacklisted_tags.contains(tag_list.get(runs).toLowerCase())) {
+				if (black_list.contains(tag_list.get(runs).toLowerCase())) {
 					return true;
 				}
 

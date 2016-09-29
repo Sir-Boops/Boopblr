@@ -18,6 +18,9 @@
     "add_tags": true,
     "add_tags_depth": 10,
     "debug_output": false,
+    "tag_add_blacklist": [
+        "queue"
+    ],
     "allowed_post_types": [
         "text",
         "quote",

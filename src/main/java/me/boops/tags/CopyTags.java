@@ -17,8 +17,8 @@ public class CopyTags {
 		
 		// Count all the tags and add them to a list
 		for(int runs=0; Cache.post_tags.size()>runs; runs++){
-			Cache.tag_usage.put(Cache.post_tags.get(runs).toLowerCase(), Collections.frequency(Cache.post_tags, Cache.post_tags.get(runs)));
 			
+			Cache.tag_usage.put(Cache.post_tags.get(runs).toLowerCase(), Collections.frequency(Cache.post_tags, Cache.post_tags.get(runs)));
 			
 			//If it's not already in the list add it
 			if(!Cache.tag_list.contains(Cache.post_tags.get(runs).toLowerCase())){
@@ -29,16 +29,13 @@ public class CopyTags {
 		}
 		
 		//Order the tags by usage
-		int runs = 0;
 		int tag_size = Cache.tag_list.size();
 		
-		while(tag_size > runs && Config.add_tags_depth > runs){
-			
+		for(int runs=0; tag_size > runs && Config.add_tags_depth > runs; runs++){
 			new FindTop();
-			runs++;
 		}
 		
-		//Add user defined tags if they are defined else just remove the final , and be done!
+		//Add user defined tags if they are defined else just remove the final ,
 		if(!Config.user_tags.isEmpty()){
 			Cache.gend_tags += Config.user_tags;
 		} else {
