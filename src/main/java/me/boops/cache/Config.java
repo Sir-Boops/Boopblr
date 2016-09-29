@@ -1,5 +1,8 @@
 package me.boops.cache;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Config {
 
 	public static String version = "3.5.9";
@@ -18,8 +21,8 @@ public class Config {
 	public static int black_depth;
 	public static int white_depth;
 	public static String[] post_types;
-	public static String[] blacklisted_tags;
-	public static String[] whitelisted_tags;
+	public static List<String> blacklisted_tags = new ArrayList<String>();
+	public static List<String> whitelisted_tags = new ArrayList<String>();
 	public static String user_tags;
 	public static int note_depth;
 	public static int min_tags;
