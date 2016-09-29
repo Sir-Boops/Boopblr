@@ -33,6 +33,11 @@ public class CopyTags {
 		
 		for(int runs=0; tag_size > runs && Config.add_tags_depth > runs; runs++){
 			new FindTop();
+			
+			//Check if a tag was added or not
+			if(Cache.gend_tags.length() <= runs){
+				runs--;
+			}
 		}
 		
 		//Add user defined tags if they are defined else just remove the final ,
