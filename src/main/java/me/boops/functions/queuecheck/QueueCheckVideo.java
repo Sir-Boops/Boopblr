@@ -51,7 +51,7 @@ public class QueueCheckVideo {
 								post_hash + " : "
 										+ new MD5Sum()
 												.hash(posts.getJSONObject(sub_runs).getJSONObject("player").toString()),
-								0);
+								0, true);
 						sub_runs++;
 					}
 				}

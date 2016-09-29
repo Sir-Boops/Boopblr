@@ -17,6 +17,7 @@
     "force_sum": true,
     "add_tags": true,
     "add_tags_depth": 10,
+    "debug_output": false,
     "allowed_post_types": [
         "text",
         "quote",

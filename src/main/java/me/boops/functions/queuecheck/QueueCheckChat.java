@@ -43,7 +43,7 @@ public class QueueCheckChat {
 					} else {
 
 						// Nope Keep Chacking
-						new Logger(post_hash + " : " + new MD5Sum().hash(posts.getJSONObject(sub_runs).getString("body")), 0);
+						new Logger(post_hash + " : " + new MD5Sum().hash(posts.getJSONObject(sub_runs).getString("body")), 0, true);
 						sub_runs++;
 					}
 				}

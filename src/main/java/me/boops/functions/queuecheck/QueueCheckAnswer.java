@@ -42,7 +42,7 @@ public class QueueCheckAnswer {
 					} else {
 
 						// Nope Keep Chacking
-						new Logger(post_hash + " : " + new MD5Sum().hash(posts.getJSONObject(sub_runs).getJSONObject("reblog").getString("comment")), 0);
+						new Logger(post_hash + " : " + new MD5Sum().hash(posts.getJSONObject(sub_runs).getJSONObject("reblog").getString("comment")), 0, true);
 						sub_runs++;
 					}
 				}

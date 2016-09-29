@@ -11,9 +11,9 @@ import me.boops.logger.Logger;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		new Logger("Attempting To Load Config File", 0);
+		new Logger("Attempting To Load Config File", 0, false);
 		new LoadConfig();
-		new Logger("Starting Boopblr Version " + Config.version, 0);
+		new Logger("Starting Boopblr Version " + Config.version, 0, false);
 		MasterLoop();
 	}
 
@@ -27,14 +27,14 @@ public class Main {
 
 				new OnlineCheck();
 				if (OnlineCheck.isOnline) {
-					new Logger("Welcome " + Cache.name_fancy + "! Please Wait While I Get Everything Ready", 0);
-					new Logger("Updating Queue Count!", 0);
+					new Logger("Welcome " + Cache.name_fancy + "! Please Wait While I Get Everything Ready", 0, false);
+					new Logger("Updating Queue Count!", 0, false);
 					new APIQueueCount();
-					new Logger("Currently " + Config.queue_count + " Posts In Queue!", 0);
+					new Logger("Currently " + Config.queue_count + " Posts In Queue!", 0, false);
 				} else {
 
 					// Not Online
-					new Logger("You Are Not Online", 2);
+					new Logger("You Are Not Online", 2, false);
 					System.exit(1);
 				}
 			} else {
@@ -42,13 +42,13 @@ public class Main {
 				// amount of time
 
 				if (Config.queue_count < Config.queue_size) {
-					new Logger("Trying To Queue Another Post", 0);
+					new Logger("Trying To Queue Another Post", 0, false);
 					new FindPost();
 				} else {
-					new Logger("Waiting " + Config.post_speed + " Sec Before Trying Again", 0);
+					new Logger("Waiting " + Config.post_speed + " Sec Before Trying Again", 0, false);
 					Thread.currentThread();
 					Thread.sleep(Config.post_speed * 1000);
-					new Logger("Checking Queue Count", 0);
+					new Logger("Checking Queue Count", 0, false);
 					new APIQueueCount();
 				}
 			}

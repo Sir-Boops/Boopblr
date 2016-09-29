@@ -76,6 +76,10 @@ public class LoadConfig {
 		if (config.get("spider_tags") != null) {
 			Config.spider_tags = config.getBoolean("spider_tags");
 		}
+		
+		if (config.get("debug_output") != null) {
+			Config.debug_output = config.getBoolean("debug_output");
+		}
 
 		if (config.get("black_depth") != null) {
 			Config.black_depth = config.getInt("black_depth");

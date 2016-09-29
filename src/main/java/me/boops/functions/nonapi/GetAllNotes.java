@@ -41,7 +41,7 @@ public class GetAllNotes {
 
 		// Check It
 		if (res.getStatusLine().getStatusCode() < 199 || res.getStatusLine().getStatusCode() > 300) {
-			new Logger("Error Getting All Notes", 2);
+			new Logger("Error Getting All Notes", 2, true);
 			error = true;
 			return;
 		}

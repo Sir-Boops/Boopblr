@@ -46,7 +46,7 @@ public class QueueCheckText {
 
 						// Nope Keep Chacking
 						new Logger(post_hash + " : " + new MD5Sum().hash(posts.getJSONObject(sub_runs)
-								.getJSONObject("reblog").getJSONObject("tree_html").toString()), 0);
+								.getJSONObject("reblog").getJSONObject("tree_html").toString()), 0, true);
 						sub_runs++;
 					}
 				}

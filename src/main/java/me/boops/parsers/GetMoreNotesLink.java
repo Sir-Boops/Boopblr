@@ -35,6 +35,6 @@ public class GetMoreNotesLink {
 		
 		//Push The New URL
 		new_url = notes_url;
-		new Logger(notes_url, 0);
+		new Logger(notes_url, 0, true);
 	}
 }

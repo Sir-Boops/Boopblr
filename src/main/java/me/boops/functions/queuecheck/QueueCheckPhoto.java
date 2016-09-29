@@ -31,7 +31,7 @@ public class QueueCheckPhoto {
 
 		// Check If Post Sum Is A Sum
 		if (post_hash.toLowerCase().contains("tumblr") && Config.force_sum) {
-			new Logger("Post Sum Is Not A Sum!", 0);
+			new Logger("Post Sum Is Not A Sum!", 0, true);
 			return;
 		}
 
@@ -61,7 +61,7 @@ public class QueueCheckPhoto {
 										.getJSONArray("photos")
 										.getJSONObject(0)
 										.getJSONObject("original_size")
-										.getString("url").split("/")[3], 0);
+										.getString("url").split("/")[3], 0, true);
 						found = true;
 						return;
 					} else {
@@ -73,7 +73,7 @@ public class QueueCheckPhoto {
 										.getJSONArray("photos")
 										.getJSONObject(0)
 										.getJSONObject("original_size")
-										.getString("url").split("/")[3], 0);
+										.getString("url").split("/")[3], 0, true);
 					}
 				}
 

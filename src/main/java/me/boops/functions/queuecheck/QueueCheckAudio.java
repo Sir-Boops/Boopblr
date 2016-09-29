@@ -43,7 +43,7 @@ public class QueueCheckAudio {
 					} else {
 
 						// Nope Keep Chacking
-						new Logger(post_hash + " : " + new MD5Sum().hash(posts.getJSONObject(sub_runs).getString("audio_source_url")), 0);
+						new Logger(post_hash + " : " + new MD5Sum().hash(posts.getJSONObject(sub_runs).getString("audio_source_url")), 0, true);
 						sub_runs++;
 					}
 				}

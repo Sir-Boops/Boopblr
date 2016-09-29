@@ -29,5 +29,5 @@ public class Config {
 	public static boolean force_sum;
 	public static boolean add_tags;
 	public static int add_tags_depth;
-
+	public static boolean debug_output;
 }
