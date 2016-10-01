@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 public class LoadConfig {
 
-	@SuppressWarnings("resource")
 	public LoadConfig() throws Exception {
 
 		// Read The Config File
@@ -19,6 +18,7 @@ public class LoadConfig {
 			sb.append(line);
 			line = br.readLine();
 		}
+		br.close();
 
 		// Parse The Config File
 		JSONObject config = new JSONObject(sb.toString());
@@ -112,16 +112,8 @@ public class LoadConfig {
 		}
 
 		if (config.get("user_tags") != null) {
-			Config.user_tags = "";
-			int runs = 0;
-			while (runs < config.getJSONArray("user_tags").length()) {
-				if (runs == (config.getJSONArray("user_tags").length() - 1)) {
-					Config.user_tags += config.getJSONArray("user_tags").getString(runs);
-					runs++;
-				} else {
-					Config.user_tags += (config.getJSONArray("user_tags").getString(runs) + ",");
-					runs++;
-				}
+			for(int runs=0; config.getJSONArray("user_tags").length()>runs; runs++){
+				Config.user_tags.add(config.getJSONArray("user_tags").getString(runs));
 			}
 		}
 

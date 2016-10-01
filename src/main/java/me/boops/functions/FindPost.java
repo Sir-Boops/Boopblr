@@ -10,6 +10,7 @@ import me.boops.logger.Logger;
 import me.boops.tags.BlackTags;
 import me.boops.tags.CopyTags;
 import me.boops.tags.GetAllTags;
+import me.boops.tags.UserTags;
 import me.boops.tags.WhiteTags;
 
 public class FindPost {
@@ -85,7 +86,7 @@ public class FindPost {
 				new CopyTags();
 				new Logger("Added Tags: " + Cache.gend_tags, 0, false);
 			} else {
-				Cache.gend_tags = Config.user_tags;
+				new UserTags().add(Cache.gend_tags);
 			}
 			
 			// Since All THe Above Have Passed We Can Now Post It!

@@ -24,7 +24,7 @@ public class Config {
 	public static List<String> blacklisted_tags = new ArrayList<String>();
 	public static List<String> whitelisted_tags = new ArrayList<String>();
 	public static List<String> tag_add_blacklist = new ArrayList<String>();
-	public static String user_tags;
+	public static List<String> user_tags = new ArrayList<String>();
 	public static int note_depth;
 	public static int min_tags;
 	public static boolean force_sum;

@@ -42,7 +42,7 @@ public class CopyTags {
 		
 		//Add user defined tags if they are defined else just remove the final ,
 		if(!Config.user_tags.isEmpty()){
-			Cache.gend_tags += Config.user_tags;
+			new UserTags().add(Cache.gend_tags);
 		} else {
 			Cache.gend_tags = Cache.gend_tags.substring(0, (Cache.gend_tags.length() - 1));
 		}
