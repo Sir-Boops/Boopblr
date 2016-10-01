@@ -102,13 +102,9 @@ public class LoadConfig {
 		}
 		
 		if (config.get("allowed_post_types") != null) {
-			String[] temp_br = new String[config.getJSONArray("allowed_post_types").length()];
-			int runs = 0;
-			while (runs < config.getJSONArray("allowed_post_types").length()) {
-				temp_br[runs] = config.getJSONArray("allowed_post_types").getString(runs);
-				runs++;
+			for(int runs=0; config.getJSONArray("allowed_post_types").length()>runs; runs++){
+				Config.post_types.add(config.getJSONArray("allowed_post_types").getString(runs));
 			}
-			Config.post_types = temp_br;
 		}
 
 		if (config.get("user_tags") != null) {

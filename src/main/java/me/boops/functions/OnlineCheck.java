@@ -13,13 +13,13 @@ public class OnlineCheck {
 	public OnlineCheck() throws Exception{
 		
 		//Send A Request To Tumblr
-		JSONObject blog_info = new APIGetBlog(Config.blog_name).blog;
+		JSONObject blog_info = new APIGetBlog().Blog(Config.blog_name);
 		
 		//Check If I Can Reach Tumblr
 		if(blog_info != null){
 			
 			//We Got Tumblr
-			Cache.name_fancy = ((JSONObject) blog_info.get("blog")).get("title").toString();
+			Cache.name_fancy = blog_info.getJSONObject("blog").getString("title");
 			isOnline = true;
 		}
 	}

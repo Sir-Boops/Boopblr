@@ -1,7 +1,5 @@
 package me.boops.functions;
 
-import java.util.Arrays;
-
 import me.boops.cache.Cache;
 import me.boops.cache.Config;
 import me.boops.functions.api.APIGetRandPost;
@@ -24,7 +22,7 @@ public class FindPost {
 		if(Cache.rand_post_id != null){
 			
 			// Make Sure It Is An Allowed Post Type
-			if (!Arrays.asList(Config.post_types).contains(Cache.rand_post_type)) {
+			if (!Config.post_types.contains(Cache.rand_post_type)) {
 				new Logger("Not Allowed To Post This Type", 0, false);
 				return;
 			}

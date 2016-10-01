@@ -20,7 +20,7 @@ public class Config {
 	public static boolean spider_tags;
 	public static int black_depth;
 	public static int white_depth;
-	public static String[] post_types;
+	public static List<String> post_types = new ArrayList<String>();
 	public static List<String> blacklisted_tags = new ArrayList<String>();
 	public static List<String> whitelisted_tags = new ArrayList<String>();
 	public static List<String> tag_add_blacklist = new ArrayList<String>();

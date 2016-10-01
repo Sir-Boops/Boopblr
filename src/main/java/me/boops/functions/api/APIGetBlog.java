@@ -14,10 +14,10 @@ import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 
 public class APIGetBlog {
 	
-	public JSONObject blog = null;
+	//Setup OAuth
 	OAuthConsumer consumer = new CommonsHttpOAuthConsumer(Config.customer_key, Config.customer_secret);
 	
-	public APIGetBlog(String name) throws Exception {
+	public JSONObject Blog(String name) throws Exception {
 		
 		// Setup Client
 		consumer.setTokenWithSecret(Config.token, Config.token_secret);
@@ -31,17 +31,13 @@ public class APIGetBlog {
 		consumer.sign(get);
 		HttpResponse res = client.execute(get);
 		
-		if (res.getStatusLine().getStatusCode() >= 200 && res.getStatusLine().getStatusCode() < 300) {
+		if (res.getStatusLine().getStatusCode() == 200) {
 
 			// Parse The Response
 			String res_string = new BasicResponseHandler().handleResponse(res);
 			JSONObject json_res = new JSONObject(res_string);
-			blog = (JSONObject) json_res.get("response");
-		} else {
-			
-			//Tumblr Error Try Again
-			System.out.println("Error Getting Blog Info Trying Again");
-			new APIGetBlog(name);
+			return json_res.getJSONObject("response");
 		}
+		return null;
 	}
 }
