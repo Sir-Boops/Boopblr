@@ -52,7 +52,7 @@ public class CopyTags {
 			temp_list.add(tag_list.get(TopTags.getTopID()));
 			
 			//Check if the tag it found is on the blacklist
-			if(!new BlackTags().Check(temp_list, Conf.getBlacklistedTags())){
+			if(!new BlackTags().Check(temp_list, Conf.getTagAddBlacklist())){
 				temp_gen_list += (tag_list.get(TopTags.getTopID()) + ",");
 			}
 			tag_list.remove(TopTags.getTopID());
