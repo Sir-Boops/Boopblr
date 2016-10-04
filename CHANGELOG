@@ -1,2 +1,3 @@
 Boopblr - 3.6.0
+  * Fixed the endless queue bug
   * Merged the two config files into one.

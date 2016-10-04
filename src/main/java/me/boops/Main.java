@@ -9,8 +9,6 @@ import me.boops.logger.Logger;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		
-		//Define needed classes
 		Config Conf = new Config();
 		new Logger("Starting Boopblr Version " + Conf.getVersion(), 0, false);
 		MasterLoop();
@@ -20,8 +18,8 @@ public class Main {
 		
 		//Define needed classes
 		OnlineCheck onlineCheck = new OnlineCheck();
-		Config Conf = new Config();
 		APIQueueCount APIQueue = new APIQueueCount();
+		Config Conf = new Config();
 
 		// EndLess Loop!
 		while (true) {
@@ -48,6 +46,7 @@ public class Main {
 				if (APIQueue.getQueueCount() < Conf.getQueueSize()) {
 					new Logger("Trying To Queue Another Post", 0, false);
 					new FindPost();
+					APIQueue.Count();
 				} else {
 					new Logger("Waiting " + Conf.getPostSpeed() + " Sec Before Trying Again", 0, false);
 					Thread.currentThread();
