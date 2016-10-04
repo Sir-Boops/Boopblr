@@ -10,7 +10,8 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		Config Conf = new Config();
-		new Logger("Starting Boopblr Version " + Conf.getVersion(), 0, false);
+		Logger logger = new Logger();
+		logger.Log("Starting Boopblr Version " + Conf.getVersion(), 0, false);
 		MasterLoop();
 	}
 
@@ -20,6 +21,7 @@ public class Main {
 		OnlineCheck onlineCheck = new OnlineCheck();
 		APIQueueCount APIQueue = new APIQueueCount();
 		Config Conf = new Config();
+		Logger logger = new Logger();
 
 		// EndLess Loop!
 		while (true) {
@@ -30,13 +32,13 @@ public class Main {
 				if (onlineCheck.isOnline()) {
 					//Update Queue Count
 					APIQueue.Count();
-					new Logger("Welcome " + onlineCheck.getFancyName() + "! Please Wait While I Get Everything Ready", 0, false);
-					new Logger("Updating Queue Count!", 0, false);
-					new Logger("Currently " + APIQueue.getQueueCount() + " Posts In Queue!", 0, false);
+					logger.Log("Welcome " + onlineCheck.getFancyName() + "! Please Wait While I Get Everything Ready", 0, false);
+					logger.Log("Updating Queue Count!", 0, false);
+					logger.Log("Currently " + APIQueue.getQueueCount() + " Posts In Queue!", 0, false);
 				} else {
 
 					// Not Online
-					new Logger("You Are Not Online", 2, false);
+					logger.Log("You Are Not Online", 2, false);
 					System.exit(1);
 				}
 			} else {
@@ -44,15 +46,16 @@ public class Main {
 				// amount of time
 
 				if (APIQueue.getQueueCount() < Conf.getQueueSize()) {
-					new Logger("Trying To Queue Another Post", 0, false);
+					logger.Log("Trying To Queue Another Post", 0, false);
 					new FindPost();
 					APIQueue.Count();
 				} else {
-					new Logger("Waiting " + Conf.getPostSpeed() + " Sec Before Trying Again", 0, false);
+					logger.Log("Waiting " + Conf.getPostSpeed() + " Sec Before Trying Again", 0, false);
 					Thread.currentThread();
 					Thread.sleep(Conf.getPostSpeed() * 1000);
-					new Logger("Checking Queue Count", 0, false);
+					logger.Log("Checking Queue Count", 0, false);
 					APIQueue.Count();
+					logger.Log("Currently " + APIQueue.getQueueCount() + " Posts In Queue!", 0, false);
 				}
 			}
 		}

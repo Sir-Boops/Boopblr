@@ -18,6 +18,7 @@ public class QueueCheckVideo {
 		
 		//Define needed classes
 		APIQueueCount APIQueue = new APIQueueCount();
+		Logger logger = new Logger();
 		
 		//Count Posts In Queue
 		APIQueue.Count();
@@ -53,7 +54,7 @@ public class QueueCheckVideo {
 					} else {
 
 						// Nope Keep Chacking
-						new Logger(
+						logger.Log(
 								post_hash + " : "
 										+ new MD5Sum()
 												.hash(posts.getJSONObject(sub_runs).getJSONObject("player").toString()),

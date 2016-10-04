@@ -18,6 +18,7 @@ public class QueueCheckPhoto {
 		//Define needed classes
 		APIQueueCount APIQueue = new APIQueueCount();
 		Config Conf = new Config();
+		Logger logger = new Logger();
 		
 		//Count Posts In Queue
 		APIQueue.Count();
@@ -38,7 +39,7 @@ public class QueueCheckPhoto {
 
 		// Check If Post Sum Is A Sum
 		if (post_hash.toLowerCase().contains("tumblr") && Conf.getForceSum()) {
-			new Logger("Post Sum Is Not A Sum!", 0, true);
+			logger.Log("Post Sum Is Not A Sum!", 0, true);
 			return;
 		}
 
@@ -62,7 +63,7 @@ public class QueueCheckPhoto {
 							&& !found) {
 
 						// Found A Duplicate!
-						new Logger(post_hash
+						logger.Log(post_hash
 								+ " : "
 								+ posts.getJSONObject(sub_runs)
 										.getJSONArray("photos")
@@ -74,7 +75,7 @@ public class QueueCheckPhoto {
 					} else {
 
 						// Nope Keep Chacking
-						new Logger(post_hash
+						logger.Log(post_hash
 								+ " : "
 								+ posts.getJSONObject(sub_runs)
 										.getJSONArray("photos")

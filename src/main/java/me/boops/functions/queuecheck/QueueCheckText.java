@@ -18,6 +18,7 @@ public class QueueCheckText {
 		
 		//Define needed classes
 		APIQueueCount APIQueue = new APIQueueCount();
+		Logger logger = new Logger();
 		
 		//Count Posts In Queue
 		APIQueue.Count();
@@ -51,7 +52,7 @@ public class QueueCheckText {
 					} else {
 
 						// Nope Keep Chacking
-						new Logger(post_hash + " : " + new MD5Sum().hash(posts.getJSONObject(sub_runs)
+						logger.Log(post_hash + " : " + new MD5Sum().hash(posts.getJSONObject(sub_runs)
 								.getJSONObject("reblog").getJSONObject("tree_html").toString()), 0, true);
 						sub_runs++;
 					}

@@ -8,6 +8,9 @@ public class GetMoreNotesLink {
 	
 	public GetMoreNotesLink(String end, String blog_name, long id) throws Exception{
 		
+		//Define needed classes
+		Logger logger = new Logger();
+		
 		// Get Notes Key
 		boolean done = false;
 		String scan_item = end;
@@ -35,6 +38,6 @@ public class GetMoreNotesLink {
 		
 		//Push The New URL
 		new_url = notes_url;
-		new Logger(notes_url, 0, true);
+		logger.Log(notes_url, 0, true);
 	}
 }

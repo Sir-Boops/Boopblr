@@ -26,6 +26,7 @@ public class GetAllNotes {
 		
 		//Define needed classes
 		Config Conf = new Config();
+		Logger logger = new Logger();
 		
 		//Check If We Can Get The URL
 		if(new GetNotesLink(id, blog_name).error){
@@ -44,7 +45,7 @@ public class GetAllNotes {
 
 		// Check It
 		if (res.getStatusLine().getStatusCode() < 199 || res.getStatusLine().getStatusCode() > 300) {
-			new Logger("Error Getting All Notes", 2, true);
+			logger.Log("Error Getting All Notes", 2, true);
 			error = true;
 			return;
 		}

@@ -18,6 +18,7 @@ public class QueueCheckLink {
 		
 		//Define needed classes
 		APIQueueCount APIQueue = new APIQueueCount();
+		Logger logger = new Logger();
 		
 		//Count Posts In Queue
 		APIQueue.Count();
@@ -49,7 +50,7 @@ public class QueueCheckLink {
 					} else {
 
 						// Nope Keep Chacking
-						new Logger(post_hash + " : " + new MD5Sum().hash(posts.getJSONObject(sub_runs).getString("url")), 0, true);
+						logger.Log(post_hash + " : " + new MD5Sum().hash(posts.getJSONObject(sub_runs).getString("url")), 0, true);
 						sub_runs++;
 					}
 				}
