@@ -1,53 +1,70 @@
 package me.boops.tags;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import me.boops.cache.Cache;
 import me.boops.cache.Config;
 
 public class CopyTags {
+	
+	private String tags;
+	
+	public String getTags(){
+		return this.tags;
+	}
 
-	public CopyTags() throws Exception {
+	public void Copy(List<String> tags) throws Exception {
 		
 		//Define needed classes
 		Config Conf = new Config();
+		FindTop TopTags = new FindTop();
 
 		// Clean Out The Old Tags
-		Cache.tag_usage.clear();
-		Cache.tag_list.clear();
-		Cache.gend_tags = "";
+		Map <String, Integer> tag_usage = new HashMap<String, Integer>();
+		List<String> tag_list = new ArrayList<String>();
+		String temp_gen_list = "";
 		
 		
 		// Count all the tags and add them to a list
-		for(int runs=0; Cache.post_tags.size()>runs; runs++){
+		for(int runs=0; tags.size()>runs; runs++){
 			
-			Cache.tag_usage.put(Cache.post_tags.get(runs).toLowerCase(), Collections.frequency(Cache.post_tags, Cache.post_tags.get(runs)));
+			tag_usage.put(tags.get(runs).toLowerCase(), Collections.frequency(tags, tags.get(runs)));
 			
 			//If it's not already in the list add it
-			if(!Cache.tag_list.contains(Cache.post_tags.get(runs).toLowerCase())){
+			if(!tag_list.contains(tags.get(runs).toLowerCase())){
 				
-				Cache.tag_list.add(Cache.post_tags.get(runs).toLowerCase());
+				tag_list.add(tags.get(runs).toLowerCase());
 				
 			}
 		}
 		
 		//Order the tags by usage
-		int tag_size = Cache.tag_list.size();
+		int tag_size = tag_list.size();
+		List<String> temp_list = new ArrayList<String>();
 		
 		for(int runs=0; tag_size > runs && Conf.getAddTagsDepth() > runs; runs++){
-			new FindTop();
+			TopTags.Search(tag_usage, tag_list);
 			
-			//Check if a tag was added or not
-			if(Cache.gend_tags.length() <= runs){
-				runs--;
+			temp_list.clear();
+			temp_list.add(tag_list.get(TopTags.getTopID()));
+			
+			//Check if the tag it found is on the blacklist
+			if(!new BlackTags().Check(temp_list, Conf.getBlacklistedTags())){
+				temp_gen_list += (tag_list.get(TopTags.getTopID()) + ",");
 			}
 		}
 		
 		//Add user defined tags if they are defined else just remove the final ,
 		if(!Conf.getUserTags().isEmpty()){
-			new UserTags().add(Cache.gend_tags);
+			UserTags user = new UserTags();
+			user.add(temp_gen_list);
+			this.tags = user.getFinalTags();
 		} else {
-			Cache.gend_tags = Cache.gend_tags.substring(0, (Cache.gend_tags.length() - 1));
+			temp_gen_list = temp_gen_list.substring(0, (temp_gen_list.length() - 1));
+			this.tags = temp_gen_list;
 		}
 	}
 }

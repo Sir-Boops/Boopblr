@@ -3,7 +3,6 @@ package me.boops.functions.queuecheck;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import me.boops.cache.Cache;
 import me.boops.crypto.MD5Sum;
 import me.boops.functions.api.APIGetPost;
 import me.boops.functions.api.APIQueueCount;
@@ -27,9 +26,9 @@ public class QueueCheckVideo {
 		int scanned = 0;
 
 		// Get Check Post Hash
-		new APIGetPost(id, blog_name);
+		APIGetPost GetPost = new APIGetPost(id, blog_name);
 		String post_hash = new MD5Sum()
-				.hash(((JSONObject) Cache.get_post_post.getJSONArray("posts").get(0))
+				.hash(((JSONObject) GetPost.getPost().getJSONArray("posts").get(0))
 						.getJSONArray("player").toString());
 
 		while (APIQueue.getQueueCount() > scanned && !found) {

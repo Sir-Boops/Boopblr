@@ -8,12 +8,17 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.HttpClients;
 import org.json.JSONObject;
 
-import me.boops.cache.Cache;
 import me.boops.cache.Config;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 
 public class APIGetPost {
+	
+	private JSONObject post;
+	
+	public JSONObject getPost(){
+		return this.post;
+	}
 
 	public APIGetPost(long id, String blog_name) throws Exception {
 		
@@ -41,7 +46,7 @@ public class APIGetPost {
 			// Parse The Response
 			String res_string = new BasicResponseHandler().handleResponse(res);
 			JSONObject json_res = new JSONObject(res_string);
-			Cache.get_post_post = json_res.getJSONObject("response");
+			this.post = json_res.getJSONObject("response");
 		} else {
 			
 			//Tumblr Error Try Again

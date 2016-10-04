@@ -1,5 +1,7 @@
 package me.boops.functions.api;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.apache.http.HttpResponse;
@@ -11,12 +13,42 @@ import org.apache.http.impl.client.HttpClients;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import me.boops.cache.Cache;
 import me.boops.cache.Config;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 
 public class APIGetRandPost {
+	
+	private String blog_name;
+	private String type;
+	private String reblog_key;
+	private String short_url;
+	private Long id;
+	private List<String> tags;
+	
+	public String getBlogName(){
+		return this.blog_name;
+	}
+	
+	public String getPostType(){
+		return this.type;
+	}
+	
+	public String getReblogKey(){
+		return this.reblog_key;
+	}
+	
+	public String getShortURL(){
+		return this.short_url;
+	}
+	
+	public Long getID(){
+		return this.id;
+	}
+	
+	public List<String> getTags(){
+		return this.tags;
+	}
 
 	// Class Gobal Settings
 	Random randgenerator = new Random();
@@ -53,25 +85,23 @@ public class APIGetRandPost {
 			JSONObject post = posts.getJSONObject(randgenerator.nextInt(20));
 
 			// Get What We Need From The Post
-			Cache.rand_post_user = post.getString("blog_name");
-			Cache.rand_post_type = post.getString("type");
-			Cache.rand_post_key = post.getString("reblog_key");
-			Cache.rand_post_url = post.getString("short_url");
-			Cache.rand_post_id = post.getLong("id");
+			this.blog_name = post.getString("blog_name");
+			this.type = post.getString("type");
+			this.reblog_key = post.getString("reblog_key");
+			this.short_url = post.getString("short_url");
+			this.id = post.getLong("id");
+			
+			List<String> temp_tags = new ArrayList<String>();
 			
 			//Put The Tags Into A List
 			if(!post.isNull("tags")){
-				
-				//Empty The Cache
-				Cache.rand_post_tags.clear();
-				
-				int runs = 0;
-				while(runs < post.getJSONArray("tags").length()){
-					
-					Cache.rand_post_tags.add(post.getJSONArray("tags").getString(runs));
-					runs++;
+				for(int runs=0; runs<post.getJSONArray("tags").length(); runs++){
+					temp_tags.add(post.getJSONArray("tags").getString(runs));
 				}
 			}
+			
+			//Set This Tags
+			this.tags = temp_tags;
 		}
 	}
 }

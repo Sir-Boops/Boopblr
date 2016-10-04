@@ -2,7 +2,6 @@ package me.boops.functions.queuecheck;
 
 import org.json.JSONArray;
 
-import me.boops.cache.Cache;
 import me.boops.cache.Config;
 import me.boops.functions.api.APIGetPost;
 import me.boops.functions.api.APIQueueCount;
@@ -27,10 +26,10 @@ public class QueueCheckPhoto {
 		int scanned = 0;
 
 		// Get The Post In Question And Define The Postdata String
-		new APIGetPost(id, blog_name);
+		APIGetPost GetPost = new APIGetPost(id, blog_name);
 
 		// Setup The Request
-		String url = (Cache.get_post_post.getJSONArray("posts")
+		String url = (GetPost.getPost().getJSONArray("posts")
 				.getJSONObject(0).getJSONArray("photos").getJSONObject(0)
 				.getJSONObject("original_size").getString("url"));
 

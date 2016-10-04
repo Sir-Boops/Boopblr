@@ -2,7 +2,6 @@ package me.boops.functions.queuecheck;
 
 import org.json.JSONArray;
 
-import me.boops.cache.Cache;
 import me.boops.crypto.MD5Sum;
 import me.boops.functions.api.APIGetPost;
 import me.boops.functions.api.APIQueueCount;
@@ -26,8 +25,8 @@ public class QueueCheckAnswer {
 		int scanned = 0;
 
 		// Get Check Post Hash
-		new APIGetPost(id, blog_name);
-		String post_hash = new MD5Sum().hash(Cache.get_post_post.getJSONArray("posts").getJSONObject(0).getJSONObject("reblog").getString("comment"));
+		APIGetPost GetPost = new APIGetPost(id, blog_name);
+		String post_hash = new MD5Sum().hash(GetPost.getPost().getJSONArray("posts").getJSONObject(0).getJSONObject("reblog").getString("comment"));
 
 		while (APIQueue.getQueueCount() > scanned && !found) {
 

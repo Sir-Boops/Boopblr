@@ -12,7 +12,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import me.boops.cache.Cache;
 import me.boops.cache.Config;
 import me.boops.logger.Logger;
 import me.boops.parsers.GetMoreNotesLink;
@@ -20,23 +19,38 @@ import me.boops.parsers.UrlToUsable;
 
 public class GetAllNotes {
 	
-	public boolean error = false;
-
+	private boolean error;
+	private List<String> pub_names;
+	private List<Long> pub_ids;
+	
+	public List<String> getPublicNames(){
+		return this.pub_names;
+	}
+	
+	public boolean ifError(){
+		return this.error;
+	}
+	
+	public List<Long> GetPublicIDs(){
+		return this.pub_ids;
+	}
+	
 	public GetAllNotes(long id, String blog_name) throws Exception {
 		
 		//Define needed classes
 		Config Conf = new Config();
 		Logger logger = new Logger();
+		GetNotesLink Link = new GetNotesLink(id, blog_name);
 		
 		//Check If We Can Get The URL
-		if(new GetNotesLink(id, blog_name).error){
+		if(Link.ifError()){
 			//Can't Work With This URL
 			error = true;
 			return;
 		}
 
 		// Setup The Request
-		String url = Cache.all_notes_url;
+		String url = Link.getAllNotesURL();
 		HttpClient client = HttpClients.custom().setSSLHostnameVerifier(new NoopHostnameVerifier()).build();
 		HttpGet get = new HttpGet(url);
 
@@ -110,8 +124,8 @@ public class GetAllNotes {
 
 				// We're Done!
 				done = true;
-				Cache.pub_names = names;
-				Cache.pub_ids = ids;
+				this.pub_names = names;
+				this.pub_ids = ids;
 			}
 		}
 

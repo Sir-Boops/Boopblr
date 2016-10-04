@@ -1,40 +1,50 @@
 package me.boops.tags;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONArray;
 
-import me.boops.cache.Cache;
 import me.boops.cache.Config;
 import me.boops.functions.api.APIGetPost;
 import me.boops.functions.nonapi.GetAllNotes;
 
 public class GetAllTags {
 	
-	public boolean error = false;
-
-	public GetAllTags(String blog_name, long post_id) throws Exception {
+	private boolean error;
+	private List<String> post_tags;
+	
+	public boolean ifError(){
+		return this.error;
+	}
+	
+	public List<String> getTags(){
+		return this.post_tags;
+	}
+	
+	public void getAllTags(String blog_name, long post_id) throws Exception {
 		
 		//Define needed classes
 		Config Conf = new Config();
-		
-		//Clear The Cache
-		Cache.post_tags.clear();
+		GetAllNotes getAllNotes = new GetAllNotes(post_id, blog_name);
 		
 		//Update The List For This Check
-		if(new GetAllNotes(post_id, blog_name).error){
+		if(getAllNotes.ifError()){
 			error = true;
 			return;
 		}
 
 		int runs = 0;
 		int tagged_users = 0;
+		List<String> post_tags = new ArrayList<String>();
 
-		while (runs < Cache.pub_names.size() && tagged_users < Conf.getMinTags()) {
+		while (runs < getAllNotes.getPublicNames().size() && tagged_users < Conf.getMinTags()) {
 
 			// Get Tags
-			new APIGetPost(Cache.pub_ids.get(runs), Cache.pub_names.get(runs));
+			APIGetPost GetPost = new APIGetPost(getAllNotes.GetPublicIDs().get(runs), getAllNotes.getPublicNames().get(runs));
 			
 			//Get Tags
-			JSONArray tags = Cache.get_post_post.getJSONArray("posts").getJSONObject(0).getJSONArray("tags");
+			JSONArray tags = GetPost.getPost().getJSONArray("posts").getJSONObject(0).getJSONArray("tags");
 			
 			if(tags.toString() != ""){
 				
@@ -43,7 +53,7 @@ public class GetAllTags {
 				while(sub_runs < tags.length()){
 					
 					//Add To The Cache List
-					Cache.post_tags.add(tags.get(sub_runs).toString());
+					post_tags.add(tags.getString(sub_runs));
 					sub_runs++;
 				}
 				
@@ -54,5 +64,7 @@ public class GetAllTags {
 			//No Tags/Already Added For This Post
 			runs++;
 		}
+		
+		this.post_tags = post_tags;
 	}
 }

@@ -1,4 +1,5 @@
 Boopblr - 3.6.0
+  * Removed The Cache File
   * Made logging simpler
   * Fixed the endless queue bug
   * Merged the two config files into one.

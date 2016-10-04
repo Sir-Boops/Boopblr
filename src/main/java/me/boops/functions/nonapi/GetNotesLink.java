@@ -9,11 +9,18 @@ import org.apache.http.impl.client.HttpClients;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import me.boops.cache.Cache;
-
 public class GetNotesLink {
 
-	public boolean error;
+	private boolean error;
+	private String all_notes_url;
+	
+	public boolean ifError(){
+		return this.error;
+	}
+	
+	public String getAllNotesURL(){
+		return this.all_notes_url;
+	}
 
 	public GetNotesLink(long id, String blog_name) throws Exception {
 		
@@ -72,7 +79,7 @@ public class GetNotesLink {
 				done = true;
 			}
 		}
-		Cache.all_notes_url = notes_url;
+		this.all_notes_url = notes_url;
 	}
 
 }
