@@ -26,7 +26,10 @@ public class GetAllTags {
 		
 		//Define needed classes
 		Config Conf = new Config();
-		GetAllNotes getAllNotes = new GetAllNotes(post_id, blog_name);
+		GetAllNotes getAllNotes = new GetAllNotes();
+		
+		//Get all the notes
+		getAllNotes.Get(post_id, blog_name);
 		
 		//Update The List For This Check
 		if(getAllNotes.ifError()){

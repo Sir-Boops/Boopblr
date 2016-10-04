@@ -35,7 +35,7 @@ public class GetAllNotes {
 		return this.pub_ids;
 	}
 	
-	public GetAllNotes(long id, String blog_name) throws Exception {
+	public void Get(long id, String blog_name) throws Exception {
 		
 		//Define needed classes
 		Config Conf = new Config();

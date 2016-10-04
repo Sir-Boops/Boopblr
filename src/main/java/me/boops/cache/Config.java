@@ -11,7 +11,7 @@ import org.json.JSONObject;
 public class Config {
 	
 	//Define Strings
-	private String version = "3.6.0";
+	private String version = "3.6.1";
 	private String customer_key;
 	private String customer_secret;
 	private String token;

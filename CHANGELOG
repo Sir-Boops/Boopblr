@@ -1,5 +1,8 @@
+Boopblr - 3.6.1
+  * Fixed a crashed bug
+
 Boopblr - 3.6.0
-  * Cleaned up the license and the readme! 
+  * Cleaned up the license and the readme!
   * Fixed tags blacklist not being followed
   * Fixed the add tag dupe issue
   * Removed The Cache File
