@@ -10,7 +10,7 @@ import org.json.JSONObject;
 public class Cache {
 
 	//Main
-	public static String name_fancy;
+	//public static String name_fancy;
 	
 	//Tag Scanning
 	public static List<String> pub_names = new ArrayList<String>();

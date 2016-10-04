@@ -19,13 +19,18 @@ import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 public class APIGetRandPost {
 
 	// Class Gobal Settings
-	OAuthConsumer consumer = new CommonsHttpOAuthConsumer(Config.customer_key, Config.customer_secret);
 	Random randgenerator = new Random();
 
 	public APIGetRandPost() throws Exception {
 
-		// Setup The Client
-		consumer.setTokenWithSecret(Config.token, Config.token_secret);
+		//Define needed classes
+		Config Conf = new Config();
+		
+		// Setup OAuth
+		OAuthConsumer consumer = new CommonsHttpOAuthConsumer(Conf.getCustomerKey(), Conf.getCustomerSecret());
+
+		// Setup Client
+		consumer.setTokenWithSecret(Conf.getToken(), Conf.getTokenSecret());
 
 		// Find The Post
 		String url = "https://api.tumblr.com/v2/user/dashboard?offset=" + randgenerator.nextInt(500);

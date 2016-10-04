@@ -15,6 +15,12 @@ public class QueueCheckText {
 	public boolean found;
 
 	public QueueCheckText(long id, String blog_name) throws Exception {
+		
+		//Define needed classes
+		APIQueueCount APIQueue = new APIQueueCount();
+		
+		//Count Posts In Queue
+		APIQueue.Count();
 
 		// Hash The Text Post
 		new APIGetPost(id, blog_name);
@@ -24,7 +30,7 @@ public class QueueCheckText {
 		// Scan The Posts In Queue
 		int scanned = 0;
 
-		while (new APIQueueCount().queue_count > scanned && !found) {
+		while (APIQueue.getQueueCount() > scanned && !found) {
 
 			// Get The Posts To Scan
 			JSONArray posts = new APIQueueGet(scanned, 20).posts;

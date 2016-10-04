@@ -4,11 +4,14 @@ import me.boops.cache.Config;
 
 public class Logger {
 	
-	public Logger(String message, int type, boolean debug){
+	public Logger(String message, int type, boolean debug) throws Exception{
+		
+		//Define needed classes
+		Config Conf = new Config();
 		
 		
 		// If debug output is enabled display debug output else don't
-		if(debug && !Config.debug_output){
+		if(debug && !Conf.getDebugOutput()){
 			return;
 		} else {
 			

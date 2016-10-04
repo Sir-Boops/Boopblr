@@ -13,6 +13,9 @@ public class GetAllTags {
 
 	public GetAllTags(String blog_name, long post_id) throws Exception {
 		
+		//Define needed classes
+		Config Conf = new Config();
+		
 		//Clear The Cache
 		Cache.post_tags.clear();
 		
@@ -25,7 +28,7 @@ public class GetAllTags {
 		int runs = 0;
 		int tagged_users = 0;
 
-		while (runs < Cache.pub_names.size() && tagged_users < Config.min_tags) {
+		while (runs < Cache.pub_names.size() && tagged_users < Conf.getMinTags()) {
 
 			// Get Tags
 			new APIGetPost(Cache.pub_ids.get(runs), Cache.pub_names.get(runs));

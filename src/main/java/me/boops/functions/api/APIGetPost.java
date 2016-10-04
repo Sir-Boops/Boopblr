@@ -13,15 +13,18 @@ import me.boops.cache.Config;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 
-public class APIGetPost {;
-
-	// Setup OAuth
-	OAuthConsumer consumer = new CommonsHttpOAuthConsumer(Config.customer_key, Config.customer_secret);
+public class APIGetPost {
 
 	public APIGetPost(long id, String blog_name) throws Exception {
+		
+		//Define needed classes
+		Config Conf = new Config();
+		
+		// Setup OAuth
+		OAuthConsumer consumer = new CommonsHttpOAuthConsumer(Conf.getCustomerKey(), Conf.getCustomerSecret());
 
 		// Setup Client
-		consumer.setTokenWithSecret(Config.token, Config.token_secret);
+		consumer.setTokenWithSecret(Conf.getToken(), Conf.getTokenSecret());
 
 		// Setup The Request
 		String url = "https://api.tumblr.com/v2/blog/" + blog_name + "/posts?id=" + id;

@@ -17,13 +17,16 @@ public class APIGetPostNotes {
 	// Final Object
 	public JSONObject post = null;
 
-	// Setup OAuth
-	OAuthConsumer consumer = new CommonsHttpOAuthConsumer(Config.customer_key, Config.customer_secret);
-
 	public APIGetPostNotes(long id, String blog_name) throws Exception {
+		
+		//Define needed classes
+		Config Conf = new Config();
+		
+		// Setup OAuth
+		OAuthConsumer consumer = new CommonsHttpOAuthConsumer(Conf.getCustomerKey(), Conf.getCustomerSecret());
 
 		// Setup Client
-		consumer.setTokenWithSecret(Config.token, Config.token_secret);
+		consumer.setTokenWithSecret(Conf.getToken(), Conf.getTokenSecret());
 
 		// Setup The Request
 		String url = "https://api.tumblr.com/v2/blog/" + blog_name + "/posts?id=" + id + "&notes_info=true";

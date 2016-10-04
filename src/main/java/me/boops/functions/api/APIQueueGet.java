@@ -15,19 +15,22 @@ import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 
 public class APIQueueGet {
 	
-	//Setup OAuth
-	OAuthConsumer consumer = new CommonsHttpOAuthConsumer(Config.customer_key, Config.customer_secret);
-	
 	//Public String
 	public JSONArray posts = null;
 	
 	public APIQueueGet(int offset, int limit) throws Exception {
 		
-		//Set API User
-		consumer.setTokenWithSecret(Config.token, Config.token_secret);
+		//Define needed classes
+		Config Conf = new Config();
+		
+		// Setup OAuth
+		OAuthConsumer consumer = new CommonsHttpOAuthConsumer(Conf.getCustomerKey(), Conf.getCustomerSecret());
+
+		// Setup Client
+		consumer.setTokenWithSecret(Conf.getToken(), Conf.getTokenSecret());
 		
 		// Setup The Request
-		String url = "https://api.tumblr.com/v2/blog/" + Config.blog_name + "/posts/queue?offset=" + offset + "?limit=" + limit;
+		String url = "https://api.tumblr.com/v2/blog/" + Conf.getBlogName() + "/posts/queue?offset=" + offset + "?limit=" + limit;
 		HttpClient client = HttpClients.custom().setSSLHostnameVerifier(new NoopHostnameVerifier()).build();
 		HttpGet get = new HttpGet(url);
 		

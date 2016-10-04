@@ -15,6 +15,12 @@ public class QueueCheckChat {
 	public boolean found;
 
 	public QueueCheckChat(Long id, String blog_name) throws Exception {
+		
+		//Define needed classes
+		APIQueueCount APIQueue = new APIQueueCount();
+		
+		//Count Posts In Queue
+		APIQueue.Count();
 
 		// Scan The Posts In Queue
 		int scanned = 0;
@@ -23,7 +29,7 @@ public class QueueCheckChat {
 		new APIGetPost(id, blog_name);
 		String post_hash = new MD5Sum().hash(Cache.get_post_post.getJSONArray("posts").getJSONObject(0).getString("body"));
 
-		while (new APIQueueCount().queue_count > scanned && !found) {
+		while (APIQueue.getQueueCount() > scanned && !found) {
 
 			// Get The Posts To Scan
 			JSONArray posts = new APIQueueGet(scanned, 20).posts;

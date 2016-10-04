@@ -18,14 +18,19 @@ import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 
 public class APIQueuePost {
 
-	// Pre Defined Things
-	OAuthConsumer consumer = new CommonsHttpOAuthConsumer(Config.customer_key, Config.customer_secret);
-
 	public APIQueuePost(Long id, String key) throws Exception {
-		consumer.setTokenWithSecret(Config.token, Config.token_secret);
+		
+		//Define needed classes
+		Config Conf = new Config();
+		
+		// Setup OAuth
+		OAuthConsumer consumer = new CommonsHttpOAuthConsumer(Conf.getCustomerKey(), Conf.getCustomerSecret());
+
+		// Setup Client
+		consumer.setTokenWithSecret(Conf.getToken(), Conf.getTokenSecret());
 
 		// Setup The Request
-		String url = "https://api.tumblr.com/v2/blog/" + Config.blog_name + "/post/reblog";
+		String url = "https://api.tumblr.com/v2/blog/" + Conf.getBlogName() + "/post/reblog";
 		HttpClient client = HttpClients.custom().setSSLHostnameVerifier(new NoopHostnameVerifier()).build();
 		HttpPost post_meth = new HttpPost(url);
 
@@ -40,6 +45,5 @@ public class APIQueuePost {
 		// Send The Request
 		consumer.sign(post_meth);
 		client.execute(post_meth);
-		Config.queue_count = (Config.queue_count + 1);
 	}
 }

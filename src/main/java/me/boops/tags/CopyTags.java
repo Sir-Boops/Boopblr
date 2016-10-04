@@ -7,7 +7,10 @@ import me.boops.cache.Config;
 
 public class CopyTags {
 
-	public CopyTags() {
+	public CopyTags() throws Exception {
+		
+		//Define needed classes
+		Config Conf = new Config();
 
 		// Clean Out The Old Tags
 		Cache.tag_usage.clear();
@@ -31,7 +34,7 @@ public class CopyTags {
 		//Order the tags by usage
 		int tag_size = Cache.tag_list.size();
 		
-		for(int runs=0; tag_size > runs && Config.add_tags_depth > runs; runs++){
+		for(int runs=0; tag_size > runs && Conf.getAddTagsDepth() > runs; runs++){
 			new FindTop();
 			
 			//Check if a tag was added or not
@@ -41,7 +44,7 @@ public class CopyTags {
 		}
 		
 		//Add user defined tags if they are defined else just remove the final ,
-		if(!Config.user_tags.isEmpty()){
+		if(!Conf.getUserTags().isEmpty()){
 			new UserTags().add(Cache.gend_tags);
 		} else {
 			Cache.gend_tags = Cache.gend_tags.substring(0, (Cache.gend_tags.length() - 1));

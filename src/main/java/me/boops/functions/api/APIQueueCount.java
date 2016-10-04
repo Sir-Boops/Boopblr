@@ -14,16 +14,23 @@ import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 
 public class APIQueueCount {
 	
-	public int queue_count = 0;
+	private int queue_count = 0;
 	
-	public APIQueueCount() throws Exception {
+	public int getQueueCount(){
+		return this.queue_count;
+	}
+	
+	public void Count() throws Exception {
+		
+		//Define needed classes
+		Config Conf = new Config();
 		
 		//OAuth Setup
-		OAuthConsumer consumer = new CommonsHttpOAuthConsumer(Config.customer_key, Config.customer_secret);
-		consumer.setTokenWithSecret(Config.token, Config.token_secret);
+		OAuthConsumer consumer = new CommonsHttpOAuthConsumer(Conf.getCustomerKey(), Conf.getCustomerSecret());
+		consumer.setTokenWithSecret(Conf.getToken(), Conf.getTokenSecret());
 		
 		//Queue The Post
-		String url = "https://api.tumblr.com/v2/blog/" + Config.blog_name + "/info";
+		String url = "https://api.tumblr.com/v2/blog/" + Conf.getBlogName() + "/info";
 		HttpClient client = HttpClients.custom().setSSLHostnameVerifier(new NoopHostnameVerifier()).build();
 		HttpGet get = new HttpGet(url);
 		
@@ -32,8 +39,7 @@ public class APIQueueCount {
 		
 		String res_string = new BasicResponseHandler().handleResponse(res);
 		JSONObject json_res = new JSONObject(res_string);
-		queue_count = (int) (((JSONObject) ((JSONObject) json_res.get("response")).get("blog")).get("queue"));
-		Config.queue_count = (int) (((JSONObject) ((JSONObject) json_res.get("response")).get("blog")).get("queue"));
+		this.queue_count = json_res.getJSONObject("response").getJSONObject("blog").getInt("queue");
 	}
 	
 }

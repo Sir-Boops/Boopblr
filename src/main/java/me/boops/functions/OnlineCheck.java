@@ -3,24 +3,37 @@ package me.boops.functions;
 import org.json.JSONObject;
 
 import me.boops.cache.Config;
-import me.boops.cache.Cache;
 import me.boops.functions.api.APIGetBlog;
 
 public class OnlineCheck {
 	
-	public static boolean isOnline;
+	private String getFancyName;
+	private boolean isOnline;
 	
-	public OnlineCheck() throws Exception{
+	public String getFancyName(){
+		return this.getFancyName;
+	}
+	
+	public boolean isOnline(){
+		return this.isOnline;
+	}
+	
+	public void Check() throws Exception{
+		
+		//Define needed classes
+		Config Conf = new Config();
 		
 		//Send A Request To Tumblr
-		JSONObject blog_info = new APIGetBlog().Blog(Config.blog_name);
+		JSONObject blog_info = new APIGetBlog().Blog(Conf.getBlogName());
 		
 		//Check If I Can Reach Tumblr
 		if(blog_info != null){
 			
 			//We Got Tumblr
-			Cache.name_fancy = blog_info.getJSONObject("blog").getString("title");
-			isOnline = true;
+			this.getFancyName = blog_info.getJSONObject("blog").getString("title");
+			this.isOnline = true;
+		} else {
+			this.isOnline = false;
 		}
 	}
 

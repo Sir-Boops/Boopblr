@@ -6,7 +6,7 @@ public class GetMoreNotesLink {
 	
 	public String new_url;
 	
-	public GetMoreNotesLink(String end, String blog_name, long id){
+	public GetMoreNotesLink(String end, String blog_name, long id) throws Exception{
 		
 		// Get Notes Key
 		boolean done = false;

@@ -14,6 +14,13 @@ public class QueueCheckPhoto {
 	public boolean found;
 
 	public QueueCheckPhoto(Long id, String blog_name) throws Exception {
+		
+		//Define needed classes
+		APIQueueCount APIQueue = new APIQueueCount();
+		Config Conf = new Config();
+		
+		//Count Posts In Queue
+		APIQueue.Count();
 
 		// Scan The Posts In Queue
 		int scanned = 0;
@@ -30,12 +37,12 @@ public class QueueCheckPhoto {
 		String post_hash = url.split("/")[3];
 
 		// Check If Post Sum Is A Sum
-		if (post_hash.toLowerCase().contains("tumblr") && Config.force_sum) {
+		if (post_hash.toLowerCase().contains("tumblr") && Conf.getForceSum()) {
 			new Logger("Post Sum Is Not A Sum!", 0, true);
 			return;
 		}
 
-		while (new APIQueueCount().queue_count > scanned && !found) {
+		while (APIQueue.getQueueCount() > scanned && !found) {
 
 			// Get The Posts To Scan
 			JSONArray posts = new APIQueueGet(scanned, 20).posts;

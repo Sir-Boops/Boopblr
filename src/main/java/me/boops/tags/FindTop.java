@@ -8,7 +8,10 @@ import me.boops.cache.Config;
 
 public class FindTop {
 	
-	FindTop(){
+	FindTop() throws Exception{
+		
+		//Define needed classes
+		Config Conf = new Config();
 		
 		//Set Needed Ints
 		int top = 0;
@@ -27,7 +30,7 @@ public class FindTop {
 		List<String> temp_list = new ArrayList<String>();
 		temp_list.clear();
 		temp_list.add(Cache.tag_list.get(top_id));
-		if(!new BlackTags().Check(temp_list, Config.tag_add_blacklist)){
+		if(!new BlackTags().Check(temp_list, Conf.getBlacklistedTags())){
 			
 			// Tag is not in the blacklist!
 			// So add it

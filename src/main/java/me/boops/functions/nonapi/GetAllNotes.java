@@ -24,6 +24,9 @@ public class GetAllNotes {
 
 	public GetAllNotes(long id, String blog_name) throws Exception {
 		
+		//Define needed classes
+		Config Conf = new Config();
+		
 		//Check If We Can Get The URL
 		if(new GetNotesLink(id, blog_name).error){
 			//Can't Work With This URL
@@ -55,7 +58,7 @@ public class GetAllNotes {
 		List<Long> ids = new ArrayList<Long>();
 		boolean done = false;
 		// Loop To Get More Notes
-		while (!done && names.size() < Config.note_depth) {
+		while (!done && names.size() < Conf.getNoteDepth()) {
 
 			// Parse Page
 			int parse_runs = 0;

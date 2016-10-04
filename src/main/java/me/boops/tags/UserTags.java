@@ -5,13 +5,16 @@ import me.boops.cache.Config;
 
 public class UserTags {
 	
-	public void add(String tags){
+	public void add(String tags) throws Exception{
 		
-		for(int runs=0; Config.user_tags.size()>runs; runs++){
-			if((runs + 1) < Config.user_tags.size()){
-				Cache.gend_tags += (Config.user_tags.get(runs).replace("[", "").replace("]", "") + ",");
+		//Define needed classes
+		Config Conf = new Config();
+		
+		for(int runs=0; Conf.getUserTags().size()>runs; runs++){
+			if((runs + 1) < Conf.getUserTags().size()){
+				Cache.gend_tags += (Conf.getUserTags().get(runs).replace("[", "").replace("]", "") + ",");
 			} else {
-				Cache.gend_tags += (Config.user_tags.get(runs).replace("[", "").replace("]", ""));
+				Cache.gend_tags += (Conf.getUserTags().get(runs).replace("[", "").replace("]", ""));
 			}
 		}
 		

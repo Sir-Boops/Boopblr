@@ -15,6 +15,9 @@ public class FindPost {
 
 	public FindPost() throws Exception {
 		
+		//Define needed classes
+		Config Conf = new Config();
+		
 		//Try And Find A New Post
 		new APIGetRandPost();
 		
@@ -22,33 +25,33 @@ public class FindPost {
 		if(Cache.rand_post_id != null){
 			
 			// Make Sure It Is An Allowed Post Type
-			if (!Config.post_types.contains(Cache.rand_post_type)) {
+			if (!Conf.getPostTypes().contains(Cache.rand_post_type)) {
 				new Logger("Not Allowed To Post This Type", 0, false);
 				return;
 			}
 
 			// Check To See If It's A Post From Us
-			if (Cache.rand_post_user.toLowerCase().equals(Config.blog_name)) {
+			if (Cache.rand_post_user.toLowerCase().equals(Conf.getBlogName())) {
 				new Logger("Dam Found My Own Post", 0, false);
 				return;
 			}
 
 			// Check If We Should Check Black Tags
-			if (Config.check_tags) {
+			if (Conf.getCheckTags()) {
 				// Now Check For BlackListed Tags
-				if (new BlackTags().Check(Cache.rand_post_tags, Config.blacklisted_tags)) {
+				if (new BlackTags().Check(Cache.rand_post_tags, Conf.getBlacklistedTags())) {
 					new Logger("Found A BlackListed Tag", 0, false);
 					return;
 				}
 				// Check If We Should Spider Black Tags
-				if (Config.spider_tags) {
+				if (Conf.getSpiderTags()) {
 					//Try and Get All Tags Now
 					if(new GetAllTags(Cache.rand_post_user, Cache.rand_post_id).error){
 						new Logger("Note Error", 2, true);
 						return;
 					}
 					//Now Check All The Notes
-					if (new BlackTags().Check(Cache.post_tags, Config.blacklisted_tags)) {
+					if (new BlackTags().Check(Cache.post_tags, Conf.getBlacklistedTags())) {
 						new Logger("Found A BlackListed Tag", 0, false);
 						return;
 					}
@@ -58,10 +61,10 @@ public class FindPost {
 			}
 
 			// Check If We Should Check White Tags
-			if (Config.check_tags && Config.force_tags) {
+			if (Conf.getCheckTags() && Conf.getForceTags()) {
 				// Now Check For WhiteListed Tags
 				if (!new WhiteTags().Check(Cache.rand_post_tags)) {
-					if (Config.spider_tags) {
+					if (Conf.getSpiderTags()) {
 						if (!new WhiteTags().Check(Cache.post_tags)) {
 							new Logger("Could Not Find WhiteListed Tags", 0, false);
 							return;
@@ -71,7 +74,7 @@ public class FindPost {
 			}
 
 			// Check To See If we should check the queue
-			if (Config.check_queue) {
+			if (Conf.getCheckQueue()) {
 				if (new QueueCheck(Cache.rand_post_id, Cache.rand_post_user, Cache.rand_post_type).found) {
 					new Logger("Dam Post Is Already In Queue", 0, false);
 					return;
@@ -79,7 +82,7 @@ public class FindPost {
 			}
 			
 			//Check If We Should Apped More Tags
-			if(Config.add_tags){
+			if(Conf.getAddTags()){
 				new Logger("Adding More Tags!", 0, true);
 				new CopyTags();
 				new Logger("Added Tags: " + Cache.gend_tags, 0, false);
