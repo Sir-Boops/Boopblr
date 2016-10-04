@@ -55,6 +55,7 @@ public class CopyTags {
 			if(!new BlackTags().Check(temp_list, Conf.getBlacklistedTags())){
 				temp_gen_list += (tag_list.get(TopTags.getTopID()) + ",");
 			}
+			tag_list.remove(TopTags.getTopID());
 		}
 		
 		//Add user defined tags if they are defined else just remove the final ,

@@ -1,4 +1,5 @@
 Boopblr - 3.6.0
+  * Fixed the add tag dupe issue
   * Removed The Cache File
   * Made logging simpler
   * Fixed the endless queue bug
