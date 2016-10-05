@@ -20,7 +20,7 @@ public class APIGetPost {
 		return this.post;
 	}
 
-	public APIGetPost(long id, String blog_name) throws Exception {
+	public void Get (long id, String blog_name) throws Exception {
 		
 		//Define needed classes
 		Config Conf = new Config();

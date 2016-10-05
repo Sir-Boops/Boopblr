@@ -6,7 +6,8 @@ public class APIHasTags {
 
 	public APIHasTags(long id, String blog_name) throws Exception {
 
-		APIGetPost GetPost = new APIGetPost(id, blog_name);
+		APIGetPost GetPost = new APIGetPost();
+		GetPost.Get(id, blog_name);
 
 		if (!GetPost.getPost().getJSONArray("posts").getJSONObject(0).isNull("tags")) {
 			if (GetPost.getPost().getJSONArray("posts").getJSONObject(0).getJSONArray("tags").length() > 0) {

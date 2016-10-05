@@ -44,7 +44,9 @@ public class GetAllTags {
 		while (runs < getAllNotes.getPublicNames().size() && tagged_users < Conf.getMinTags()) {
 
 			// Get Tags
-			APIGetPost GetPost = new APIGetPost(getAllNotes.GetPublicIDs().get(runs), getAllNotes.getPublicNames().get(runs));
+			APIGetPost GetPost = new APIGetPost();
+			
+			GetPost.Get(getAllNotes.GetPublicIDs().get(runs), getAllNotes.getPublicNames().get(runs));
 			
 			//Get Tags
 			JSONArray tags = GetPost.getPost().getJSONArray("posts").getJSONObject(0).getJSONArray("tags");

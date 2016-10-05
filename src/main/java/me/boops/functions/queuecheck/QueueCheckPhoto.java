@@ -26,7 +26,8 @@ public class QueueCheckPhoto {
 		int scanned = 0;
 
 		// Get The Post In Question And Define The Postdata String
-		APIGetPost GetPost = new APIGetPost(id, blog_name);
+		APIGetPost GetPost = new APIGetPost();
+		GetPost.Get(id, blog_name);
 
 		// Setup The Request
 		String url = (GetPost.getPost().getJSONArray("posts")

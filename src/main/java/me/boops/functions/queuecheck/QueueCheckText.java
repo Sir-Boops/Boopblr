@@ -23,7 +23,8 @@ public class QueueCheckText {
 		APIQueue.Count();
 
 		// Hash The Text Post
-		APIGetPost GetPost = new APIGetPost(id, blog_name);
+		APIGetPost GetPost = new APIGetPost();
+		GetPost.Get(id, blog_name);
 		String post_hash = new MD5Sum().hash(GetPost.getPost().getJSONArray("posts").getJSONObject(0)
 				.getJSONObject("reblog").get("tree_html").toString());
 

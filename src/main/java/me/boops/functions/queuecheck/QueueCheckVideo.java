@@ -26,7 +26,8 @@ public class QueueCheckVideo {
 		int scanned = 0;
 
 		// Get Check Post Hash
-		APIGetPost GetPost = new APIGetPost(id, blog_name);
+		APIGetPost GetPost = new APIGetPost();
+		GetPost.Get(id, blog_name);
 		String post_hash = new MD5Sum()
 				.hash(((JSONObject) GetPost.getPost().getJSONArray("posts").get(0))
 						.getJSONArray("player").toString());
