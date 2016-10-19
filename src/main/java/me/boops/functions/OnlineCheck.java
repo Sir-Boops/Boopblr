@@ -1,9 +1,7 @@
 package me.boops.functions;
 
-import org.json.JSONObject;
-
 import me.boops.cache.Config;
-import me.boops.functions.api.APIGetBlog;
+import pw.frgl.jumblr.BlogInfo;
 
 public class OnlineCheck {
 	
@@ -22,15 +20,15 @@ public class OnlineCheck {
 		
 		//Define needed classes
 		Config Conf = new Config();
+		BlogInfo blog = new BlogInfo(Conf.getCustomerKey(), Conf.getCustomerSecret(), Conf.getToken(), Conf.getTokenSecret());
 		
-		//Send A Request To Tumblr
-		JSONObject blog_info = new APIGetBlog().Blog(Conf.getBlogName());
+		//Get Blog Info
+		blog.getBlog(Conf.getBlogName());
 		
-		//Check If I Can Reach Tumblr
-		if(blog_info != null){
-			
+		//Check HTTP code
+		if(blog.getHTTPCode() == 200){
 			//We Got Tumblr
-			this.getFancyName = blog_info.getJSONObject("blog").getString("title");
+			this.getFancyName = blog.getTitle();
 			this.isOnline = true;
 		} else {
 			this.isOnline = false;

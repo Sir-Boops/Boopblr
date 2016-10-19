@@ -14,7 +14,7 @@ public class QueueCheck {
 	// If Post Is Found
 	public boolean found = false;
 
-	public QueueCheck(Long id, String blog_name, String type) throws Exception {
+	public QueueCheck(long id, String blog_name, String type) throws Exception {
 
 		// Find Out What Type Of Post We Are Checking
 

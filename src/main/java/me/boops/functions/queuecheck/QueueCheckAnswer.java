@@ -1,55 +1,67 @@
 package me.boops.functions.queuecheck;
 
-import org.json.JSONArray;
-
+import me.boops.cache.Config;
 import me.boops.crypto.MD5Sum;
-import me.boops.functions.api.APIGetPost;
-import me.boops.functions.api.APIQueueCount;
-import me.boops.functions.api.APIQueueGet;
 import me.boops.logger.Logger;
+import pw.frgl.jumblr.BlogInfo;
+import pw.frgl.jumblr.BlogPosts;
+import pw.frgl.jumblr.BlogQueue;
+import pw.frgl.jumblr.DecodePost;
 
 public class QueueCheckAnswer {
 
 	public boolean found;
 
-	public QueueCheckAnswer(Long id, String blog_name) throws Exception {
+	public QueueCheckAnswer(long id, String blog_name) throws Exception {
 		
 		//Define needed classes
-		APIQueueCount APIQueue = new APIQueueCount();
 		Logger logger = new Logger();
+		Config Conf = new Config();
+		BlogPosts post = new BlogPosts(Conf.getCustomerKey(), Conf.getCustomerSecret(), Conf.getToken(), Conf.getTokenSecret());
+		BlogInfo blog = new BlogInfo(Conf.getCustomerKey(), Conf.getCustomerSecret(), Conf.getToken(), Conf.getTokenSecret());
+		BlogQueue queue = new BlogQueue(Conf.getCustomerKey(), Conf.getCustomerSecret(), Conf.getToken(), Conf.getTokenSecret());
+		DecodePost decode = new DecodePost();
 		
 		//Count Posts In Queue
-		APIQueue.Count();
+		blog.getBlog(Conf.getBlogName());
 		
 		// Scan The Posts In Queue
 		int scanned = 0;
 
-		// Get Check Post Hash
-		APIGetPost GetPost = new APIGetPost();
-		GetPost.Get(id, blog_name);
-		String post_hash = new MD5Sum().hash(GetPost.getPost().getJSONArray("posts").getJSONObject(0).getJSONObject("reblog").getString("comment"));
+		//Find the post
+		post.setPostID(id);
+		post.getPosts(blog_name);
+		
+		//Decode the post
+		decode.decode(post.getPost(0));
+		
+		String post_hash = new MD5Sum().hash(decode.getReblogComment());
 
-		while (APIQueue.getQueueCount() > scanned && !found) {
+		while (blog.getQueueCount() > scanned && !found) {
 
 			// Get The Posts To Scan
-			JSONArray posts = new APIQueueGet(scanned, 20).posts;
+			queue.setOffset(scanned);
+			queue.getQueue(Conf.getBlogName());
 
 			// Scan The Posts
 			int sub_runs = 0;
-			while (sub_runs < posts.length()) {
+			while (sub_runs < queue.getResPostCount()) {
+				
+				//Decode the post
+				decode.decode(queue.getPost(sub_runs));
 
 				// Check If Post Type Is Photo
-				if (posts.getJSONObject(sub_runs).getString("type").equals("answer")) {
+				if (decode.getPostType().equals("answer")) {
 
 					// Calcucate The Post Hash And CHeck it!
-					if (post_hash.equals(new MD5Sum().hash(posts.getJSONObject(sub_runs).getJSONObject("reblog").getString("comment"))) && !found) {
+					if (post_hash.equals(new MD5Sum().hash(decode.getReblogComment())) && !found) {
 
 						// Found A Duplicate!
 						found = true;
 					} else {
 
 						// Nope Keep Chacking
-						logger.Log(post_hash + " : " + new MD5Sum().hash(posts.getJSONObject(sub_runs).getJSONObject("reblog").getString("comment")), 0, true);
+						logger.Log(post_hash + " : " + new MD5Sum().hash(decode.getReblogComment()), 0, true);
 						sub_runs++;
 					}
 				}
@@ -57,7 +69,7 @@ public class QueueCheckAnswer {
 				// Non Photo Post So Skip In This Check
 				sub_runs++;
 			}
-			scanned = (scanned + posts.length());
+			scanned = (scanned + post.getResPosts());
 		}
 	}
 

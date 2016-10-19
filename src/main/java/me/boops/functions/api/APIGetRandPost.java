@@ -23,7 +23,7 @@ public class APIGetRandPost {
 	private String type;
 	private String reblog_key;
 	private String short_url;
-	private Long id;
+	private long id;
 	private List<String> tags;
 	
 	public String getBlogName(){
@@ -42,7 +42,7 @@ public class APIGetRandPost {
 		return this.short_url;
 	}
 	
-	public Long getID(){
+	public long getID(){
 		return this.id;
 	}
 	

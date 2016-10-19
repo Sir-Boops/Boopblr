@@ -1,38 +1,43 @@
 package me.boops.functions.queuecheck;
 
-import org.json.JSONArray;
-
 import me.boops.cache.Config;
-import me.boops.functions.api.APIGetPost;
-import me.boops.functions.api.APIQueueCount;
-import me.boops.functions.api.APIQueueGet;
 import me.boops.logger.Logger;
+import pw.frgl.jumblr.BlogInfo;
+import pw.frgl.jumblr.BlogPosts;
+import pw.frgl.jumblr.BlogQueue;
+import pw.frgl.jumblr.DecodePost;
 
 public class QueueCheckPhoto {
 
 	public boolean found;
 
-	public QueueCheckPhoto(Long id, String blog_name) throws Exception {
+	public QueueCheckPhoto(long id, String blog_name) throws Exception {
 		
 		//Define needed classes
-		APIQueueCount APIQueue = new APIQueueCount();
-		Config Conf = new Config();
 		Logger logger = new Logger();
+		Config Conf = new Config();
+		BlogPosts post = new BlogPosts(Conf.getCustomerKey(), Conf.getCustomerSecret(), Conf.getToken(), Conf.getTokenSecret());
+		BlogInfo blog = new BlogInfo(Conf.getCustomerKey(), Conf.getCustomerSecret(), Conf.getToken(), Conf.getTokenSecret());
+		BlogQueue queue = new BlogQueue(Conf.getCustomerKey(), Conf.getCustomerSecret(), Conf.getToken(), Conf.getTokenSecret());
+		DecodePost decode = new DecodePost();
 		
 		//Count Posts In Queue
-		APIQueue.Count();
+		blog.getBlog(Conf.getBlogName());
 
 		// Scan The Posts In Queue
 		int scanned = 0;
 
-		// Get The Post In Question And Define The Postdata String
-		APIGetPost GetPost = new APIGetPost();
-		GetPost.Get(id, blog_name);
+		//Find the post
+		post.setPostID(id);
+		post.getPosts(blog_name);
+		
+		//Decode the post
+		decode.decode(post.getPost(0));
 
 		// Setup The Request
-		String url = (GetPost.getPost().getJSONArray("posts")
-				.getJSONObject(0).getJSONArray("photos").getJSONObject(0)
-				.getJSONObject("original_size").getString("url"));
+		String url = (decode.getOrginalPhotoURL());
+		
+		System.out.println(url);
 
 		// Get The Inital Post Hash
 		String post_hash = url.split("/")[3];
@@ -43,51 +48,40 @@ public class QueueCheckPhoto {
 			return;
 		}
 
-		while (APIQueue.getQueueCount() > scanned && !found) {
+		while (blog.getQueueCount() > scanned && !found) {
 
 			// Get The Posts To Scan
-			JSONArray posts = new APIQueueGet(scanned, 20).posts;
+			queue.setOffset(scanned);
+			queue.getQueue(Conf.getBlogName());
 
 			// Scan The Posts
 			int sub_runs = 0;
-			while (sub_runs < posts.length()) {
+			while (sub_runs < queue.getResPostCount()) {
+				
+				//Decode the post
+				decode.decode(queue.getPost(sub_runs));
 
 				// Check If Post Type Is Photo
-				if (posts.getJSONObject(sub_runs).get("type").equals("photo")) {
+				if (decode.getPostType().equals("photo")) {
 
 					// Check The Post Hash
-					if (post_hash.equals(posts.getJSONObject(sub_runs)
-							.getJSONArray("photos").getJSONObject(0)
-							.getJSONObject("original_size").getString("url")
-							.split("/")[3])
+					if (post_hash.equals(decode.getOrginalPhotoURL().split("/")[3])
 							&& !found) {
 
 						// Found A Duplicate!
-						logger.Log(post_hash
-								+ " : "
-								+ posts.getJSONObject(sub_runs)
-										.getJSONArray("photos")
-										.getJSONObject(0)
-										.getJSONObject("original_size")
-										.getString("url").split("/")[3], 0, true);
+						logger.Log(post_hash + " : "+ decode.getOrginalPhotoURL().split("/")[3], 0, true);
 						found = true;
 						return;
 					} else {
 
 						// Nope Keep Chacking
-						logger.Log(post_hash
-								+ " : "
-								+ posts.getJSONObject(sub_runs)
-										.getJSONArray("photos")
-										.getJSONObject(0)
-										.getJSONObject("original_size")
-										.getString("url").split("/")[3], 0, true);
+						logger.Log(post_hash + " : " + decode.getOrginalPhotoURL().split("/")[3], 0, true);
 					}
 				}
 
 				sub_runs++;
 			}
-			scanned = (scanned + posts.length());
+			scanned = (scanned + queue.getResPostCount());
 		}
 	}
 }

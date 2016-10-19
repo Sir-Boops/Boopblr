@@ -21,7 +21,7 @@ public class FindPost {
 		CopyTags TagCopy = new CopyTags();
 		
 		//Check To Make Sure We Got A Post
-		if(RandPost.getID() != null){
+		if(RandPost.getID() > 0){
 			
 			// Make Sure It Is An Allowed Post Type
 			if (!Conf.getPostTypes().contains(RandPost.getPostType())) {

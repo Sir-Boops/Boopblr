@@ -1,50 +1,61 @@
 package me.boops.functions.queuecheck;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
+import me.boops.cache.Config;
 import me.boops.crypto.MD5Sum;
-import me.boops.functions.api.APIGetPost;
-import me.boops.functions.api.APIQueueCount;
-import me.boops.functions.api.APIQueueGet;
 import me.boops.logger.Logger;
+import pw.frgl.jumblr.BlogInfo;
+import pw.frgl.jumblr.BlogPosts;
+import pw.frgl.jumblr.BlogQueue;
+import pw.frgl.jumblr.DecodePost;
 
 public class QueueCheckQuote {
 
 	public boolean found;
 
-	public QueueCheckQuote(Long id, String blog_name) throws Exception {
+	public QueueCheckQuote(long id, String blog_name) throws Exception {
 		
 		//Define needed classes
-		APIQueueCount APIQueue = new APIQueueCount();
 		Logger logger = new Logger();
+		Config Conf = new Config();
+		BlogPosts post = new BlogPosts(Conf.getCustomerKey(), Conf.getCustomerSecret(), Conf.getToken(), Conf.getTokenSecret());
+		BlogInfo blog = new BlogInfo(Conf.getCustomerKey(), Conf.getCustomerSecret(), Conf.getToken(), Conf.getTokenSecret());
+		BlogQueue queue = new BlogQueue(Conf.getCustomerKey(), Conf.getCustomerSecret(), Conf.getToken(), Conf.getTokenSecret());
+		DecodePost decode = new DecodePost();
 		
 		//Count Posts In Queue
-		APIQueue.Count();
+		blog.getBlog(Conf.getBlogName());
 
 		// Scan The Posts In Queue
 		int scanned = 0;
 
-		// Get Check Post Hash
-		APIGetPost GetPost = new APIGetPost();
-		GetPost.Get(id, blog_name);
-		String post_hash = new MD5Sum()
-				.hash(GetPost.getPost().getJSONArray("posts").getJSONObject(0).getString("text"));
+		//Find the post
+		post.setPostID(id);
+		post.getPosts(blog_name);
+		
+		//Decode the post
+		decode.decode(post.getPost(0));
+		
+		String post_hash = new MD5Sum().hash(decode.getPostQuoteText());
 
-		while (APIQueue.getQueueCount() > scanned && !found) {
+		while (blog.getQueueCount() > scanned && !found) {
 
 			// Get The Posts To Scan
-			JSONArray posts = new APIQueueGet(scanned, 20).posts;
+			queue.setOffset(scanned);
+			queue.getQueue(Conf.getBlogName());
+
 
 			// Scan The Posts
 			int sub_runs = 0;
-			while (sub_runs < posts.length()) {
+			while (sub_runs < queue.getResPostCount()) {
+				
+				//Decode the post
+				decode.decode(queue.getPost(sub_runs));
 
 				// Check If Post Type Is Photo
-				if (((JSONObject) posts.get(sub_runs)).get("type").equals("quote")) {
+				if (decode.getPostType().equals("quote")) {
 
 					// Calcucate The Post Hash And CHeck it!
-					if (post_hash.equals(new MD5Sum().hash(posts.getJSONObject(sub_runs).getString("text")))
+					if (post_hash.equals(new MD5Sum().hash(decode.getPostQuoteText()))
 							&& !found) {
 
 						// Found A Duplicate!
@@ -53,7 +64,7 @@ public class QueueCheckQuote {
 
 						// Nope Keep Chacking
 						logger.Log(
-								post_hash + " : " + new MD5Sum().hash(posts.getJSONObject(sub_runs).getString("text")),
+								post_hash + " : " + new MD5Sum().hash(decode.getPostQuoteText()),
 								0, true);
 						sub_runs++;
 					}
@@ -62,7 +73,7 @@ public class QueueCheckQuote {
 				// Non Photo Post So Skip In This Check
 				sub_runs++;
 			}
-			scanned = (scanned + posts.length());
+			scanned = (scanned + queue.getResPostCount());
 		}
 	}
 
