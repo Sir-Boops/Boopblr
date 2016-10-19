@@ -4,6 +4,21 @@
     <artifactId>Boopblr</artifactId>
     <version>3.6.1</version>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <repositories>
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <id>pw.frgl.cdn</id>
+            <url>https://cdn.frgl.pw/mvn</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -29,6 +44,11 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>pw.frgl.jumblr</groupId>
+            <artifactId>Jumblr</artifactId>
+            <version>1.0.1</version>
         </dependency>
     </dependencies>
 
@@ -70,7 +90,4 @@
             </plugin>
         </plugins>
     </build>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 </project>
