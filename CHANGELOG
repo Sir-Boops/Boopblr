@@ -2,6 +2,7 @@ Boopblr - 3.6.1
   * Fixed the tag blacklist not always being followed
   * Fixed a crashed bug
   * Added Jumblr
+  * Fixed a bug where hash checking was not showing
 
 Boopblr - 3.6.0
   * Cleaned up the license and the readme!

@@ -30,14 +30,11 @@ public class QueueCheckPhoto {
 		//Find the post
 		post.setPostID(id);
 		post.getPosts(blog_name);
-		
 		//Decode the post
 		decode.decode(post.getPost(0));
 
 		// Setup The Request
 		String url = (decode.getOrginalPhotoURL());
-		
-		System.out.println(url);
 
 		// Get The Inital Post Hash
 		String post_hash = url.split("/")[3];
@@ -65,18 +62,15 @@ public class QueueCheckPhoto {
 				if (decode.getPostType().equals("photo")) {
 
 					// Check The Post Hash
-					if (post_hash.equals(decode.getOrginalPhotoURL().split("/")[3])
-							&& !found) {
+					if (post_hash.equals(decode.getOrginalPhotoURL().split("/")[3]) && !found) {
 
 						// Found A Duplicate!
 						logger.Log(post_hash + " : "+ decode.getOrginalPhotoURL().split("/")[3], 0, true);
 						found = true;
 						return;
-					} else {
-
-						// Nope Keep Chacking
-						logger.Log(post_hash + " : " + decode.getOrginalPhotoURL().split("/")[3], 0, true);
 					}
+					
+					logger.Log(post_hash + " : " + decode.getOrginalPhotoURL().split("/")[3], 0, true);
 				}
 
 				sub_runs++;
