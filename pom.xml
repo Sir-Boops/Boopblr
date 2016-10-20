@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.boops</groupId>
     <artifactId>Boopblr</artifactId>
-    <version>3.6.1</version>
+    <version>3.6.2</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -48,7 +48,7 @@
         <dependency>
             <groupId>pw.frgl.jumblr</groupId>
             <artifactId>Jumblr</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.3</version>
         </dependency>
     </dependencies>
 

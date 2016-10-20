@@ -9,6 +9,11 @@ import org.apache.http.impl.client.HttpClients;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import me.boops.cache.Config;
+import me.boops.logger.Logger;
+import pw.frgl.jumblr.BlogPosts;
+import pw.frgl.jumblr.DecodePost;
+
 public class GetNotesLink {
 
 	private boolean error;
@@ -24,22 +29,34 @@ public class GetNotesLink {
 
 	public GetNotesLink(long id, String blog_name) throws Exception {
 		
-		char[] chars = blog_name.toCharArray();
-		int check_runs = 0;
+		//Check if their is a slug
+		Config Conf = new Config();
+		BlogPosts post = new BlogPosts(Conf.getCustomerKey(), Conf.getCustomerSecret(), Conf.getToken(), Conf.getTokenSecret());
+		DecodePost decode = new DecodePost();
 		
-		while(check_runs < chars.length && !error){
-			if(chars[check_runs] > 127){
-				
-				//Non ISO-8859-1 Char
-				System.out.println("Non en_US Char");
-				error = true;
-				return;
+		post.setPostID(id);
+		post.getPosts(blog_name);
+		
+		decode.decode(post.getPost(0));
+		
+		if(!decode.getPostSlug().isEmpty()){
+			
+			//Scan the slug and check for non en_US chars
+			char[] slug_chars = decode.getPostSlug().toCharArray();
+			for(int i=0; slug_chars.length>i; i++){
+				if(slug_chars[i] > 127){
+					
+					//Found a non en_US char
+					new Logger().Log("Found a non en_US char", 0, false);
+					this.error = true;
+					return;
+				}
 			}
-			check_runs++;
 		}
+		
 
 		// Setup The Request
-		String url = "http://" + new String(blog_name.getBytes("UTF-8")) + ".tumblr.com/" + id;
+		String url = "http://" + blog_name + ".tumblr.com/" + id;
 		HttpClient client = HttpClients.custom().setSSLHostnameVerifier(new NoopHostnameVerifier()).build();
 		HttpGet get = new HttpGet(url);
 

@@ -2,7 +2,6 @@ package me.boops.functions;
 
 import me.boops.cache.Config;
 import me.boops.functions.api.APIGetRandPost;
-import me.boops.functions.api.APIQueuePost;
 import me.boops.logger.Logger;
 import me.boops.tags.BlackTags;
 import me.boops.tags.CopyTags;
@@ -92,7 +91,7 @@ public class FindPost {
 			
 			// Since All THe Above Have Passed We Can Now Post It!
 			logger.Log("Queuing " + RandPost.getShortURL() + " From: " + RandPost.getBlogName(), 0, false);
-			new APIQueuePost(RandPost.getID(), RandPost.getReblogKey(), TagCopy.getTags());
+			new QueuePost(RandPost.getID(), RandPost.getReblogKey(), TagCopy.getTags(), "queue");
 			//Done This Loop!
 			return;
 		} else {
