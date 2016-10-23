@@ -1,96 +1,107 @@
 package me.boops.functions;
 
-import me.boops.functions.queuecheck.QueueCheckAnswer;
-import me.boops.functions.queuecheck.QueueCheckAudio;
-import me.boops.functions.queuecheck.QueueCheckChat;
-import me.boops.functions.queuecheck.QueueCheckLink;
-import me.boops.functions.queuecheck.QueueCheckPhoto;
-import me.boops.functions.queuecheck.QueueCheckQuote;
-import me.boops.functions.queuecheck.QueueCheckText;
-import me.boops.functions.queuecheck.QueueCheckVideo;
+import java.util.List;
+
+import me.boops.cache.Config;
+import me.boops.crypto.MD5Sum;
+import me.boops.logger.Logger;
+import pw.frgl.jumblr.BlogPosts;
+import pw.frgl.jumblr.DecodePost;
 
 public class QueueCheck {
 
 	// If Post Is Found
 	public boolean found = false;
 
-	public QueueCheck(long id, String blog_name, String type) throws Exception {
+	public QueueCheck(long id, String blog_name) {
+		
+		//Define needed classes
+		Logger logger = new Logger();
+		Config Conf = new Config();
+		BlogPosts post = new BlogPosts(Conf.getCustomerKey(), Conf.getCustomerSecret(), Conf.getToken(), Conf.getTokenSecret());
+		DecodePost decode = new DecodePost();
 
-		// Find Out What Type Of Post We Are Checking
-
-		// If Photo
-		if (type.equals("photo")) {
-			if (new QueueCheckPhoto(id, blog_name).found) {
-
-				// Found The Post!
-				found = true;
+		//Get And Decode the post
+		post.setPostID(id);
+		post.getPosts(blog_name);
+		decode.decode(post.getPost(0));
+		
+		List<String> QueueSumsList = new UpdateQueueCache().getQueueCache();
+		
+		for(int i=0; QueueSumsList.size()>i; i++){
+			
+			//What to hash if it's an answer
+			if(decode.getPostType().equals("answer")){
+				if(new MD5Sum().hash(decode.getReblogComment()).equals(QueueSumsList.get(i))){
+					this.found = true;
+				}
+				logger.Log("Scanning post: " + new MD5Sum().hash(decode.getReblogComment()) + ":" + QueueSumsList.get(i), 0, false);
 			}
-		}
-
-		// If Text
-		if (type.equals("text")) {
-			if (new QueueCheckText(id, blog_name).found) {
-
-				// Found The Post!
-				found = true;
+			
+			//If Audio Post
+			if(decode.getPostType().equals("audio")){
+				if(new MD5Sum().hash(decode.getAudioURL()).equals(QueueSumsList.get(i))){
+					this.found = true;
+				}
+				logger.Log("Scanning post: " + new MD5Sum().hash(decode.getAudioURL()) + ":" + QueueSumsList.get(i), 0, false);
 			}
-		}
-
-		// If Quote
-		// Need To Finish
-		if (type.equals("quote")) {
-			if (new QueueCheckQuote(id, blog_name).found) {
-
-				// Found The Post!
-				found = true;
+			
+			//If Chat post
+			if(decode.getPostType().equals("chat")){
+				if(new MD5Sum().hash(decode.getChatBody()).equals(QueueSumsList.get(i))){
+					this.found = true;
+				}
+				logger.Log("Scanning post: " + new MD5Sum().hash(decode.getChatBody()) + ":" + QueueSumsList.get(i), 0, false);
 			}
-		}
-
-		// If Link
-		if (type.equals("link")) {
-			if (new QueueCheckLink(id, blog_name).found) {
-
-				// Found The Post!
-				found = true;
+			
+			//If Link Post
+			if(decode.getPostType().equals("link")){
+				if(new MD5Sum().hash(decode.getPostLinkURL()).equals(QueueSumsList.get(i))){
+					this.found = true;
+				}
+				logger.Log("Scanning post: " + new MD5Sum().hash(decode.getPostLinkURL()) + ":" + QueueSumsList.get(i), 0, false);
 			}
-		}
-
-		// If Answer
-		if (type.equals("answer")) {
-			if (new QueueCheckAnswer(id, blog_name).found) {
-
-				// Found The Post!
-				found = true;
+			
+			//If Photo Post
+			if(decode.getPostType().equals("photo")){
+				//Check if URL has a hash
+				if(decode.getOrginalPhotoURL().toLowerCase().contains("tumblr")){
+					if(new MD5Sum().hash(decode.getOrginalPhotoURL().split("/")[3]).equals(QueueSumsList.get(i))){
+						this.found = true;
+					}
+					logger.Log("Scanning post: " + new MD5Sum().hash(decode.getOrginalPhotoURL().split("/")[3]) + ":" + QueueSumsList.get(i), 0, false);
+				} else {
+					if(new MD5Sum().hash(decode.getOrginalPhotoURL()).equals(QueueSumsList.get(i))){
+						this.found = true;
+					}
+					logger.Log("Scanning post: " + new MD5Sum().hash(decode.getOrginalPhotoURL()) + ":" + QueueSumsList.get(i), 0, false);
+				}
 			}
-		}
-
-		// If Video
-		if (type.equals("video")) {
-			if (new QueueCheckVideo(id, blog_name).found) {
-
-				// Found The Post!
-				found = true;
+			
+			//If Quote Post
+			if(decode.getPostType().equals("quote")){
+				if(new MD5Sum().hash(decode.getPostQuoteText()).equals(QueueSumsList.get(i))){
+					this.found = true;
+				}
+				logger.Log("Scanning post: " + new MD5Sum().hash(decode.getPostQuoteText()) + ":" + QueueSumsList.get(i), 0, false);
 			}
-		}
-
-		// If Audio
-		if (type.equals("audio")) {
-			if (new QueueCheckAudio(id, blog_name).found) {
-
-				// Found The Post!
-				found = true;
+			
+			//If text post
+			if(decode.getPostType().equals("text")){
+				if(new MD5Sum().hash(decode.getPostTextBody()).equals(QueueSumsList.get(i))){
+					this.found = true;
+				}
+				logger.Log("Scanning post: " + new MD5Sum().hash(decode.getPostTextBody()) + ":" + QueueSumsList.get(i), 0, false);
 			}
-		}
-
-		// If Audio
-		if (type.equals("chat")) {
-			if (new QueueCheckChat(id, blog_name).found) {
-
-				// Found The Post!
-				found = true;
+			
+			//if video post
+			if(decode.getPostType().equals("video")){
+				if(new MD5Sum().hash(decode.getReblogComment()).equals(QueueSumsList.get(i))){
+					this.found = true;
+				}
+				logger.Log("Scanning post: " + new MD5Sum().hash(decode.getReblogComment()) + ":" + QueueSumsList.get(i), 0, false);
 			}
+			
 		}
-
 	}
-
 }

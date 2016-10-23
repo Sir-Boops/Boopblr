@@ -48,7 +48,7 @@
         <dependency>
             <groupId>pw.frgl.jumblr</groupId>
             <artifactId>Jumblr</artifactId>
-            <version>1.0.3</version>
+            <version>1.0.4</version>
         </dependency>
     </dependencies>
 

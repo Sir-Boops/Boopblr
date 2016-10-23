@@ -20,8 +20,8 @@ import me.boops.parsers.UrlToUsable;
 public class GetAllNotes {
 	
 	private boolean error;
-	private List<String> pub_names;
-	private List<Long> pub_ids;
+	private List<String> pub_names = new ArrayList<String>();
+	private List<Long> pub_ids = new ArrayList<Long>();
 	
 	public List<String> getPublicNames(){
 		return this.pub_names;

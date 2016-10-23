@@ -2,6 +2,12 @@ Boopblr - 3.6.2
   * Updated Jumblr Version
   * Fixed a crash when trying follow a post link with a slug
   * Moved post queuing over to jumblr
+  * Fixed photo check loops
+  * Fixed get all tags loop
+  * Fixed tags just being broadcasted
+  * Fixed a crash with getallnotes
+  * Removed The Force sum option it's now on by default
+  * Reworked how queue scanning works. It's way simpler now!
 
 Boopblr - 3.6.1
   * Fixed the tag blacklist not always being followed

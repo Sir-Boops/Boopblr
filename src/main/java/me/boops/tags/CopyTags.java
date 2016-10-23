@@ -16,7 +16,7 @@ public class CopyTags {
 		return this.tags;
 	}
 
-	public void Copy(List<String> tags) throws Exception {
+	public void Copy(List<String> tags) {
 		
 		//Define needed classes
 		Config Conf = new Config();

@@ -10,7 +10,7 @@ import me.boops.tags.WhiteTags;
 
 public class FindPost {
 
-	public FindPost() throws Exception {
+	public FindPost() {
 		
 		//Define needed classes
 		Config Conf = new Config();
@@ -32,6 +32,14 @@ public class FindPost {
 			if (RandPost.getBlogName().toLowerCase().equals(Conf.getBlogName())) {
 				logger.Log("Dam Found My Own Post", 0, false);
 				return;
+			}
+			
+			// Check To See If we should check the queue
+			if (Conf.getCheckQueue()) {
+				if (new QueueCheck(RandPost.getID(), RandPost.getBlogName()).found) {
+					logger.Log("Dam Post Is Already In Queue", 0, false);
+					return;
+				}
 			}
 
 			// Check If We Should Check Black Tags
@@ -69,14 +77,6 @@ public class FindPost {
 							return;
 						}
 					}
-				}
-			}
-
-			// Check To See If we should check the queue
-			if (Conf.getCheckQueue()) {
-				if (new QueueCheck(RandPost.getID(), RandPost.getBlogName(), RandPost.getPostType()).found) {
-					logger.Log("Dam Post Is Already In Queue", 0, false);
-					return;
 				}
 			}
 			

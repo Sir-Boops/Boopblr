@@ -2,10 +2,13 @@ package me.boops.cache;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
+
+import me.boops.logger.Logger;
 
 
 public class Config {
@@ -139,17 +142,24 @@ public class Config {
 		return this.debug_output;
 	}
 	
-	public Config() throws Exception {
-
-		// Read The Config File
-		BufferedReader br = new BufferedReader(new FileReader("config.json"));
+	public Config() {
+		
 		StringBuilder sb = new StringBuilder();
-		String line = br.readLine();
-		while (line != null) {
-			sb.append(line);
-			line = br.readLine();
+		
+		try{
+			
+			// Read The Config File
+			BufferedReader br = new BufferedReader(new FileReader("config.json"));
+			String line = br.readLine();
+			while (line != null) {
+				sb.append(line);
+				line = br.readLine();
+			}
+			br.close();
+			
+		} catch (IOException err){
+			new Logger().Log("Error Reading Config File", 1, false);
 		}
-		br.close();
 
 		// Parse The Config File
 		JSONObject config = new JSONObject(sb.toString());

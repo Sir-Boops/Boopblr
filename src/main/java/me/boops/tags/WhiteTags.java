@@ -7,7 +7,7 @@ import me.boops.cache.Config;
 public class WhiteTags {
 	
 	// Check if the tags contain spefic tags
-	public boolean Check(List<String> tag_list) throws Exception {
+	public boolean Check(List<String> tag_list) {
 		
 		//Define needed classes
 		Config Conf = new Config();

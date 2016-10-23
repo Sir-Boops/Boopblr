@@ -22,7 +22,7 @@ public class GetAllTags {
 		return this.post_tags;
 	}
 	
-	public void getAllTags(String blog_name, long post_id) throws Exception {
+	public void getAllTags(String blog_name, long post_id) {
 		
 		//Define needed classes
 		Config Conf = new Config();
@@ -31,7 +31,11 @@ public class GetAllTags {
 		BlogPosts post = new BlogPosts(Conf.getCustomerKey(), Conf.getCustomerSecret(), Conf.getToken(), Conf.getTokenSecret());
 		
 		//Get all the notes
-		getAllNotes.Get(post_id, blog_name);
+		try {
+			getAllNotes.Get(post_id, blog_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		//Update The List For This Check
 		if(getAllNotes.ifError()){
@@ -39,17 +43,16 @@ public class GetAllTags {
 			return;
 		}
 
-		int runs = 0;
 		int tagged_users = 0;
 		List<String> post_tags = new ArrayList<String>();
-
-		while (runs < getAllNotes.getPublicNames().size() && tagged_users < Conf.getMinTags()) {
+		
+		for(int i=0; getAllNotes.getPublicNames().size()>i && tagged_users < Conf.getMinTags(); i++){
 			
 			//Find the post
-			post.setPostID(getAllNotes.GetPublicIDs().get(runs));
-			post.getPosts(getAllNotes.getPublicNames().get(runs));
+			post.setPostID(getAllNotes.GetPublicIDs().get(i));
+			post.getPosts(getAllNotes.getPublicNames().get(i));
 			
-			new Logger().Log("Getting Tags From: " + getAllNotes.getPublicNames().get(runs), 0, false);
+			new Logger().Log("Getting Tags From: " + getAllNotes.getPublicNames().get(i), 0, false);
 			
 			//Check HTTP Code
 			if(post.getHTTPCode() == 200){
@@ -61,25 +64,14 @@ public class GetAllTags {
 				if(!decode.getPostTags().isEmpty()){
 					
 					//We Have Tags To Add!
-					int sub_runs = 0;
-					while(sub_runs < decode.getPostTags().size()){
-						
-						//Add To The Cache List
-						post_tags.add(decode.getPostTags().get(sub_runs));
-						sub_runs++;
+					for(int i2=0; decode.getPostTags().size()>i2; i2++){
+						post_tags.add(decode.getPostTags().get(i2));
 					}
-					
-					//For Max Amount Of Tags
-					tagged_users++;
 				}
-				
 			}
-			
-			//No Tags/Already Added For This Post
-			runs++;
 		}
 		
 		this.post_tags = post_tags;
-		System.out.println(this.post_tags);
+		new Logger().Log("Tags Found: " + this.post_tags, 0, false);
 	}
 }

@@ -6,7 +6,7 @@ import pw.frgl.jumblr.BlogReblogPost;
 
 public class QueuePost {
 
-	public QueuePost(long id, String key, String tags, String state) throws Exception {
+	public QueuePost(long id, String key, String tags, String state) {
 		
 		//Define needed classes
 		Config Conf = new Config();

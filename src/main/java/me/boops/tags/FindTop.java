@@ -11,7 +11,7 @@ public class FindTop {
 		return this.top_id;
 	}
 	
-	public void Search(Map <String, Integer> tag_usage, List<String> tag_list) throws Exception{
+	public void Search(Map <String, Integer> tag_usage, List<String> tag_list) {
 		
 		//Set Needed Ints
 		int top = 0;

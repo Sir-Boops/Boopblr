@@ -10,7 +10,7 @@ public class UserTags {
 		return this.tags;
 	}
 	
-	public void add(String tags) throws Exception{
+	public void add(String tags) {
 		
 		//Define needed classes
 		Config Conf = new Config();

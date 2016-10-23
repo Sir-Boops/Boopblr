@@ -8,14 +8,14 @@ import pw.frgl.jumblr.BlogInfo;
 
 public class Main {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		Config Conf = new Config();
 		Logger logger = new Logger();
 		logger.Log("Starting Boopblr Version " + Conf.getVersion(), 0, false);
 		MasterLoop();
 	}
 
-	static void MasterLoop() throws Exception {
+	private static void MasterLoop() {
 		
 		//Define needed classes
 		OnlineCheck onlineCheck = new OnlineCheck();
@@ -35,6 +35,7 @@ public class Main {
 					logger.Log("Welcome " + onlineCheck.getFancyName() + "! Please Wait While I Get Everything Ready", 0, false);
 					logger.Log("Updating Queue Count!", 0, false);
 					logger.Log("Currently " + blog.getQueueCount() + " Posts In Queue!", 0, false);
+					logger.Log("Building queue hash cache", 0, false);
 				} else {
 
 					// Not Online
@@ -52,7 +53,11 @@ public class Main {
 				} else {
 					logger.Log("Waiting " + Conf.getPostSpeed() + " Sec Before Trying Again", 0, false);
 					Thread.currentThread();
-					Thread.sleep(Conf.getPostSpeed() * 1000);
+					try {
+						Thread.sleep(Conf.getPostSpeed() * 1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 					logger.Log("Checking Queue Count", 0, false);
 					blog.getBlog(Conf.getBlogName());
 					logger.Log("Currently " + blog.getQueueCount() + " Posts In Queue!", 0, false);

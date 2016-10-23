@@ -53,7 +53,7 @@ public class APIGetRandPost {
 	// Class Gobal Settings
 	Random randgenerator = new Random();
 
-	public APIGetRandPost() throws Exception {
+	public APIGetRandPost() {
 
 		//Define needed classes
 		Config Conf = new Config();
@@ -68,16 +68,26 @@ public class APIGetRandPost {
 		String url = "https://api.tumblr.com/v2/user/dashboard?offset=" + randgenerator.nextInt(500);
 		HttpClient client = HttpClients.custom().setSSLHostnameVerifier(new NoopHostnameVerifier()).build();
 		HttpGet get = new HttpGet(url);
+		HttpResponse res = null;
 
 		// Sign And Send The Request
-		consumer.sign(get);
-		HttpResponse res = client.execute(get);
+		try {
+			consumer.sign(get);
+			res = client.execute(get);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		// Check The Reponce For Errors
 		if (res.getStatusLine().getStatusCode() >= 200 && res.getStatusLine().getStatusCode() < 300) {
 
 			// Parse The Response
-			String res_string = new BasicResponseHandler().handleResponse(res);
+			String res_string = null;
+			try {
+				res_string = new BasicResponseHandler().handleResponse(res);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			JSONObject json_res = new JSONObject(res_string);
 			JSONArray posts = json_res.getJSONObject("response").getJSONArray("posts");
 

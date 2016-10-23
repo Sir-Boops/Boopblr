@@ -16,7 +16,7 @@ public class OnlineCheck {
 		return this.isOnline;
 	}
 	
-	public void Check() throws Exception{
+	public void Check() {
 		
 		//Define needed classes
 		Config Conf = new Config();
