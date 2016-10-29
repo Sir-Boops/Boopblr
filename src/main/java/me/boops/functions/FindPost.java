@@ -1,5 +1,6 @@
 package me.boops.functions;
 
+import me.boops.cache.Cache;
 import me.boops.cache.Config;
 import me.boops.functions.api.APIGetRandPost;
 import me.boops.logger.Logger;
@@ -18,6 +19,7 @@ public class FindPost {
 		APIGetRandPost RandPost = new APIGetRandPost();
 		GetAllTags getAllTags = new GetAllTags();
 		CopyTags TagCopy = new CopyTags();
+		QueueCheck Queue = new QueueCheck();
 		
 		//Check To Make Sure We Got A Post
 		if(RandPost.getID() > 0){
@@ -36,10 +38,12 @@ public class FindPost {
 			
 			// Check To See If we should check the queue
 			if (Conf.getCheckQueue()) {
-				if (new QueueCheck(RandPost.getID(), RandPost.getBlogName()).found) {
+				Queue.Check(RandPost.getID(), RandPost.getBlogName());
+				if (Queue.isInQueue()) {
 					logger.Log("Dam Post Is Already In Queue", 0, false);
 					return;
 				}
+				logger.Log("Post was not found in queue", 0, false);
 			}
 
 			// Check If We Should Check Black Tags
@@ -92,6 +96,7 @@ public class FindPost {
 			// Since All THe Above Have Passed We Can Now Post It!
 			logger.Log("Queuing " + RandPost.getShortURL() + " From: " + RandPost.getBlogName(), 0, false);
 			new QueuePost(RandPost.getID(), RandPost.getReblogKey(), TagCopy.getTags(), "queue");
+			Cache.QueueHashes.add(Cache.CurrentPostHash);
 			//Done This Loop!
 			return;
 		} else {

@@ -35,7 +35,7 @@ public class Config {
 	private List<String> user_tags = new ArrayList<String>();
 	private int note_depth;
 	private int min_tags;
-	private boolean force_sum;
+	private int hash_life;
 	private boolean add_tags;
 	private int add_tags_depth;
 	private boolean debug_output;
@@ -126,8 +126,8 @@ public class Config {
 		return this.min_tags;
 	}
 	
-	public boolean getForceSum(){
-		return this.force_sum;
+	public int getHashLife(){
+		return this.hash_life;
 	}
 	
 	public boolean getAddTags(){
@@ -175,7 +175,7 @@ public class Config {
 		this.check_tags = config.getBoolean("check_tags");
 		this.force_tags = config.getBoolean("force_tags");
 		this.check_queue = config.getBoolean("queue_check");
-		this.force_sum = config.getBoolean("force_sum");
+		this.hash_life = config.getInt("hash_life");
 		this.add_tags = config.getBoolean("add_tags");
 		this.spider_tags = config.getBoolean("spider_tags");
 		this.debug_output = config.getBoolean("debug_output");

@@ -8,6 +8,11 @@ Boopblr - 3.6.2
   * Fixed a crash with getallnotes
   * Removed The Force sum option it's now on by default
   * Reworked how queue scanning works. It's way simpler now!
+  * Added Queue Sum Caching!
+  * Fixed a bug in photo queue checking
+  * Added the hash_life option
+  * Fixed the stopping while hashing bug
+  * Fixed a ram eating bug
 
 Boopblr - 3.6.1
   * Fixed the tag blacklist not always being followed
