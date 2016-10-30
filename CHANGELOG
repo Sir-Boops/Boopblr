@@ -1,3 +1,7 @@
+Boopblr - 3.6.3
+  * Updated Jumblr Version
+  * Added an extra error check to updateQueue
+
 Boopblr - 3.6.2
   * Updated Jumblr Version
   * Fixed a crash when trying follow a post link with a slug
