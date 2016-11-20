@@ -1,6 +1,7 @@
 Boopblr - 3.6.3
   * Updated Jumblr Version
   * Added an extra error check to updateQueue
+  * Added BadPostID caching
 
 Boopblr - 3.6.2
   * Updated Jumblr Version

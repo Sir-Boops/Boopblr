@@ -4,7 +4,7 @@
     "token": "",
     "token_secret": "",
     "blog_name": "some-blog",
-    "post_speed": "60",
+    "post_speed": 60,
     "queue_size": 250,
     "check_tags": true,
     "force_tags": true,

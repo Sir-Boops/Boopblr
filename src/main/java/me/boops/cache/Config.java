@@ -39,6 +39,8 @@ public class Config {
 	private boolean add_tags;
 	private int add_tags_depth;
 	private boolean debug_output;
+	private boolean clean_bad_post_ids;
+	private int clean_bad_post_ids_time;
 	
 	//Set the vars to public
 	
@@ -142,6 +144,14 @@ public class Config {
 		return this.debug_output;
 	}
 	
+	public boolean getShouldCleanBadIDs(){
+		return this.clean_bad_post_ids;
+	}
+	
+	public int getBadIDCleanTime(){
+		return this.clean_bad_post_ids_time;
+	}
+	
 	public Config() {
 		
 		StringBuilder sb = new StringBuilder();
@@ -184,6 +194,8 @@ public class Config {
 		this.note_depth = config.getInt("note_depth");
 		this.min_tags = config.getInt("min_tags");
 		this.add_tags_depth = config.getInt("add_tags_depth");
+		this.clean_bad_post_ids = config.getBoolean("clean_bad_post_ids");
+		this.clean_bad_post_ids_time = config.getInt("clean_bad_post_ids_time");
 		for(int runs=0; config.getJSONArray("allowed_post_types").length()>runs; runs++){
 			this.post_types.add(config.getJSONArray("allowed_post_types").getString(runs));
 		}
