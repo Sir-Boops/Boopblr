@@ -1,7 +1,7 @@
 package me.boops.functions;
 
 import me.boops.cache.Config;
-import pw.frgl.jumblr.BlogInfo;
+import me.boops.jumblr.BlogInfo;
 
 public class OnlineCheck {
 	

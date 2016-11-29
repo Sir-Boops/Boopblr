@@ -1,8 +1,8 @@
 package me.boops.functions;
 
 import me.boops.cache.Config;
+import me.boops.jumblr.BlogReblogPost;
 import me.boops.logger.Logger;
-import pw.frgl.jumblr.BlogReblogPost;
 
 public class QueuePost {
 

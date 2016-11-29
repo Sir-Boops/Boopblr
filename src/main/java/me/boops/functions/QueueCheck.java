@@ -3,9 +3,9 @@ package me.boops.functions;
 import me.boops.cache.Cache;
 import me.boops.cache.Config;
 import me.boops.crypto.MD5Sum;
+import me.boops.jumblr.BlogPosts;
+import me.boops.jumblr.DecodePost;
 import me.boops.logger.Logger;
-import pw.frgl.jumblr.BlogPosts;
-import pw.frgl.jumblr.DecodePost;
 
 public class QueueCheck {
 

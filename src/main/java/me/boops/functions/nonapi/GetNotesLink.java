@@ -10,9 +10,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import me.boops.cache.Config;
+import me.boops.jumblr.BlogPosts;
+import me.boops.jumblr.DecodePost;
 import me.boops.logger.Logger;
-import pw.frgl.jumblr.BlogPosts;
-import pw.frgl.jumblr.DecodePost;
 
 public class GetNotesLink {
 

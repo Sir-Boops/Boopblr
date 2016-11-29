@@ -46,9 +46,9 @@
             <version>1.9.2</version>
         </dependency>
         <dependency>
-            <groupId>pw.frgl.jumblr</groupId>
+            <groupId>me.boops.jumblr</groupId>
             <artifactId>Jumblr</artifactId>
-            <version>1.0.5</version>
+            <version>1.0.6</version>
         </dependency>
     </dependencies>
 

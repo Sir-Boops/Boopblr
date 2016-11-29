@@ -18,6 +18,9 @@
     "add_tags": true,
     "add_tags_depth": 10,
     "debug_output": false,
+    "banned_photo_sums": [
+        "some md5 sum"
+    ],
     "tag_add_blacklist": [
         "queue"
     ],

@@ -20,6 +20,7 @@ public class FindPost {
 		GetAllTags getAllTags = new GetAllTags();
 		CopyTags TagCopy = new CopyTags();
 		QueueCheck Queue = new QueueCheck();
+		PostHashCheck hash = new PostHashCheck();
 
 		// Check To Make Sure We Got A Post
 		if (RandPost.getID() > 0) {
@@ -37,6 +38,15 @@ public class FindPost {
 					logger.Log("Dam Found My Own Post", 0, false);
 					Cache.BadPostIDs.add(RandPost.getID());
 					return;
+				}
+				
+				//Check to see if i've banned the photo
+				if(RandPost.getPostType().toLowerCase().equals("photo")){
+					if(hash.Check(RandPost.getBlogName(), RandPost.getID())){
+						logger.Log("Found a banned post...skipping!", 0, false);
+						Cache.BadPostIDs.add(RandPost.getID());
+						return;
+					}
 				}
 
 				// Check To See If we should check the queue

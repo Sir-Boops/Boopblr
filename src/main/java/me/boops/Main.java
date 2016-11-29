@@ -5,8 +5,8 @@ import me.boops.cache.Config;
 import me.boops.functions.FindPost;
 import me.boops.functions.OnlineCheck;
 import me.boops.functions.UpdateQueueCache;
+import me.boops.jumblr.BlogInfo;
 import me.boops.logger.Logger;
-import pw.frgl.jumblr.BlogInfo;
 
 public class Main {
 

@@ -3,10 +3,10 @@ package me.boops.functions;
 import me.boops.cache.Cache;
 import me.boops.cache.Config;
 import me.boops.crypto.MD5Sum;
+import me.boops.jumblr.BlogInfo;
+import me.boops.jumblr.BlogQueue;
+import me.boops.jumblr.DecodePost;
 import me.boops.logger.Logger;
-import pw.frgl.jumblr.BlogInfo;
-import pw.frgl.jumblr.BlogQueue;
-import pw.frgl.jumblr.DecodePost;
 
 public class UpdateQueueCache {
 	

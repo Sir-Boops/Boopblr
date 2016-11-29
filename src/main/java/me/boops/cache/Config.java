@@ -33,6 +33,7 @@ public class Config {
 	private List<String> whitelisted_tags = new ArrayList<String>();
 	private List<String> tag_add_blacklist = new ArrayList<String>();
 	private List<String> user_tags = new ArrayList<String>();
+	private List<String> banned_photo_sums = new ArrayList<String>();
 	private int note_depth;
 	private int min_tags;
 	private int hash_life;
@@ -114,6 +115,10 @@ public class Config {
 	
 	public List<String> getTagAddBlacklist(){
 		return this.tag_add_blacklist;
+	}
+	
+	public List<String> getBannedPhotoSums(){
+		return this.banned_photo_sums;
 	}
 	
 	public List<String> getUserTags(){
@@ -210,6 +215,9 @@ public class Config {
 		}
 		for(int runs=0; config.getJSONArray("tag_add_blacklist").length()>runs; runs++){
 			this.tag_add_blacklist.add(config.getJSONArray("tag_add_blacklist").getString(runs));
+		}
+		for(int runs=0; config.getJSONArray("banned_photo_sums").length()>runs; runs++){
+			this.banned_photo_sums.add(config.getJSONArray("banned_photo_sums").getString(runs));
 		}
 	}
 }
