@@ -2,6 +2,9 @@ Boopblr - 3.6.4
   * Added a null check to getRandPost
   * Updated Jumblr
   * Updated License link
+  * Added timeouts while getting notes
+  * Added a null check
+  * Made HTTP code checking more simplier
 
 Boopblr - 3.6.3
   * Updated Jumblr Version

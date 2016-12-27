@@ -79,39 +79,43 @@ public class APIGetRandPost {
 		}
 
 		// Check The Reponce For Errors
-		if (res.getStatusLine().getStatusCode() >= 200 && res.getStatusLine().getStatusCode() < 300 && res != null) {
-
-			// Parse The Response
-			String res_string = null;
-			try {
-				res_string = new BasicResponseHandler().handleResponse(res);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			JSONObject json_res = new JSONObject(res_string);
-			JSONArray posts = json_res.getJSONObject("response").getJSONArray("posts");
-
-			// Now Get A Random Post From That Offset
-			JSONObject post = posts.getJSONObject(randgenerator.nextInt(20));
-
-			// Get What We Need From The Post
-			this.blog_name = post.getString("blog_name");
-			this.type = post.getString("type");
-			this.reblog_key = post.getString("reblog_key");
-			this.short_url = post.getString("short_url");
-			this.id = post.getLong("id");
+		if(res != null){
 			
-			List<String> temp_tags = new ArrayList<String>();
-			
-			//Put The Tags Into A List
-			if(!post.isNull("tags")){
-				for(int runs=0; runs<post.getJSONArray("tags").length(); runs++){
-					temp_tags.add(post.getJSONArray("tags").getString(runs));
+			if (res.getStatusLine().getStatusCode() >= 200 && res.getStatusLine().getStatusCode() < 300) {
+
+				// Parse The Response
+				String res_string = null;
+				try {
+					res_string = new BasicResponseHandler().handleResponse(res);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
+				JSONObject json_res = new JSONObject(res_string);
+				JSONArray posts = json_res.getJSONObject("response").getJSONArray("posts");
+
+				// Now Get A Random Post From That Offset
+				JSONObject post = posts.getJSONObject(randgenerator.nextInt(20));
+
+				// Get What We Need From The Post
+				this.blog_name = post.getString("blog_name");
+				this.type = post.getString("type");
+				this.reblog_key = post.getString("reblog_key");
+				this.short_url = post.getString("short_url");
+				this.id = post.getLong("id");
+				
+				List<String> temp_tags = new ArrayList<String>();
+				
+				//Put The Tags Into A List
+				if(!post.isNull("tags")){
+					for(int runs=0; runs<post.getJSONArray("tags").length(); runs++){
+						temp_tags.add(post.getJSONArray("tags").getString(runs));
+					}
+				}
+				
+				//Set This Tags
+				this.tags = temp_tags;
 			}
 			
-			//Set This Tags
-			this.tags = temp_tags;
 		}
 	}
 }

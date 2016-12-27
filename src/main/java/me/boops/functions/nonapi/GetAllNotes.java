@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.impl.client.BasicResponseHandler;
@@ -48,17 +49,22 @@ public class GetAllNotes {
 			error = true;
 			return;
 		}
+		
+		//Setup Request Options
+		int TimeOutMilli = (10 * 1000);
+		RequestConfig requestConfig = RequestConfig.custom().setConnectionRequestTimeout(TimeOutMilli).setSocketTimeout(TimeOutMilli).setConnectTimeout(TimeOutMilli).build();
 
 		// Setup The Request
 		String url = Link.getAllNotesURL();
 		HttpClient client = HttpClients.custom().setSSLHostnameVerifier(new NoopHostnameVerifier()).build();
 		HttpGet get = new HttpGet(url);
+		get.setConfig(requestConfig);
 
 		// Send The Request
 		HttpResponse res = client.execute(get);
 
 		// Check It
-		if (res.getStatusLine().getStatusCode() < 199 || res.getStatusLine().getStatusCode() > 300) {
+		if (res.getStatusLine().getStatusCode() != 200) {
 			logger.Log("Error Getting All Notes", 2, true);
 			error = true;
 			return;
