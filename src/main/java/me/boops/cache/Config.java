@@ -14,7 +14,7 @@ import me.boops.logger.Logger;
 public class Config {
 	
 	//Define Strings
-	private String version = "3.6.3";
+	private String version = "3.6.4";
 	private String customer_key;
 	private String customer_secret;
 	private String token;

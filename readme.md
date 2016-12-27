@@ -23,4 +23,4 @@ Boopblr will then be built and saved in target/
 
 # License
 
-This program is licensed under the GNU GPL v3. You can read the license [here](https://git.frgl.pw/Sir_Boops/Boopblr/blob/master/LICENSE)
+This program is licensed under the GNU GPL v3. You can read the license [here](https://git.frgl.pw/Sir_Boops/Boopblr/src/master/LICENSE)

@@ -75,11 +75,11 @@ public class APIGetRandPost {
 			consumer.sign(get);
 			res = client.execute(get);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e);
 		}
 
 		// Check The Reponce For Errors
-		if (res.getStatusLine().getStatusCode() >= 200 && res.getStatusLine().getStatusCode() < 300) {
+		if (res.getStatusLine().getStatusCode() >= 200 && res.getStatusLine().getStatusCode() < 300 && res != null) {
 
 			// Parse The Response
 			String res_string = null;

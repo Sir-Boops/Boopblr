@@ -1,3 +1,8 @@
+Boopblr - 3.6.4
+  * Added a null check to getRandPost
+  * Updated Jumblr
+  * Updated License link
+
 Boopblr - 3.6.3
   * Updated Jumblr Version
   * Added an extra error check to updateQueue
