@@ -5,6 +5,7 @@ Boopblr - 3.6.4
   * Added timeouts while getting notes
   * Added a null check
   * Made HTTP code checking more simplier
+  * Added a few NULL checks
 
 Boopblr - 3.6.3
   * Updated Jumblr Version

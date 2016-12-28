@@ -37,6 +37,10 @@ public class UpdateQueueCache {
 					//Decode the post
 					decode.decode(queue.getPost(i2));
 					
+					if(decode.getPostType() == null){
+						logger.Log("A Null Post?", 0, false);
+					}
+					
 					//What to hash if it's an answer
 					if(decode.getPostType().equals("answer")){
 						Cache.QueueHashes.add(new MD5Sum().hash(decode.getReblogComment()));
