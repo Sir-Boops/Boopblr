@@ -13,8 +13,8 @@
             <releases>
                 <enabled>true</enabled>
             </releases>
-            <id>pw.frgl.cdn</id>
-            <url>https://cdn.frgl.pw/mvn</url>
+            <id>pw.frgl.mvn</id>
+            <url>https://mvn.frgl.pw/mvn/</url>
             <layout>default</layout>
         </repository>
     </repositories>
