@@ -1,5 +1,8 @@
 package me.boops;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import me.boops.cache.Cache;
 import me.boops.cache.Config;
 import me.boops.functions.FindPost;
@@ -9,15 +12,30 @@ import me.boops.jumblr.BlogInfo;
 import me.boops.logger.Logger;
 
 public class Main {
+	
+	private static ExecutorService executor = Executors.newSingleThreadExecutor();
 
 	public static void main(String[] args) {
 		Config Conf = new Config();
 		Logger logger = new Logger();
 		logger.Log("Starting Boopblr Version " + Conf.getVersion(), 0, false);
-		MasterLoop();
+		
+		// Start a thread for the master loop
+		
+		executor.submit(() -> {
+			while(true){
+				try {
+					MasterLoop();
+				} catch (Exception e){
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	private static void MasterLoop() {
+		
+		System.out.println(1/0);
 
 		// Define needed classes
 		OnlineCheck onlineCheck = new OnlineCheck();
