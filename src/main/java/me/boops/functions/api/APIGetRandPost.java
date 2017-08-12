@@ -7,7 +7,7 @@ import java.util.Random;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.DefaultHostnameVerifier;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.HttpClients;
 import org.json.JSONArray;
@@ -66,7 +66,7 @@ public class APIGetRandPost {
 
 		// Find The Post
 		String url = "https://api.tumblr.com/v2/user/dashboard?offset=" + randgenerator.nextInt(500);
-		HttpClient client = HttpClients.custom().setSSLHostnameVerifier(new NoopHostnameVerifier()).build();
+		HttpClient client = HttpClients.custom().setSSLHostnameVerifier(new DefaultHostnameVerifier()).build();
 		HttpGet get = new HttpGet(url);
 		HttpResponse res = null;
 
@@ -115,7 +115,6 @@ public class APIGetRandPost {
 				//Set This Tags
 				this.tags = temp_tags;
 			}
-			
 		}
 	}
 }

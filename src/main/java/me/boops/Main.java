@@ -27,15 +27,13 @@ public class Main {
 				try {
 					MasterLoop();
 				} catch (Exception e){
-					e.printStackTrace();
+					System.out.println(e);
 				}
 			}
 		});
 	}
 
-	private static void MasterLoop() {
-		
-		System.out.println(1/0);
+	private static void MasterLoop() throws Exception {
 
 		// Define needed classes
 		OnlineCheck onlineCheck = new OnlineCheck();
@@ -67,7 +65,7 @@ public class Main {
 
 					// Not Online
 					logger.Log("You Are Not Online", 2, false);
-					System.exit(1);
+					throw new Exception("Cannot connect to Tumblr!");
 				}
 			} else {
 				// If i have less then 250 Posts In Queue Add a new one every X
