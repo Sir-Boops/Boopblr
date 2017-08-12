@@ -1,3 +1,8 @@
+Boopblr - 4.0.0
+  * Bumped to Java 8
+  * Put the master loop in a thread the recovers on errors
+  * Removed a NoopHostnameVerifier
+
 Boopblr - 3.6.4
   * Added a null check to getRandPost
   * Updated Jumblr
