@@ -80,9 +80,10 @@ public class Main {
 						Cache.QueueHashes.clear();
 						cache.getQueueCache();
 						QueueCacheLife = 0;
+					} else {
+						CleanIDs();
+						new FindPost();
 					}
-					CleanIDs();
-					new FindPost();
 				} else {
 					logger.Log("Waiting " + Conf.getPostSpeed() + " Sec Before Trying Again", 0, false);
 					Thread.currentThread();
