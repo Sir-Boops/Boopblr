@@ -1,6 +1,6 @@
 package me.boops.logger;
 
-import me.boops.cache.Config;
+import me.boops.config.Config;
 
 public class Logger {
 	

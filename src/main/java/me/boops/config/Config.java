@@ -1,4 +1,4 @@
-package me.boops.cache;
+package me.boops.config;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
