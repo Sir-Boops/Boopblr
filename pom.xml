@@ -13,8 +13,8 @@
             <releases>
                 <enabled>true</enabled>
             </releases>
-            <id>pw.frgl.mvn</id>
-            <url>https://mvn.frgl.pw/mvn/</url>
+            <id>org.sergal.mvn</id>
+            <url>https://mvn.sergal.org/mvn/</url>
             <layout>default</layout>
         </repository>
     </repositories>
