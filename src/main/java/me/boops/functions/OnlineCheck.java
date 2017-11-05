@@ -1,38 +1,30 @@
 package me.boops.functions;
 
-import me.boops.cache.Config;
+import me.boops.cache.Cache;
+import me.boops.config.Config;
 import me.boops.jumblr.BlogInfo;
+import me.boops.logger.Logger;
 
 public class OnlineCheck {
 	
-	private String getFancyName;
-	private boolean isOnline;
-	
-	public String getFancyName(){
-		return this.getFancyName;
-	}
-	
-	public boolean isOnline(){
-		return this.isOnline;
-	}
-	
-	public void Check() {
+	public void amOnline() {
 		
-		//Define needed classes
-		Config Conf = new Config();
-		BlogInfo blog = new BlogInfo(Conf.getCustomerKey(), Conf.getCustomerSecret(), Conf.getToken(), Conf.getTokenSecret());
+		Config config = new Config();
 		
-		//Get Blog Info
-		blog.getBlog(Conf.getBlogName());
-		
-		//Check HTTP code
-		if(blog.getHTTPCode() == 200){
-			//We Got Tumblr
-			this.getFancyName = blog.getTitle();
-			this.isOnline = true;
-		} else {
-			this.isOnline = false;
+		try {
+			
+			BlogInfo info = new BlogInfo(config.getCustomerKey(), config.getCustomerSecret(), config.getToken(), config.getTokenSecret());
+			info.getBlog(config.getBlogName());
+			
+			new Logger().Log("Hello, " + info.getTitle(), false);
+			
+			// Set blog URL
+			Cache.blogURL = info.getBlogURL().split("/")[2];
+			
+		} catch(Exception e) {
+			
+			e.printStackTrace();
+			
 		}
 	}
-
 }

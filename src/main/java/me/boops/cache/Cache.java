@@ -5,12 +5,14 @@ import java.util.List;
 
 public class Cache {
 	
-	//Queue Caching
-	public static List<String> QueueHashes = new ArrayList<String>();
-	public static String CurrentPostHash = "";
+	public static boolean isInitalRun;
+	public static String blogURL;
 	
-	//Bad Post ID Caching
-	public static List<Long> BadPostIDs = new ArrayList<Long>();
-	public static Long lastClean;
+	public static List<String> reblogUsers = new ArrayList<String>();
+	public static List<Long> reblogIDs = new ArrayList<Long>();
 	
+	public static List<String> tags  = new ArrayList<String>();
+	
+	public static List<String> hashList = new ArrayList<String>();
+	public static long hashCacheAge;
 }
