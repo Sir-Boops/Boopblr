@@ -14,7 +14,7 @@ import me.boops.logger.Logger;
 public class Config {
 	
 	//Define Strings
-	private String version = "4.0.0";
+	private String version = "5.0.0";
 	private String customer_key;
 	private String customer_secret;
 	private String token;
@@ -37,11 +37,15 @@ public class Config {
 	private int note_depth;
 	private int min_tags;
 	private int hash_life;
+	private int dashLength;
 	private boolean add_tags;
 	private int add_tags_depth;
 	private boolean debug_output;
 	private boolean clean_bad_post_ids;
 	private int clean_bad_post_ids_time;
+	private boolean checkLikes;
+	private boolean scanNotes;
+	private int scanNotesDepth;
 	
 	//Set the vars to public
 	
@@ -157,6 +161,22 @@ public class Config {
 		return this.clean_bad_post_ids_time;
 	}
 	
+	public int getDashLength() {
+		return this.dashLength;
+	}
+	
+	public boolean getCheckLikes() {
+		return this.checkLikes;
+	}
+	
+	public boolean getScanNotes() {
+		return this.scanNotes;
+	}
+	
+	public int getScanNotesDepth() {
+		return this.scanNotesDepth;
+	}
+	
 	public Config() {
 		
 		StringBuilder sb = new StringBuilder();
@@ -173,7 +193,8 @@ public class Config {
 			br.close();
 			
 		} catch (IOException err){
-			new Logger().Log("Error Reading Config File", 1, false);
+			new Logger().Log("Error Reading Config File", false);
+			System.exit(0);
 		}
 
 		// Parse The Config File
@@ -201,6 +222,10 @@ public class Config {
 		this.add_tags_depth = config.getInt("add_tags_depth");
 		this.clean_bad_post_ids = config.getBoolean("clean_bad_post_ids");
 		this.clean_bad_post_ids_time = config.getInt("clean_bad_post_ids_time");
+		this.dashLength = config.getInt("dash_length");
+		this.checkLikes = config.getBoolean("check_likes");
+		this.scanNotes = config.getBoolean("scan_notes");
+		this.scanNotesDepth = config.getInt("scan_notes_depth");
 		for(int runs=0; config.getJSONArray("allowed_post_types").length()>runs; runs++){
 			this.post_types.add(config.getJSONArray("allowed_post_types").getString(runs));
 		}
