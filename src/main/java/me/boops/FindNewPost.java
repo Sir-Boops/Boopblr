@@ -59,10 +59,11 @@ public class FindNewPost {
 		post.decode(rawPost.toString());
 		
 		// Check if the postID is in the bad cache
-		if(Cache.badPostIDs.contains(post.getPostID())) {
-			// Nope
-			log.Log("Known bad post", false);
-			return;
+		for(int i = 0; i < Cache.badPostIDs.size(); i++) {
+			if(Cache.badPostIDs.get(i).equals(post.getPostID())) {
+				log.Log("Known bad post", false);
+				return;
+			}
 		}
 		
 		// Add this posts tags to the tag list
