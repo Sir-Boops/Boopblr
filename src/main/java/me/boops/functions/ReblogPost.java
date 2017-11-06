@@ -23,6 +23,7 @@ public class ReblogPost {
 			}
 		}
 		reblog.setPostTags(tags);
+		reblog.setPostState("queue");
 		reblog.Reblog(ID, Key, config.getBlogName());
 		
 		if(reblog.getHTTPCode() == 201) {
