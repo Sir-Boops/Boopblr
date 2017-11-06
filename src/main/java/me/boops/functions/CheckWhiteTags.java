@@ -12,17 +12,31 @@ public class CheckWhiteTags {
 		
 		for(int i = 0; i < Cache.tags.size(); i++) {
 			
-			// Check said tags
-			for(int i2 = 0; i2 < config.getWhitelistedTags().size(); i2++) {
-				if(Cache.tags.get(i).toLowerCase().contains(config.getWhitelistedTags().get(i2).toLowerCase())) {
-					whiteTagCount++;
+			// Check if it has spaces in it
+			if(Cache.tags.get(i).contains(" ")) {
+				// Split and run again
+				String[] splitTag = Cache.tags.get(i).split(" ");
+				for(int i2 = 0; i2 < splitTag.length; i2++) {
+					for(int i3 = 0; i3 < config.getWhitelistedTags().size(); i3++) {
+						if(splitTag[i2].equalsIgnoreCase(config.getWhitelistedTags().get(i3))) {
+							whiteTagCount++;
+						}
+					}
+				}
+			} else {
+				// Just run normally
+				for(int i2 = 0; i2 < config.getWhitelistedTags().size(); i2++) {
+					if(Cache.tags.get(i).equalsIgnoreCase(config.getWhitelistedTags().get(i2))) {
+						whiteTagCount++;
+					}
 				}
 			}
 		}
 		
-		double ans = (whiteTagCount / Cache.tags.size());
+		double ans = ((whiteTagCount / Cache.tags.size()) * 100);
 		
-		if(ans > 0) {
+		if(whiteTagCount > 0) {
+			System.out.println(ans);
 			System.exit(0);
 		}
 		return false;
