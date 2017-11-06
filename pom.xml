@@ -48,7 +48,7 @@
         <dependency>
             <groupId>me.boops.jumblr</groupId>
             <artifactId>Jumblr</artifactId>
-            <version>1.0.11</version>
+            <version>1.0.13</version>
         </dependency>
     </dependencies>
 

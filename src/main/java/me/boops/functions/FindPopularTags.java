@@ -44,8 +44,6 @@ public class FindPopularTags {
 			Cache.tagCount.remove(indexOf);
 			
 		}
-		
 		System.out.println(Cache.tagToAppend);
-		System.exit(0);
 	}
 }

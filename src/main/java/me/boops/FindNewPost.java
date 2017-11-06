@@ -15,7 +15,9 @@ import me.boops.functions.CheckWhiteTags;
 import me.boops.functions.FindPopularTags;
 import me.boops.functions.GetAllTags;
 import me.boops.functions.GetRandomPost;
+import me.boops.functions.LikeThePost;
 import me.boops.functions.QueueHash;
+import me.boops.functions.ReblogPost;
 import me.boops.jumblr.DecodePost;
 import me.boops.logger.Logger;
 import me.boops.nonapi.functions.GetAllNotes;
@@ -44,6 +46,7 @@ public class FindNewPost {
 		if((Cache.badPostIDsAge + 3600) <= (System.currentTimeMillis() / 1000)) {
 			// Clean the cache!
 			Cache.badPostIDs.clear();
+			Cache.badPostIDsAge = (System.currentTimeMillis() / 1000);
 		}
 		
 		// Get a post to check
@@ -159,7 +162,17 @@ public class FindNewPost {
 			}
 		}
 		
-		// Append tags
-		new FindPopularTags();
+		// Get the tags to use
+		if(config.getAddTags()) {
+			new FindPopularTags();
+		}
+		
+		// Like the post if we should
+		if(config.getAutoLike()) {
+			new LikeThePost(post.getPostID(), post.getReblogKey());
+		}
+		
+		// Reblog the post
+		new ReblogPost(post.getPostID(), post.getReblogKey());
 	}
 }

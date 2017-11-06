@@ -46,6 +46,7 @@ public class Config {
 	private boolean checkLikes;
 	private boolean scanNotes;
 	private int scanNotesDepth;
+	private boolean autoLike;
 	
 	//Set the vars to public
 	
@@ -177,6 +178,10 @@ public class Config {
 		return this.scanNotesDepth;
 	}
 	
+	public boolean getAutoLike() {
+		return this.autoLike;
+	}
+	
 	public Config() {
 		
 		StringBuilder sb = new StringBuilder();
@@ -226,6 +231,7 @@ public class Config {
 		this.checkLikes = config.getBoolean("check_likes");
 		this.scanNotes = config.getBoolean("scan_notes");
 		this.scanNotesDepth = config.getInt("scan_notes_depth");
+		this.autoLike = config.getBoolean("auto_like");
 		for(int runs=0; config.getJSONArray("allowed_post_types").length()>runs; runs++){
 			this.post_types.add(config.getJSONArray("allowed_post_types").getString(runs));
 		}
