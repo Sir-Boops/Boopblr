@@ -23,6 +23,11 @@ public class FindNewPost {
 	
 	public FindNewPost() throws Exception {
 		
+		// Clean the cache
+		Cache.reblogUsers.clear();
+		Cache.reblogIDs.clear();
+		Cache.tags.clear();
+		
 		// Load the config and random
 		// And the logger
 		Config config = new Config();
