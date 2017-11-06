@@ -13,6 +13,10 @@ public class Cache {
 	
 	public static List<String> tags  = new ArrayList<String>();
 	
+	public static List<String> tagList = new ArrayList<String>();
+	public static List<Integer> tagCount = new ArrayList<Integer>();
+	public static List<String> tagToAppend = new ArrayList<String>();
+	
 	public static List<String> hashList = new ArrayList<String>();
 	public static long hashCacheAge;
 }

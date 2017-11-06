@@ -12,6 +12,7 @@ import me.boops.functions.CheckBlackTags;
 import me.boops.functions.CheckForPastReblog;
 import me.boops.functions.CheckPostType;
 import me.boops.functions.CheckWhiteTags;
+import me.boops.functions.FindPopularTags;
 import me.boops.functions.GetAllTags;
 import me.boops.functions.GetRandomPost;
 import me.boops.functions.QueueHash;
@@ -121,7 +122,6 @@ public class FindNewPost {
 				if(new CheckWhiteTags().check()) {
 					// Found a post to queue!
 					System.out.println(post.getShortSourceURL());
-					System.exit(0);
 				} else {
 					log.Log("Not enough white tags", false);
 					return;
@@ -131,5 +131,8 @@ public class FindNewPost {
 				return;
 			}
 		}
+		
+		// Append tags
+		new FindPopularTags();
 	}
 }
