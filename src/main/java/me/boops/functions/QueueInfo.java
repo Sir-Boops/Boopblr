@@ -10,6 +10,7 @@ public class QueueInfo {
 		Config config = new Config();
 		
 		BlogInfo info = new BlogInfo(config.getCustomerKey(), config.getCustomerSecret(), config.getToken(), config.getTokenSecret());
+		info.getBlog(config.getBlogName());
 		return info.getQueueCount();
 		
 	}

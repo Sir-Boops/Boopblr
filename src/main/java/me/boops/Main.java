@@ -6,7 +6,6 @@ import java.util.concurrent.Executors;
 import me.boops.cache.Cache;
 import me.boops.config.Config;
 import me.boops.functions.OnlineCheck;
-import me.boops.functions.QueueHash;
 import me.boops.functions.QueueInfo;
 import me.boops.logger.Logger;
 
@@ -56,7 +55,7 @@ public class Main {
 		// Check the current queue count to see if we need to run or not
 		int queueCount = new QueueInfo().getQueueCount();
 		
-		if(queueCount < config.getQueueSize()) {
+		if(queueCount <= config.getQueueSize()) {
 			
 			// First make sure the queue hash cache is still good
 			//new QueueHash().updateCache();
