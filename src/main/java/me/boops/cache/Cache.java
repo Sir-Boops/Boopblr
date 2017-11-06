@@ -22,4 +22,6 @@ public class Cache {
 	
 	public static List<Long> badPostIDs = new ArrayList<Long>();
 	public static long badPostIDsAge;
+	
+	public static int lastPost;
 }

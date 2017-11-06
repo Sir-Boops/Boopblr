@@ -2,10 +2,10 @@ package me.boops.functions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.json.JSONObject;
 
+import me.boops.cache.Cache;
 import me.boops.config.Config;
 import me.boops.jumblr.BlogDash;
 
@@ -15,13 +15,18 @@ public class GetRandomPost {
 	
 	public List<JSONObject> getPosts(){
 		
-		// Load random and config
-		Random rand = new Random();
+		// Load the config
 		Config config = new Config();
+		
+		System.out.println(Cache.lastPost);
+		
+		if(Cache.lastPost >= config.getDashLength()) {
+			Cache.lastPost = 0;
+		}
 		
 		// Get some posts from the dash
 		BlogDash dash = new BlogDash(config.getCustomerKey(), config.getCustomerSecret(), config.getToken(), config.getTokenSecret());
-		dash.setRequestOffset(rand.nextInt(config.getDashLength()));
+		dash.setRequestOffset(Cache.lastPost);
 		
 		if(config.getPostTypes().size() > 1) {
 			
@@ -50,6 +55,7 @@ public class GetRandomPost {
 			}
 		}
 		
+		Cache.lastPost++;
 		return this.postList;
 		
 	}

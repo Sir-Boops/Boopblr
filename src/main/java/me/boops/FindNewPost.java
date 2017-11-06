@@ -1,7 +1,6 @@
 package me.boops;
 
 import java.util.List;
-import java.util.Random;
 
 import org.json.JSONObject;
 
@@ -34,7 +33,6 @@ public class FindNewPost {
 		// Load the config and random
 		// And the logger
 		Config config = new Config();
-		Random rand = new Random();
 		Logger log = new Logger();
 		
 		// Check the bad post cache age
@@ -54,7 +52,7 @@ public class FindNewPost {
 		List<JSONObject> posts = postList.getPosts();
 		
 		// Save the post in it's raw JSON form
-		JSONObject rawPost = posts.get(rand.nextInt(posts.size()));
+		JSONObject rawPost = posts.get(0);
 		
 		// Decode the post
 		DecodePost post = new DecodePost();

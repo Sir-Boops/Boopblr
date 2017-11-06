@@ -19,6 +19,7 @@ public class Main {
 		Logger logger = new Logger();
 		Cache.hashCacheAge = 0;
 		Cache.badPostIDsAge = 0;
+		Cache.lastPost = 0;
 		Cache.isInitalRun = true;
 		logger.Log("Starting Boopblr Version " + Conf.getVersion(), false);
 		
