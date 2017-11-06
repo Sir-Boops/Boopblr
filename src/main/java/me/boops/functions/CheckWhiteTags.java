@@ -33,11 +33,11 @@ public class CheckWhiteTags {
 			}
 		}
 		
-		double ans = ((whiteTagCount / Cache.tags.size()) * 100);
+		float ans = (100*whiteTagCount / Cache.tags.size());
 		
-		if(whiteTagCount > 0) {
+		if(ans >= config.getWhiteDepth()) {
 			System.out.println(ans);
-			System.exit(0);
+			return true;
 		}
 		return false;
 	}

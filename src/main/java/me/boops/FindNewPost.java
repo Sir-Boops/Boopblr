@@ -113,8 +113,14 @@ public class FindNewPost {
 			if(!new CheckBlackTags().check()) {
 				// We are good
 				// Now check whitelist
-				new CheckWhiteTags().check();
-				return;
+				if(new CheckWhiteTags().check()) {
+					// Found a post to queue!
+					System.out.println(post.getShortSourceURL());
+					System.exit(0);
+				} else {
+					log.Log("Not enough white tags", false);
+					return;
+				}
 			} else {
 				log.Log("Found a blacklisted tag", false);
 				return;
