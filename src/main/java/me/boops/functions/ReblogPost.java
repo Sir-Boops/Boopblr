@@ -25,7 +25,7 @@ public class ReblogPost {
 		reblog.setPostTags(tags);
 		reblog.Reblog(ID, Key, config.getBlogName());
 		
-		if(reblog.getHTTPCode() >= 200) {
+		if(reblog.getHTTPCode() == 201) {
 			log.Log("Queued the post", false);
 		} else {
 			log.Log("Error queuing the post", false);

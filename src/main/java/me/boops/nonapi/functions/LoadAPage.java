@@ -10,6 +10,8 @@ public class LoadAPage {
 	public String load(URL url) throws Exception {
 		
 		URLConnection conn = url.openConnection();
+		conn.setReadTimeout(10 * 1000);
+		conn.setConnectTimeout(10 * 1000);
 		conn.connect();
 		
 		BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
