@@ -26,7 +26,8 @@ public class GetRandomPost {
 		
 		// Get some posts from the dash
 		BlogDash dash = new BlogDash(config.getCustomerKey(), config.getCustomerSecret(), config.getToken(), config.getTokenSecret());
-		dash.setRequestOffset(Cache.lastPost);
+		dash.setRequestSince(Cache.lastPost);
+		dash.setRequestOffset(-1);
 		dash.setRequestLimit(1);
 		dash.setRequestPostType("");
 		dash.getPosts();
