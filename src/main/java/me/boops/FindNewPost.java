@@ -86,6 +86,11 @@ public class FindNewPost {
 		// Check to see if we should ...
 		// Check to see if we've already reblogged this once
 		
+		if(config.getBlogName().equalsIgnoreCase(post.getBlogName())) {
+			log.Log("You reblogged this", false);
+			return;
+		}
+		
 		if(config.getScanNotes()) {	
 			new GetAllNotes(post.getBlogName(), post.getPostID());
 			CheckForPastReblog reblog = new CheckForPastReblog();
