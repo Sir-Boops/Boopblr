@@ -7,7 +7,7 @@ import me.boops.jumblr.DecodePost;
 
 public class GetAllTags {
 	
-	public GetAllTags() {
+	public GetAllTags() throws Exception {
 		
 		// Load the config
 		Config config = new Config();
@@ -45,6 +45,9 @@ public class GetAllTags {
 				}
 				
 			} else {
+				while(checkGroup.activeCount() > 0) {
+					Thread.sleep(1 * 1000);
+				}
 				done = true;
 			}
 		}
