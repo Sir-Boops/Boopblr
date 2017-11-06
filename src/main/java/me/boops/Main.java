@@ -55,6 +55,8 @@ public class Main {
 		// Check the current queue count to see if we need to run or not
 		int queueCount = new QueueInfo().getQueueCount();
 		
+		System.out.println(queueCount);
+		
 		if(queueCount <= config.getQueueSize()) {
 			
 			// First make sure the queue hash cache is still good
