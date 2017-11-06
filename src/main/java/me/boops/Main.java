@@ -55,7 +55,7 @@ public class Main {
 		// Check the current queue count to see if we need to run or not
 		int queueCount = new QueueInfo().getQueueCount();
 		
-		System.out.println(queueCount);
+		System.out.println("Current Queue count: " +  queueCount);
 		
 		if(queueCount <= config.getQueueSize()) {
 			
@@ -64,6 +64,10 @@ public class Main {
 			
 			// Try and queue a new post
 			new FindNewPost();
+			
+		} else {
+			
+			Thread.sleep(10 * 1000);
 			
 		}
 		
