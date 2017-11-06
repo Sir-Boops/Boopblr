@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 import me.boops.cache.Cache;
 import me.boops.config.Config;
 import me.boops.functions.OnlineCheck;
+import me.boops.functions.QueueHash;
 import me.boops.functions.QueueInfo;
 import me.boops.logger.Logger;
 
@@ -57,7 +58,7 @@ public class Main {
 		if(queueCount < config.getQueueSize()) {
 			
 			// First make sure the queue hash cache is still good
-			//new QueueHash();
+			new QueueHash();
 			
 			// Try and queue a new post
 			new FindNewPost();
