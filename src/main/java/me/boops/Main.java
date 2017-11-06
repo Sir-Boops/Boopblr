@@ -57,7 +57,7 @@ public class Main {
 		
 		System.out.println("Current Queue count: " +  queueCount);
 		
-		if(queueCount <= config.getQueueSize()) {
+		if(queueCount < config.getQueueSize()) {
 			
 			// First make sure the queue hash cache is still good
 			//new QueueHash().updateCache();
