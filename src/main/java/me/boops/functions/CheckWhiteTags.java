@@ -22,8 +22,9 @@ public class CheckWhiteTags {
 		
 		double ans = (whiteTagCount / Cache.tags.size());
 		
-		System.out.println(ans);
-		System.exit(0);
+		if(ans > 0) {
+			System.exit(0);
+		}
 		return false;
 	}
 }
