@@ -35,6 +35,17 @@ public class FindNewPost {
 		Random rand = new Random();
 		Logger log = new Logger();
 		
+		// Check the bad post cache age
+		if(Cache.badPostIDsAge == 0) {
+			// First run!
+			Cache.badPostIDsAge = (System.currentTimeMillis() / 1000);
+		}
+		
+		if((Cache.badPostIDsAge + 3600) <= (System.currentTimeMillis() / 1000)) {
+			// Clean the cache!
+			Cache.badPostIDs.clear();
+		}
+		
 		// Get a post to check
 		GetRandomPost postList = new GetRandomPost();
 		List<JSONObject> posts = postList.getPosts();
@@ -45,6 +56,13 @@ public class FindNewPost {
 		// Decode the post
 		DecodePost post = new DecodePost();
 		post.decode(rawPost.toString());
+		
+		// Check if the postID is in the bad cache
+		if(Cache.badPostIDs.contains(post.getPostID())) {
+			// Nope
+			log.Log("Known bad post", false);
+			return;
+		}
 		
 		// Add this posts tags to the tag list
 		// If it has any
@@ -59,6 +77,8 @@ public class FindNewPost {
 			log.Log("Checking if post is liked", false);
 			if(post.isPostLiked()) {
 				log.Log("Already liked the post, Trying for a new one", false);
+				Cache.badPostIDs.add(post.getPostID());
+				return;
 			} else {
 				log.Log("Post has not been liked", false);
 			}
@@ -70,6 +90,7 @@ public class FindNewPost {
 			log.Log("Proper Post type!", false);
 		} else {
 			log.Log("Incorrect post type", false);
+			Cache.badPostIDs.add(post.getPostID());
 			return;
 		}
 		
@@ -78,6 +99,7 @@ public class FindNewPost {
 		if(config.getCheckQueue()) {
 			if(Cache.hashList.contains(new QueueHash().hashPost(rawPost))) {
 				log.Log("Post already in queue", false);
+				Cache.badPostIDs.add(post.getPostID());
 				return;
 			} else {
 				log.Log("Post is not yet in queue", false);
@@ -89,6 +111,7 @@ public class FindNewPost {
 		
 		if(config.getBlogName().equalsIgnoreCase(post.getBlogName())) {
 			log.Log("You reblogged this", false);
+			Cache.badPostIDs.add(post.getPostID());
 			return;
 		}
 		
@@ -97,6 +120,7 @@ public class FindNewPost {
 			CheckForPastReblog reblog = new CheckForPastReblog();
 			if(reblog.scan(Cache.reblogUsers)) {
 				log.Log("You reblogged this", false);
+				Cache.badPostIDs.add(post.getPostID());
 				return;
 			} else {
 				log.Log("You have not yet reblogged this", false);
@@ -108,6 +132,7 @@ public class FindNewPost {
 			new GetAllTags();
 			if(Cache.tags.size() < config.getMinTags()) {
 				log.Log("Not enough tags", false);
+				Cache.badPostIDs.add(post.getPostID());
 				return;
 			}
 			System.out.println(Cache.tags);
@@ -124,10 +149,12 @@ public class FindNewPost {
 					System.out.println(post.getShortSourceURL());
 				} else {
 					log.Log("Not enough white tags", false);
+					Cache.badPostIDs.add(post.getPostID());
 					return;
 				}
 			} else {
 				log.Log("Found a blacklisted tag", false);
+				Cache.badPostIDs.add(post.getPostID());
 				return;
 			}
 		}

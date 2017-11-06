@@ -2,7 +2,6 @@ package me.boops.functions;
 
 import java.util.List;
 
-import me.boops.cache.Cache;
 import me.boops.config.Config;
 import me.boops.logger.Logger;
 
@@ -17,8 +16,8 @@ public class CheckForPastReblog {
 		boolean ans = false;
 		
 		for (int i=0; i < users.size() && i < config.getScanNotesDepth() && !ans; i++) {
-			log.Log("Checking " + Cache.blogURL + " : " + users.get(i), true);
-			if(users.get(i).toLowerCase().equals(Cache.blogURL.toLowerCase())) {
+			log.Log("Checking " + config.getBlogName() + " : " + users.get(i), true);
+			if(users.get(i).equalsIgnoreCase(config.getBlogName())) {
 				ans = true;
 			}
 		}

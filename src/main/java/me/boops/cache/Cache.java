@@ -19,4 +19,7 @@ public class Cache {
 	
 	public static List<String> hashList = new ArrayList<String>();
 	public static long hashCacheAge;
+	
+	public static List<Long> badPostIDs = new ArrayList<Long>();
+	public static long badPostIDsAge;
 }
