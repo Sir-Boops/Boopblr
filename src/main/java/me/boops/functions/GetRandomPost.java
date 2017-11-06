@@ -27,33 +27,10 @@ public class GetRandomPost {
 		// Get some posts from the dash
 		BlogDash dash = new BlogDash(config.getCustomerKey(), config.getCustomerSecret(), config.getToken(), config.getTokenSecret());
 		dash.setRequestOffset(Cache.lastPost);
-		
-		if(config.getPostTypes().size() > 1) {
-			
-			for(int i=0; i <= config.getPostTypes().size(); i++) {
-				
-				dash.setRequestPostType(config.getPostTypes().get(i));
-				dash.getPosts();
-				
-				for (int i2=0; i2 < dash.getTumblrPosts().length(); i2++) {
-					
-					postList.add(dash.getTumblrPosts().getJSONObject(i2));
-					
-				}
-				
-			}
-			
-		} else {
-			
-			dash.setRequestPostType(config.getPostTypes().get(0));
-			dash.getPosts();
-			
-			for (int i=0; i < dash.getTumblrPosts().length(); i++) {
-				
-				postList.add(dash.getTumblrPosts().getJSONObject(i));
-				
-			}
-		}
+		dash.setRequestLimit(1);
+		dash.setRequestPostType("");
+		dash.getPosts();
+		postList.add(dash.getTumblrPosts().getJSONObject(0));
 		
 		Cache.lastPost++;
 		return this.postList;
