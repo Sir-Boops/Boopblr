@@ -20,7 +20,8 @@ public class FindPopularTags {
 				Cache.tagList.add(Cache.tags.get(i));
 				Cache.tagCount.add(1);
 			} else {
-				Cache.tagCount.set(Cache.tagList.indexOf(Cache.tags.get(i)), (Cache.tagCount.get(Cache.tagList.indexOf(Cache.tags.get(i))) + 1));
+				Cache.tagCount.set(Cache.tagList.indexOf(Cache.tags.get(i)),
+						(Cache.tagCount.get(Cache.tagList.indexOf(Cache.tags.get(i))) + 1));
 			}
 		}
 		

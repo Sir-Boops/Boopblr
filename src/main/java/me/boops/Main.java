@@ -58,7 +58,7 @@ public class Main {
 		if(queueCount < config.getQueueSize()) {
 			
 			// First make sure the queue hash cache is still good
-			new QueueHash();
+			new QueueHash().updateCache();
 			
 			// Try and queue a new post
 			new FindNewPost();
