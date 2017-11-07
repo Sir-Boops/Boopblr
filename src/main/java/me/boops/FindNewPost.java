@@ -5,9 +5,12 @@ import org.json.JSONObject;
 import me.boops.cache.Cache;
 import me.boops.config.Config;
 import me.boops.functions.BlackListCheck;
+import me.boops.functions.LikeAPost;
 import me.boops.functions.LoadNotes;
 import me.boops.functions.LoadTags;
 import me.boops.functions.PostFromDash;
+import me.boops.functions.PostFromGlobal;
+import me.boops.functions.WhiteListCheck;
 
 public class FindNewPost {
 
@@ -27,6 +30,7 @@ public class FindNewPost {
 			post = new PostFromDash().post();
 		} else {
 			// Using global tags!
+			post = new PostFromGlobal().post();
 		}
 		
 		System.out.println(post.getString("post_url"));
@@ -42,7 +46,7 @@ public class FindNewPost {
 		}
 
 		// Check if we can like/reblog the post
-		if (!post.getBoolean("can_reblog") || !post.getBoolean("can_like")) {
+		if (!post.has("reblog_key")) {
 			System.out.println("Cannot like or reblog this post!");
 			Cache.badPostIDs.add(post.getLong("id"));
 			return;
@@ -85,6 +89,8 @@ public class FindNewPost {
 		// Grab all the tags on the post
 		new LoadTags();
 		
+		System.out.println(Cache.tags);
+		
 		// Make sure we have enough tags
 		if(Cache.tags.size() < Config.minTags) {
 			System.out.println("Not enough tags!");
@@ -95,11 +101,21 @@ public class FindNewPost {
 		// Check for blacklisted tags
 		if(new BlackListCheck().Check()) {
 			System.out.println("Found a blacklisted tag!");
-			System.out.println(Cache.tags);
-			System.exit(0);
 			Cache.badPostIDs.add(post.getLong("id"));
 			return;
 		}
+		
+		// Try and find enough whitelisted tags
+		if(!new WhiteListCheck().Check()) {
+			System.out.println("Not enough whitelisted tags");
+			Cache.badPostIDs.add(post.getLong("id"));
+			return;
+		}
+		
+		// Order the tags by most popular
+		
+		// Like the post
+		new LikeAPost(post.getString("reblog_key"), post.getLong("id"));
 		
 		System.out.println(Cache.tags);
 		System.out.println(Cache.tags.size());

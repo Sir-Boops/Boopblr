@@ -42,6 +42,15 @@ public class Main {
 		// Load current blog info
 		new CurrentBlogInfo();
 		
+		// Clean the cache
+		Cache.reblogUsers.clear();
+		Cache.likeUsers.clear();
+		Cache.reblogIDs.clear();
+		Cache.tags.clear();
+		Cache.tagList.clear();
+		Cache.tagCount.clear();
+		Cache.tagToAppend.clear();
+		
 		// Say Hello
 		if(Cache.isInitalRun) {
 			System.out.println("Hello, " + CurrentBlogInfo.blogTitle);

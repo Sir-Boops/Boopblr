@@ -43,5 +43,8 @@ public class LoadTags {
 				Thread.sleep(1 * 1000);
 			}
 		}
+		while(loadGroup.activeCount() > 0) {
+			Thread.sleep(1 * 1000);
+		}
 	}
 }
