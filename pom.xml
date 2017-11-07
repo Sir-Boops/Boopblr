@@ -2,29 +2,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.boops</groupId>
     <artifactId>Boopblr-V5</artifactId>
-    <version>5.0.0</version>
+    <version>5.1.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <repositories>
-        <repository>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <id>org.sergal.mvn</id>
-            <url>https://mvn.sergal.org/mvn/</url>
-            <layout>default</layout>
-        </repository>
-    </repositories>
-
     <dependencies>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5</version>
-        </dependency>
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
@@ -34,21 +18,6 @@
             <groupId>oauth.signpost</groupId>
             <artifactId>signpost-core</artifactId>
             <version>1.2.1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>oauth.signpost</groupId>
-            <artifactId>signpost-commonshttp4</artifactId>
-            <version>1.2.1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>me.boops.jumblr</groupId>
-            <artifactId>Jumblr</artifactId>
-            <version>1.0.14</version>
         </dependency>
     </dependencies>
 

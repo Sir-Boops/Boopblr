@@ -4,23 +4,24 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import me.boops.cache.Cache;
+import me.boops.cache.CurrentBlogInfo;
 import me.boops.config.Config;
-import me.boops.functions.OnlineCheck;
-import me.boops.functions.QueueInfo;
-import me.boops.logger.Logger;
 
 public class Main {
 	
 	private static ExecutorService executor = Executors.newSingleThreadExecutor();
 
 	public static void main(String[] args) {
-		Config Conf = new Config();
-		Logger logger = new Logger();
+		
+		// Load the config
+		new Config();
+		
+		// Init the Cache with base vars
 		Cache.hashCacheAge = 0;
 		Cache.badPostIDsAge = 0;
 		Cache.lastPost = 0;
+		Cache.lastTimeStamp = 0;
 		Cache.isInitalRun = true;
-		logger.Log("Starting Boopblr Version " + Conf.getVersion(), false);
 		
 		// Start a thread for the master loop
 		
@@ -38,38 +39,29 @@ public class Main {
 
 	private static void MasterLoop() throws Exception {
 		
-		// Load the config
-		Config config = new Config();
+		// Load current blog info
+		new CurrentBlogInfo();
 		
 		// Say Hello
 		if(Cache.isInitalRun) {
-			new OnlineCheck().amOnline();
+			System.out.println("Hello, " + CurrentBlogInfo.blogTitle);
 			Cache.isInitalRun = false;
 		}
 		
-		// Clear out the old tags
-		if(!Cache.tags.isEmpty()) {
-			Cache.tags.clear();
+		if((System.currentTimeMillis() / 1000) >= Cache.badPostIDsAge) {
+			Cache.badPostIDs.clear();
+			Cache.badPostIDsAge = ((System.currentTimeMillis() / 1000) + 3600);
 		}
 		
-		// Check the current queue count to see if we need to run or not
-		int queueCount = new QueueInfo().getQueueCount();
+		System.out.println("Current Queue count: " +  CurrentBlogInfo.queueCount);
 		
-		System.out.println("Current Queue count: " +  queueCount);
-		
-		if(queueCount < config.getQueueSize()) {
-			
-			// First make sure the queue hash cache is still good
-			//new QueueHash().updateCache();
+		if(CurrentBlogInfo.queueCount < 200) {
 			
 			// Try and queue a new post
 			new FindNewPost();
 			
 		} else {
-			
 			Thread.sleep(10 * 1000);
-			
 		}
-		
 	}
 }

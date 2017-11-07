@@ -8,179 +8,24 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import me.boops.logger.Logger;
-
 
 public class Config {
 	
 	//Define Strings
-	private String version = "5.0.0";
-	private String customer_key;
-	private String customer_secret;
-	private String token;
-	private String token_secret;
-	private String blog_name;
-	private int post_speed;
-	private int queue_size;
-	private boolean check_tags;
-	private boolean force_tags;
-	private boolean check_queue;
-	private boolean spider_tags;
-	private int black_depth;
-	private int white_depth;
-	private List<String> post_types = new ArrayList<String>();
-	private List<String> blacklisted_tags = new ArrayList<String>();
-	private List<String> whitelisted_tags = new ArrayList<String>();
-	private List<String> tag_add_blacklist = new ArrayList<String>();
-	private List<String> user_tags = new ArrayList<String>();
-	private List<String> banned_photo_sums = new ArrayList<String>();
-	private int note_depth;
-	private int min_tags;
-	private int hash_life;
-	private int dashLength;
-	private boolean add_tags;
-	private int add_tags_depth;
-	private boolean debug_output;
-	private boolean clean_bad_post_ids;
-	private int clean_bad_post_ids_time;
-	private boolean checkLikes;
-	private boolean scanNotes;
-	private int scanNotesDepth;
-	private boolean autoLike;
-	
-	//Set the vars to public
-	
-	public String getVersion(){
-		return this.version;
-	}
-	
-	public String getCustomerKey(){
-		return this.customer_key;
-	}
-	
-	public String getCustomerSecret(){
-		return this.customer_secret;
-	}
-	
-	public String getToken(){
-		return this.token;
-	}
-	
-	public String getTokenSecret(){
-		return this.token_secret;
-	}
-	
-	public String getBlogName(){
-		return this.blog_name;
-	}
-	
-	public int getPostSpeed(){
-		return this.post_speed;
-	}
-	
-	public int getQueueSize(){
-		return this.queue_size;
-	}
-	
-	public boolean getCheckTags(){
-		return this.check_tags;
-	}
-	
-	public boolean getForceTags(){
-		return this.force_tags;
-	}
-	
-	public boolean getCheckQueue(){
-		return this.check_queue;
-	}
-	
-	public boolean getSpiderTags(){
-		return this.spider_tags;
-	}
-	
-	public int getBlackDepth(){
-		return this.black_depth;
-	}
-	
-	public int getWhiteDepth(){
-		return this.white_depth;
-	}
-	
-	public List<String> getPostTypes(){
-		return this.post_types;
-	}
-	
-	public List<String> getBlacklistedTags(){
-		return this.blacklisted_tags;
-	}
-	
-	public List<String> getWhitelistedTags(){
-		return this.whitelisted_tags;
-	}
-	
-	public List<String> getTagAddBlacklist(){
-		return this.tag_add_blacklist;
-	}
-	
-	public List<String> getBannedPhotoSums(){
-		return this.banned_photo_sums;
-	}
-	
-	public List<String> getUserTags(){
-		return this.user_tags;
-	}
-	
-	public int getNoteDepth(){
-		return this.note_depth;
-	}
-	
-	public int getMinTags(){
-		return this.min_tags;
-	}
-	
-	public int getHashLife(){
-		return this.hash_life;
-	}
-	
-	public boolean getAddTags(){
-		return this.add_tags;
-	}
-	
-	public int getAddTagsDepth(){
-		return this.add_tags_depth;
-	}
-	
-	public boolean getDebugOutput(){
-		return this.debug_output;
-	}
-	
-	public boolean getShouldCleanBadIDs(){
-		return this.clean_bad_post_ids;
-	}
-	
-	public int getBadIDCleanTime(){
-		return this.clean_bad_post_ids_time;
-	}
-	
-	public int getDashLength() {
-		return this.dashLength;
-	}
-	
-	public boolean getCheckLikes() {
-		return this.checkLikes;
-	}
-	
-	public boolean getScanNotes() {
-		return this.scanNotes;
-	}
-	
-	public int getScanNotesDepth() {
-		return this.scanNotesDepth;
-	}
-	
-	public boolean getAutoLike() {
-		return this.autoLike;
-	}
+	public static String version = "5.1.0";
+	public static String customerKey;
+	public static String customerSecret;
+	public static String token;
+	public static String tokenSecret;
+	public static String blogName;
+	public static boolean useDash;
+	public static int lengthOfPage;
+	public static int minTags;
+	public static List<String> postTypes = new ArrayList<String>();
+	public static List<String> blacklistedTags = new ArrayList<String>();
+	public static List<String> whitelistedTags = new ArrayList<String>();
+	public static List<String> tagAddBlacklist = new ArrayList<String>();
+	public static List<String> userTags = new ArrayList<String>();
 	
 	public Config() {
 		
@@ -198,7 +43,7 @@ public class Config {
 			br.close();
 			
 		} catch (IOException err){
-			new Logger().Log("Error Reading Config File", false);
+			System.out.println("Error reading config file");
 			System.exit(0);
 		}
 
@@ -206,49 +51,28 @@ public class Config {
 		JSONObject config = new JSONObject(sb.toString());
 
 		// Write options to strings File if they are set
-		this.customer_key = config.getString("customer_key");
-		this.customer_secret = config.getString("customer_secret");
-		this.token = config.getString("token");
-		this.token_secret = config.getString("token_secret");
-		this.blog_name = config.getString("blog_name");
-		this.post_speed = config.getInt("post_speed");
-		this.queue_size = config.getInt("queue_size");
-		this.check_tags = config.getBoolean("check_tags");
-		this.force_tags = config.getBoolean("force_tags");
-		this.check_queue = config.getBoolean("queue_check");
-		this.hash_life = config.getInt("hash_life");
-		this.add_tags = config.getBoolean("add_tags");
-		this.spider_tags = config.getBoolean("spider_tags");
-		this.debug_output = config.getBoolean("debug_output");
-		this.black_depth = config.getInt("black_depth");
-		this.white_depth = config.getInt("white_depth");
-		this.note_depth = config.getInt("note_depth");
-		this.min_tags = config.getInt("min_tags");
-		this.add_tags_depth = config.getInt("add_tags_depth");
-		this.clean_bad_post_ids = config.getBoolean("clean_bad_post_ids");
-		this.clean_bad_post_ids_time = config.getInt("clean_bad_post_ids_time");
-		this.dashLength = config.getInt("dash_length");
-		this.checkLikes = config.getBoolean("check_likes");
-		this.scanNotes = config.getBoolean("scan_notes");
-		this.scanNotesDepth = config.getInt("scan_notes_depth");
-		this.autoLike = config.getBoolean("auto_like");
+		Config.customerKey = config.getString("customer_key");
+		Config.customerSecret = config.getString("customer_secret");
+		Config.token = config.getString("token");
+		Config.tokenSecret = config.getString("token_secret");
+		Config.blogName = config.getString("blog_name");
+		Config.useDash = config.getBoolean("use_dash");
+		Config.lengthOfPage = config.getInt("length_of_page");
+		Config.minTags = config.getInt("min_tags");
 		for(int runs=0; config.getJSONArray("allowed_post_types").length()>runs; runs++){
-			this.post_types.add(config.getJSONArray("allowed_post_types").getString(runs));
+			Config.postTypes.add(config.getJSONArray("allowed_post_types").getString(runs));
 		}
 		for(int runs=0; config.getJSONArray("user_tags").length()>runs; runs++){
-			this.user_tags.add(config.getJSONArray("user_tags").getString(runs));
+			Config.userTags.add(config.getJSONArray("user_tags").getString(runs));
 		}
 		for(int runs=0; config.getJSONArray("blacklisted_tags").length()>runs; runs++){
-			this.blacklisted_tags.add(config.getJSONArray("blacklisted_tags").getString(runs));
+			Config.blacklistedTags.add(config.getJSONArray("blacklisted_tags").getString(runs));
 		}
 		for(int runs=0; config.getJSONArray("whitelisted_tags").length()>runs; runs++){
-			this.whitelisted_tags.add(config.getJSONArray("whitelisted_tags").getString(runs));
+			Config.whitelistedTags.add(config.getJSONArray("whitelisted_tags").getString(runs));
 		}
 		for(int runs=0; config.getJSONArray("tag_add_blacklist").length()>runs; runs++){
-			this.tag_add_blacklist.add(config.getJSONArray("tag_add_blacklist").getString(runs));
-		}
-		for(int runs=0; config.getJSONArray("banned_photo_sums").length()>runs; runs++){
-			this.banned_photo_sums.add(config.getJSONArray("banned_photo_sums").getString(runs));
+			Config.tagAddBlacklist.add(config.getJSONArray("tag_add_blacklist").getString(runs));
 		}
 	}
 }
