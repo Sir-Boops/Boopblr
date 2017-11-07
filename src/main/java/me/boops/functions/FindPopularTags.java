@@ -16,12 +16,12 @@ public class FindPopularTags {
 		
 		for(int i = 0; i < Cache.tags.size(); i++) {
 			
-			if(!Cache.tagList.contains(Cache.tags.get(i).toLowerCase())) {
+			if(Cache.tagList.get(i).equalsIgnoreCase(Cache.tags.get(i))) {
+				Cache.tagCount.set(Cache.tagCount.get(Cache.tagList.indexOf(Cache.tags.get(i))) + 1,
+						Cache.tagList.indexOf(Cache.tags.get(i)));
+			} else {
 				Cache.tagList.add(Cache.tags.get(i));
 				Cache.tagCount.add(1);
-			} else {
-				Cache.tagCount.set((Cache.tagCount.get(Cache.tagList.indexOf(Cache.tags.get(i))) + 1),
-						(Cache.tagList.indexOf(Cache.tags.get(i))));
 			}
 		}
 		
