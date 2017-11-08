@@ -22,6 +22,7 @@ public class Main {
 		Cache.lastPost = 0;
 		Cache.lastTimeStamp = 0;
 		Cache.isInitalRun = true;
+		Cache.lastRunTime = 0;
 		
 		// Start a thread for the master loop
 		executor.submit(() -> {
@@ -52,6 +53,7 @@ public class Main {
 		// Say Hello
 		if(Cache.isInitalRun) {
 			System.out.println("Hello, " + CurrentBlogInfo.blogTitle);
+			Cache.lastRunTime = ((System.currentTimeMillis() / 1000) + 5);
 			Cache.isInitalRun = false;
 		}
 		
@@ -65,7 +67,13 @@ public class Main {
 		if(CurrentBlogInfo.queueCount < 200) {
 			
 			// Try and queue a new post
-			new FindNewPost();
+			if(Cache.lastRunTime >= (System.currentTimeMillis() / 1000)) {
+				Cache.lastRunTime = ((System.currentTimeMillis() / 1000) + 5);
+				new FindNewPost();
+			} else {
+				Thread.sleep(5 * 1000);
+				Cache.lastRunTime = ((System.currentTimeMillis() / 1000) + 5);
+			}
 			
 		} else {
 			Thread.sleep(10 * 1000);
