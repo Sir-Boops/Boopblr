@@ -16,7 +16,7 @@ public class Cache {
 	
 	// Manually clean
 	public static boolean isInitalRun; // Used in main
-	public static long lastTimeStamp;
+	public static long lastTimeStamp; // Used on PostFromGlobal
 	public static List<String> hashList = new ArrayList<String>();
 	public static long hashCacheAge;
 	public static List<Long> badPostIDs = new ArrayList<Long>(); // Used in FindNewPost

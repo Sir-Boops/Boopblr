@@ -14,6 +14,9 @@ public class PostFromGlobal {
 		JSONObject postRaw = new JSONObject();
 		
 		if((Cache.lastTimeStamp == 0) || (Cache.lastPost > Config.lengthOfPage)) {
+			if(Cache.lastPost > Config.lengthOfPage) {
+				Cache.lastTimeStamp = 0;
+			}
 			String[] titles = {"tag"};
 			String[] args = {"furry"};
 			postRaw = new JSONObject(new GetURLKey().connect("https://api.tumblr.com/v2/tagged", titles, args));
