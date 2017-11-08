@@ -16,6 +16,7 @@ public class PostFromGlobal {
 		if((Cache.lastTimeStamp == 0) || (Cache.lastPost > Config.lengthOfPage)) {
 			if(Cache.lastPost > Config.lengthOfPage) {
 				Cache.lastTimeStamp = 0;
+				Cache.lastPost = 0;
 			}
 			String[] titles = {"tag"};
 			String[] args = {"furry"};
