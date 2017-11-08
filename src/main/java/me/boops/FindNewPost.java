@@ -76,7 +76,7 @@ public class FindNewPost {
 			if(Config.blogName.equalsIgnoreCase(Cache.likeUsers.get(i))) {
 				System.out.println("Already liked this post!");
 				Cache.badPostIDs.add(post.getLong("id"));
-				//return;
+				return;
 			}
 		}
 		
@@ -85,15 +85,13 @@ public class FindNewPost {
 			if(Config.blogName.equalsIgnoreCase(Cache.reblogUsers.get(i))) {
 				System.out.println("Already reblogged this post!");
 				Cache.badPostIDs.add(post.getLong("id"));
-				//return;
+				return;
 			}
 		}
 		
 		// Before going beyond this point we need to
 		// Grab all the tags on the post
 		new LoadTags();
-		
-		Cache.tags.add("C U T E");
 		
 		// Add the tags from the root post to
 		if(post.getJSONArray("tags").length() > 0) {
