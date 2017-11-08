@@ -90,6 +90,13 @@ public class FindNewPost {
 		// Grab all the tags on the post
 		new LoadTags();
 		
+		// Add the tags from the root post to
+		if(post.getJSONArray("tags").length() > 0) {
+			for(int i = 0; i < post.getJSONArray("tags").length(); i++) {
+				Cache.tags.add(post.getJSONArray("tags").getString(i));
+			}
+		}
+		
 		System.out.println(Cache.tags);
 		
 		// Make sure we have enough tags
