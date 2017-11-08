@@ -22,6 +22,7 @@ public class Main {
 		Cache.lastPost = 0;
 		Cache.lastTimeStamp = 0;
 		Cache.isInitalRun = true;
+		Cache.lastRunTime = 0;
 		
 		// Start a thread for the master loop
 		executor.submit(() -> {
@@ -65,8 +66,8 @@ public class Main {
 		if(CurrentBlogInfo.queueCount < 200) {
 			
 			// Try and queue a new post
-			if((System.currentTimeMillis() / 1000) > Cache.lastRunTime) {
-				Cache.lastRunTime = (System.currentTimeMillis() / 1000) + 60;
+			if((System.currentTimeMillis() / 1000) >= Cache.lastRunTime) {
+				Cache.lastRunTime = ((System.currentTimeMillis() / 1000) + 60);
 				new FindNewPost();
 			}
 			
