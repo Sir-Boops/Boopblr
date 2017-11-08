@@ -49,6 +49,7 @@ public class Main {
 		Cache.tagList.clear();
 		Cache.tagCount.clear();
 		Cache.tagToAppend.clear();
+		Cache.allowedTags.clear();
 		
 		// Say Hello
 		if(Cache.isInitalRun) {

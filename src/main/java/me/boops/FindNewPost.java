@@ -5,12 +5,15 @@ import org.json.JSONObject;
 import me.boops.cache.Cache;
 import me.boops.config.Config;
 import me.boops.functions.BlackListCheck;
+import me.boops.functions.GetAllowedAppendTags;
+import me.boops.functions.GetTopTags;
 import me.boops.functions.LikeAPost;
 import me.boops.functions.LoadNotes;
 import me.boops.functions.LoadTags;
 import me.boops.functions.PostFromDash;
 import me.boops.functions.PostFromGlobal;
 import me.boops.functions.QueueAPost;
+import me.boops.functions.SetTopTags;
 import me.boops.functions.WhiteListCheck;
 
 public class FindNewPost {
@@ -121,6 +124,18 @@ public class FindNewPost {
 		}
 		
 		// Order the tags by most popular
+		// Get tags we can append
+		new GetAllowedAppendTags();
+		
+		// Get top tags
+		if(Cache.allowedTags.size() > 0) {
+			new GetTopTags();
+		}
+		
+		// Set the top X tags
+		if(Cache.allowedTags.size() > 0) {
+			new SetTopTags();
+		}
 		
 		// Like the post
 		new LikeAPost(post.getString("reblog_key"), post.getLong("id"));

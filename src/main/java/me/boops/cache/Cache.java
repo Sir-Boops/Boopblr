@@ -13,6 +13,7 @@ public class Cache {
 	public static List<String> tagList = new ArrayList<String>();
 	public static List<Integer> tagCount = new ArrayList<Integer>();
 	public static List<String> tagToAppend = new ArrayList<String>();
+	public static List<String> allowedTags = new ArrayList<String>();
 	
 	// Manually clean
 	public static boolean isInitalRun; // Used in main
