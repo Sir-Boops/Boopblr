@@ -7,3 +7,6 @@ config.json
 /target/
 /bin/
 .directory
+.gradle
+build
+gradle

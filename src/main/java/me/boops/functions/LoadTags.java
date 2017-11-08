@@ -17,7 +17,7 @@ public class LoadTags {
 		while((Cache.tags.size() < Config.minTags) && (checkedCount < Cache.reblogIDs.size())) {
 			
 			if(loadGroup.activeCount() < 10) {
-				int numToStart = checkedCount;
+				final int numToStart = checkedCount;
 				checkedCount++;
 				new Thread(loadGroup, new Runnable() {
 					public void run() {

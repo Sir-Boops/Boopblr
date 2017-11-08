@@ -10,6 +10,7 @@ import me.boops.functions.LoadNotes;
 import me.boops.functions.LoadTags;
 import me.boops.functions.PostFromDash;
 import me.boops.functions.PostFromGlobal;
+import me.boops.functions.QueueAPost;
 import me.boops.functions.WhiteListCheck;
 
 public class FindNewPost {
@@ -117,9 +118,7 @@ public class FindNewPost {
 		// Like the post
 		new LikeAPost(post.getString("reblog_key"), post.getLong("id"));
 		
-		System.out.println(Cache.tags);
-		System.out.println(Cache.tags.size());
-		System.exit(0);
-		
+		// Queue the post
+		new QueueAPost(post.getString("reblog_key"), post.getLong("id"));	
 	}
 }

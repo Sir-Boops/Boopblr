@@ -11,7 +11,7 @@ public class Main {
 	
 	private static ExecutorService executor = Executors.newSingleThreadExecutor();
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
 		// Load the config
 		new Config();
@@ -24,13 +24,11 @@ public class Main {
 		Cache.isInitalRun = true;
 		
 		// Start a thread for the master loop
-		
 		executor.submit(() -> {
 			while(true){
 				try {
 					MasterLoop();
 				} catch (Exception e){
-					//System.out.println(e);
 					e.printStackTrace();
 				}
 			}
