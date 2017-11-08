@@ -70,11 +70,11 @@ public class Main {
 			long currentTime = (System.currentTimeMillis() / 1000);
 			if(Cache.lastRunTime >= currentTime) {
 				Thread.sleep((Cache.lastRunTime - currentTime) * 1000);
-				Cache.lastRunTime = ((System.currentTimeMillis() / 1000) + 5);
+				Cache.lastRunTime = ((System.currentTimeMillis() / 1000) + 1);
 				new FindNewPost();
 			} else {
 				Thread.sleep(5 * 1000);
-				Cache.lastRunTime = ((System.currentTimeMillis() / 1000) + 5);
+				Cache.lastRunTime = ((System.currentTimeMillis() / 1000) + 1);
 			}
 			
 		} else {
