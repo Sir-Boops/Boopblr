@@ -137,6 +137,8 @@ public class FindNewPost {
 			new SetTopTags();
 		}
 		
+		System.out.println(Cache.tagToAppend);
+		
 		// Like the post
 		new LikeAPost(post.getString("reblog_key"), post.getLong("id"));
 		
