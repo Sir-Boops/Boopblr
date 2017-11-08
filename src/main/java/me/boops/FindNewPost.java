@@ -137,6 +137,8 @@ public class FindNewPost {
 			new SetTopTags();
 		}
 		
+		System.out.println(Cache.tagList);
+		
 		System.out.println(Cache.tagToAppend);
 		
 		// Like the post
