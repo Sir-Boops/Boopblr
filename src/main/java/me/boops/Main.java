@@ -65,7 +65,10 @@ public class Main {
 		if(CurrentBlogInfo.queueCount < 200) {
 			
 			// Try and queue a new post
-			new FindNewPost();
+			if((System.currentTimeMillis() / 1000) > Cache.lastRunTime) {
+				Cache.lastRunTime = (System.currentTimeMillis() / 1000) + 60;
+				new FindNewPost();
+			}
 			
 		} else {
 			Thread.sleep(10 * 1000);

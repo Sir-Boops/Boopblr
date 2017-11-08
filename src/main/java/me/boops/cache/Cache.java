@@ -22,4 +22,5 @@ public class Cache {
 	public static List<Long> badPostIDs = new ArrayList<Long>(); // Used in FindNewPost
 	public static long badPostIDsAge; // Used in main
 	public static int lastPost; // Used in PostFromDash
+	public static long lastRunTime;
 }
