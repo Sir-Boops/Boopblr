@@ -69,7 +69,7 @@ public class Main {
 			// Try and queue a new post
 			long currentTime = (System.currentTimeMillis() / 1000);
 			if(Cache.lastRunTime >= currentTime) {
-				Thread.sleep((currentTime - Cache.lastRunTime) * 1000);
+				Thread.sleep((Cache.lastRunTime - currentTime) * 1000);
 				Cache.lastRunTime = ((System.currentTimeMillis() / 1000) + 5);
 				new FindNewPost();
 			} else {
