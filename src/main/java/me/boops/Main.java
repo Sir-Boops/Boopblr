@@ -19,10 +19,12 @@ public class Main {
 		// Init the Cache with base vars
 		Cache.hashCacheAge = 0;
 		Cache.badPostIDsAge = 0;
-		Cache.lastPost = 0;
+		Cache.lastGlobalPost = 0;
+		Cache.lastDashPost = 0;
 		Cache.lastTimeStamp = 0;
 		Cache.isInitalRun = true;
 		Cache.lastRunTime = 0;
+		Cache.dashOrGlobal = true;
 		
 		// Start a thread for the master loop
 		executor.submit(() -> {

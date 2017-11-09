@@ -10,15 +10,16 @@ public class PostFromDash {
 	
 	public JSONObject post() throws Exception {
 		
-		if(Cache.lastPost >= Config.lengthOfPage) {
-			Cache.lastPost = 0;
+		if(Cache.lastDashPost >= Config.lengthOfPage) {
+			Cache.lastDashPost = 0;
 		}
 		
 		// Setup the args
 		String[] titles = {"limit", "offset"};
-		String[] args = {"1", String.valueOf(Cache.lastPost)};
+		String[] args = {"1", String.valueOf(Cache.lastDashPost)};
 		
-		Cache.lastPost++;
+		Cache.lastDashPost++;
+		Cache.dashOrGlobal = true;
 		String rawPost = new GetURLOAuth().connect("https://api.tumblr.com/v2/user/dashboard", titles, args);
 		return new JSONObject(rawPost).getJSONObject("response").getJSONArray("posts").getJSONObject(0);
 	}

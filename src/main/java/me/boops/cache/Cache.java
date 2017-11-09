@@ -22,6 +22,8 @@ public class Cache {
 	public static long hashCacheAge;
 	public static List<Long> badPostIDs = new ArrayList<Long>(); // Used in FindNewPost
 	public static long badPostIDsAge; // Used in main
-	public static int lastPost; // Used in PostFromDash
+	public static int lastDashPost; // Used in PostFromDash
+	public static int lastGlobalPost; // Used in PostFromGlobal
+	public static boolean dashOrGlobal;
 	public static long lastRunTime;
 }

@@ -13,10 +13,10 @@ public class PostFromGlobal {
 		// Define the post
 		JSONObject postRaw = new JSONObject();
 		
-		if((Cache.lastTimeStamp == 0) || (Cache.lastPost > Config.lengthOfPage)) {
-			if(Cache.lastPost > Config.lengthOfPage) {
+		if((Cache.lastTimeStamp == 0) || (Cache.lastGlobalPost > Config.lengthOfPage)) {
+			if(Cache.lastGlobalPost > Config.lengthOfPage) {
 				Cache.lastTimeStamp = 0;
-				Cache.lastPost = 0;
+				Cache.lastGlobalPost = 0;
 			}
 			String[] titles = {"tag"};
 			String[] args = {"furry"};
@@ -28,7 +28,8 @@ public class PostFromGlobal {
 		}
 		
 		JSONObject post = postRaw.getJSONArray("response").getJSONObject(0);
-		Cache.lastPost++;
+		Cache.lastGlobalPost++;
+		Cache.dashOrGlobal = false;
 		Cache.lastTimeStamp = post.getLong("timestamp");
 		
 		return post;

@@ -33,8 +33,12 @@ public class FindNewPost {
 			// Get the post using the dash
 			post = new PostFromDash().post();
 		} else {
-			// Using global tags!
-			post = new PostFromGlobal().post();
+			// Using global tags & dash!
+			if(Cache.dashOrGlobal) {
+				post = new PostFromGlobal().post();
+			} else {
+				post = new PostFromDash().post();
+			}
 		}
 		
 		System.out.println(post.getString("post_url"));
