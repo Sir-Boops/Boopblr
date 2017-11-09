@@ -7,6 +7,7 @@ import me.boops.config.Config;
 import me.boops.functions.BlackListCheck;
 import me.boops.functions.GetAllowedAppendTags;
 import me.boops.functions.GetTopTags;
+import me.boops.functions.HashAPost;
 import me.boops.functions.LikeAPost;
 import me.boops.functions.LoadNotes;
 import me.boops.functions.LoadTags;
@@ -68,6 +69,15 @@ public class FindNewPost {
 					Cache.badPostIDs.add(post.getLong("id"));
 					return;
 				}
+			}
+		}
+		
+		// Check if the post is alreay in queue
+		for(int i = 0; i < Cache.hashList.size(); i++) {
+			if(Cache.hashList.get(i).equals(new HashAPost().post(post))) {
+				System.out.println("Post already in queue!");
+				Cache.badPostIDs.add(post.getLong("id"));
+				return;
 			}
 		}
 		
@@ -153,5 +163,8 @@ public class FindNewPost {
 		
 		// Like the post
 		new LikeAPost(post.getString("reblog_key"), post.getLong("id"));
+		
+		// Finally add the post to the badposthash
+		Cache.hashList.add(new HashAPost().post(post));
 	}
 }

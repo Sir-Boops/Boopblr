@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 import me.boops.cache.Cache;
 import me.boops.cache.CurrentBlogInfo;
 import me.boops.config.Config;
+import me.boops.functions.CreateQueueCache;
 
 public class Main {
 	
@@ -25,7 +26,7 @@ public class Main {
 		Cache.isInitalRun = true;
 		Cache.lastRunTime = 0;
 		Cache.dashOrGlobal = true;
-		
+		Cache.hashCacheAge = 0;
 		// Start a thread for the master loop
 		executor.submit(() -> {
 			while(true){
@@ -63,6 +64,12 @@ public class Main {
 		if((System.currentTimeMillis() / 1000) >= Cache.badPostIDsAge) {
 			Cache.badPostIDs.clear();
 			Cache.badPostIDsAge = ((System.currentTimeMillis() / 1000) + 3600);
+		}
+		
+		if((System.currentTimeMillis() / 1000) >= Cache.hashCacheAge) {
+			Cache.hashList.clear();
+			new CreateQueueCache();
+			Cache.hashCacheAge = ((System.currentTimeMillis() / 1000) + 1800);
 		}
 		
 		System.out.println("Current Queue count: " +  CurrentBlogInfo.queueCount);
