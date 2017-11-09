@@ -89,6 +89,9 @@ public class Main {
 			
 		} else {
 			Thread.sleep(10 * 1000);
+			Cache.lastDashPost = 0;
+			Cache.lastGlobalPost = 0;
+			Cache.lastTimeStamp = 0;
 		}
 	}
 }
