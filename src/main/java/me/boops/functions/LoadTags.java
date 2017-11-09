@@ -14,7 +14,7 @@ public class LoadTags {
 		ThreadGroup loadGroup = new ThreadGroup("loadGroup");
 		int checkedCount = 0;
 		
-		while((Cache.tags.size() < Config.minTags) && (checkedCount < Cache.reblogIDs.size())) {
+		while((Cache.tags.size() < Config.tagsToLoad) && (checkedCount < Cache.reblogIDs.size())) {
 			
 			if(loadGroup.activeCount() < 10) {
 				final int numToStart = checkedCount;

@@ -22,6 +22,7 @@ public class Config {
 	public static int lengthOfPage;
 	public static int minTags;
 	public static int minWhitelist;
+	public static int tagsToLoad;
 	public static List<String> postTypes = new ArrayList<String>();
 	public static List<String> blacklistedTags = new ArrayList<String>();
 	public static List<String> whitelistedTags = new ArrayList<String>();
@@ -61,6 +62,7 @@ public class Config {
 		Config.lengthOfPage = config.getInt("length_of_page");
 		Config.minTags = config.getInt("min_tags");
 		Config.minWhitelist = config.getInt("min_whitelist");
+		Config.tagsToLoad = config.getInt("tags_to_load");
 		for(int runs=0; config.getJSONArray("allowed_post_types").length()>runs; runs++){
 			Config.postTypes.add(config.getJSONArray("allowed_post_types").getString(runs));
 		}
