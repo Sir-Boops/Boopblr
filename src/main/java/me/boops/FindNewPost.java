@@ -141,10 +141,13 @@ public class FindNewPost {
 		
 		System.out.println(Cache.tagToAppend);
 		
+		// Queue the post
+		if(!new QueueAPost().post(post.getString("reblog_key"), post.getLong("id"))) {
+			System.out.println("Error queuing post");
+			return;
+		}
+		
 		// Like the post
 		new LikeAPost(post.getString("reblog_key"), post.getLong("id"));
-		
-		// Queue the post
-		new QueueAPost(post.getString("reblog_key"), post.getLong("id"));	
 	}
 }
