@@ -73,9 +73,25 @@ public class LoadNotes {
 		
 		for(int i = 0; i < allNotes.length(); i++) {
 			if(allNotes.getJSONObject(i).getString("type").equals("posted")) {
-				String[] titles = {"reblog_info", "id"};
-				String[] args = {"true", String.valueOf(allNotes.getJSONObject(0).getLong("post_id"))};
-				JSONObject roots = new JSONObject(new GetURLKey().connect("https://api.tumblr.com/v2/blog/" + allNotes.getJSONObject(0).getString("blog_name") + "/posts", titles, args));
+				JSONObject roots = new JSONObject();
+				boolean done = false;
+				for(int i2 = 0; (i2 < allNotes.length() && !done); i2++) {
+					boolean error = false;
+					try {
+						
+						String[] titles = {"reblog_info", "id"};
+						String[] args = {"true", String.valueOf(allNotes.getJSONObject(i2).getLong("post_id"))};
+						roots = new JSONObject(new GetURLKey().connect("https://api.tumblr.com/v2/blog/" + allNotes.getJSONObject(i2).getString("blog_name") + "/posts", titles, args));
+						
+					} catch (Exception e) {
+						error = true;
+					}
+					
+					if(!error) {
+						done = true;
+					}
+					
+				}
 				JSONArray trail = roots.getJSONObject("response").getJSONArray("posts").getJSONObject(0).getJSONArray("trail");
 				if(trail.length() > 1) {
 					for(int i2 = 0; i2 < trail.length(); i2++) {
