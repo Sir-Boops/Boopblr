@@ -13,7 +13,7 @@ public class GetTopTags {
 				Cache.tagCount.add(1);
 			} else {
 				Cache.tagCount.set(Cache.tagList.indexOf(Cache.allowedTags.get(i).toLowerCase()),
-						(Cache.tagCount.get(Cache.allowedTags.indexOf(Cache.allowedTags.get(i).toLowerCase())) + 1));
+						(Cache.tagCount.get(Cache.tagList.indexOf(Cache.allowedTags.get(i).toLowerCase())) + 1));
 			}
 		}
 	}
