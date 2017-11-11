@@ -3,6 +3,7 @@ package me.boops.functions;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import me.boops.base.GetURLKey;
 import me.boops.base.GetURLRaw;
 import me.boops.cache.Cache;
 
@@ -29,8 +30,9 @@ public class LoadNotes {
 	
 	private void load(int toLoad, String blogName, long postID) throws Exception {
 		
-		long timeStamp = 0;
+		JSONArray allNotes = new JSONArray();
 		
+		long timeStamp = 0;
 		int readNotes = 0;
 		while(readNotes < toLoad) {
 			
@@ -58,16 +60,28 @@ public class LoadNotes {
 			
 			// Add reblogs to reblogs and ID counters and add likes to the
 			// Likes counter
-			
 			for(int i = 0; i < notes.length(); i++) {
-				if(notes.getJSONObject(i).getString("type").equals("reblog")) {
-					Cache.reblogIDs.add(notes.getJSONObject(i).getLong("post_id"));
-					Cache.reblogUsers.add(notes.getJSONObject(i).getString("blog_name"));
+				if(notes.getJSONObject(i).getString("type").equals("reblog") || notes.getJSONObject(i).getString("type").equals("posted")) {
+					allNotes.put(notes.getJSONObject(i));
 				} else {
 					Cache.likeUsers.add(notes.getJSONObject(i).getString("blog_name"));
 				}
 			}
+			
 			readNotes += notes.length();
+		}
+		
+		for(int i = 0; i < allNotes.length(); i++) {
+			if(allNotes.getJSONObject(i).getString("type").equals("posted")) {
+				String[] titles = {"reblog_info", "id"};
+				String[] args = {"true", String.valueOf(allNotes.getJSONObject(i - 1).getLong("post_id"))};
+				JSONObject roots = new JSONObject(new GetURLKey().connect("https://api.tumblr.com/v2/blog/" + allNotes.getJSONObject(i - 1).getString("blog_name") + "/posts", titles, args));
+				Cache.reblogUsers.add(roots.getJSONObject("response").getJSONArray("posts").getJSONObject(0).getString("reblogged_from_name"));
+				Cache.reblogIDs.add(roots.getJSONObject("response").getJSONArray("posts").getJSONObject(0).getLong("reblogged_root_id"));
+			} else {
+				Cache.reblogUsers.add(allNotes.getJSONObject(i).getString("blog_name"));
+				Cache.reblogIDs.add(allNotes.getJSONObject(i).getLong("post_id"));
+			}
 		}
 	}
 }
