@@ -76,8 +76,15 @@ public class LoadNotes {
 				String[] titles = {"reblog_info", "id"};
 				String[] args = {"true", String.valueOf(allNotes.getJSONObject(0).getLong("post_id"))};
 				JSONObject roots = new JSONObject(new GetURLKey().connect("https://api.tumblr.com/v2/blog/" + allNotes.getJSONObject(0).getString("blog_name") + "/posts", titles, args));
-				Cache.reblogUsers.add(roots.getJSONObject("response").getJSONArray("posts").getJSONObject(0).getJSONArray("trail").getJSONObject(0).getString("name"));
-				Cache.reblogIDs.add(roots.getJSONObject("response").getJSONArray("posts").getJSONObject(0).getJSONArray("trail").getJSONObject(0).getJSONObject("post").getLong("id"));
+				JSONArray trail = roots.getJSONObject("response").getJSONArray("posts").getJSONObject(0).getJSONArray("trail");
+				if(trail.length() > 1) {
+					for(int i2 = 0; i2 < trail.length(); i2++) {
+						if(trail.getJSONObject(i2).has("is_root_item")) {
+							Cache.reblogUsers.add(trail.getJSONObject(i2).getJSONObject("blog").getString("name"));
+							Cache.reblogIDs.add(trail.getJSONObject(i2).getJSONObject("post").getLong("id"));
+						}
+					}
+				}
 			} else {
 				Cache.reblogUsers.add(allNotes.getJSONObject(i).getString("blog_name"));
 				Cache.reblogIDs.add(allNotes.getJSONObject(i).getLong("post_id"));
