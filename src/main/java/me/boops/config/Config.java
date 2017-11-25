@@ -28,6 +28,7 @@ public class Config {
 	public static List<String> whitelistedTags = new ArrayList<String>();
 	public static List<String> tagAddBlacklist = new ArrayList<String>();
 	public static List<String> userTags = new ArrayList<String>();
+	public static List<String> sumBlacklist = new ArrayList<String>();
 	
 	public Config() {
 		
@@ -77,6 +78,9 @@ public class Config {
 		}
 		for(int runs=0; config.getJSONArray("tag_add_blacklist").length()>runs; runs++){
 			Config.tagAddBlacklist.add(config.getJSONArray("tag_add_blacklist").getString(runs));
+		}
+		for(int runs=0; config.getJSONArray("summary_black_list").length()>runs; runs++){
+			Config.sumBlacklist.add(config.getJSONArray("summary_black_list").getString(runs));
 		}
 	}
 }

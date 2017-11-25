@@ -14,6 +14,7 @@ import me.boops.functions.LoadTags;
 import me.boops.functions.PostFromDash;
 import me.boops.functions.PostFromGlobal;
 import me.boops.functions.QueueAPost;
+import me.boops.functions.ScanSummary;
 import me.boops.functions.SetTopTags;
 import me.boops.functions.WhiteListCheck;
 
@@ -42,8 +43,16 @@ public class FindNewPost {
 			}
 		}
 		
+		// Check the summary
+		if(post.has("summary")) {
+			if(new ScanSummary().scan(post)) {
+				System.out.println("Bad summary!");
+				return;
+			}
+		}
+		
 		System.out.println(post.getString("post_url"));
-
+		
 		// Check the post ID to see if the post
 		// Is known to be a bad post
 		for (int i = 0; i < Cache.badPostIDs.size(); i++) {
