@@ -6,7 +6,6 @@ import java.util.concurrent.Executors;
 import me.boops.cache.Cache;
 import me.boops.cache.CurrentBlogInfo;
 import me.boops.config.Config;
-import me.boops.functions.CreateQueueCache;
 
 public class Main {
 	
@@ -68,13 +67,13 @@ public class Main {
 		
 		if((System.currentTimeMillis() / 1000) >= Cache.hashCacheAge) {
 			Cache.hashList.clear();
-			new CreateQueueCache();
+			//new CreateQueueCache();
 			Cache.hashCacheAge = ((System.currentTimeMillis() / 1000) + 1800);
 		}
 		
 		System.out.println("Current Queue count: " +  CurrentBlogInfo.queueCount);
 		
-		if(CurrentBlogInfo.queueCount < 200) {
+		if(CurrentBlogInfo.queueCount < 202) {
 			
 			// Try and queue a new post
 			long currentTime = (System.currentTimeMillis() / 1000);

@@ -43,6 +43,15 @@ public class FindNewPost {
 			}
 		}
 		
+		String srcURL = post.getString("source_url").split("/")[2].toLowerCase();
+		
+		for(int i = 0; i < Config.blockedUsers.size(); i++) {
+			if(Config.blockedUsers.get(i).equalsIgnoreCase(srcURL)) {
+				System.out.println("This was posted by a banned user");
+				return;
+			}
+		}
+		
 		// Check the summary
 		if(post.has("summary")) {
 			if(new ScanSummary().scan(post)) {
