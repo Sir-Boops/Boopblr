@@ -73,7 +73,7 @@ public class Main {
 		
 		System.out.println("Current Queue count: " +  CurrentBlogInfo.queueCount);
 		
-		if(CurrentBlogInfo.queueCount < 202) {
+		if(CurrentBlogInfo.queueCount < 200) {
 			
 			// Try and queue a new post
 			long currentTime = (System.currentTimeMillis() / 1000);
