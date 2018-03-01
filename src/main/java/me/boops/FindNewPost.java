@@ -43,6 +43,10 @@ public class FindNewPost {
 			}
 		}
 		
+		if(!post.has("source_url")) {
+			return;
+		}
+		
 		String srcURL = post.getString("source_url").split("/")[2].toLowerCase();
 		
 		for(int i = 0; i < Config.blockedUsers.size(); i++) {
