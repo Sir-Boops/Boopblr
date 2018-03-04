@@ -14,6 +14,10 @@ public class ScanSummary {
 				if(summBreak[i].equalsIgnoreCase(Config.sumBlacklist.get(i2))) {
 					ans = true;
 				}
+				
+				if(summBreak[i].toLowerCase().contains(Config.sumBlacklist.get(i2).toLowerCase())) {
+					ans = true;
+				}
 			}		
 		}
 		return ans;
